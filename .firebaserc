@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "proyecto1-ng-e93af": {
+      "hosting": {
+        "proyectoFront": [
+          "proyecto1-ng-e93af"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "proyecto1-ng-e93af"
+  }
+}
