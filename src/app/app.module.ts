@@ -24,11 +24,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { DemoUtilsModule } from './calendario/utils/module';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { MyCalendarComponent } from './calendario/myCalendar/myCalendar.component';
-import { VistaCalendarComponent } from './calendario/vistaCalendar/vistaCalendar.component';
+
+
 
 
 @NgModule({
@@ -36,8 +33,6 @@ import { VistaCalendarComponent } from './calendario/vistaCalendar/vistaCalendar
     AppComponent,
     NavbarComponent,
     LoginFormComponent,
-    MyCalendarComponent,
-    VistaCalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -58,11 +53,6 @@ import { VistaCalendarComponent } from './calendario/vistaCalendar/vistaCalendar
     MatButtonModule,
     MatFormFieldModule,
     NgbModule,
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
-    DemoUtilsModule
   ],
   providers: [
     ScreenTrackingService,UserTrackingService
