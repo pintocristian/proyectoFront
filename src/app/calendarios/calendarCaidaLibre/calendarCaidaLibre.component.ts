@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
-import { addDays, addHours, startOfDay } from 'date-fns';
+import { addDays, addHours, isThursday, startOfDay } from 'date-fns';
 import { AuthService } from 'src/service/service.service';
 import { IntegrantesPracticaComponent } from '../integrantesPractica/integrantesPractica.component';
 import { colors } from '../utils/colors';
@@ -17,8 +17,16 @@ import { colors } from '../utils/colors';
 })
 export class CalendarCaidaLibreComponent  {
 
+  eventSelected: Date;
+  eventYear: number;
+  eventMonth: number;
+  eventDate: number;
+  eventHour: number;
+  eventMinute: number;
+
   constructor(private authSvc: AuthService, private router: Router, public dialog: MatDialog) {
   }
+  
   
   view: CalendarView = CalendarView.Month;
 
@@ -53,12 +61,19 @@ export class CalendarCaidaLibreComponent  {
     },
   ];
 
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
+  public infoEvent():boolean{
+    if(this.eventYear>2021){return true;}
+    else {return false;}
+  }
 
   eventClicked({ event }: { event: CalendarEvent }): void {
+    this.eventSelected = event.start;
+    this.eventYear = event.start.getFullYear();
+    this.eventMonth = event.start.getMonth();
+    this.eventDate = event.start.getDate();
+    this.eventHour = event.start.getHours();
+    this.eventMinute = event.start.getMinutes();
+    
     alert("Haz Clickeado el evento! Dia "+event.start.getDate()+" Hora "+event.start.getHours());
     /*const dialogRef = this.dialog.open(IntegrantesPracticaComponent, {
       //data: { name: this.codigo }
