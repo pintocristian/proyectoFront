@@ -3,6 +3,7 @@ import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { createUserWithEmailAndPassword, getAdditionalUserInfo, getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
+import { CookieService } from 'ngx-cookie-service';
 //import { LoginData } from '../interfaces/login-data';
 
 @Injectable({
@@ -11,10 +12,10 @@ import { User } from 'src/app/interfaces/user';
 
 export class AuthService {
 
-  
-  constructor(private auth: Auth) { }
-  
-   
+
+  constructor(private auth: Auth, private readonly cookieService: CookieService) { }
+
+
 
   async loginWithGoogle() {
     try {
@@ -31,5 +32,13 @@ export class AuthService {
       return null;
     }
 
+  }
+
+  async logout(): Promise<void> {
+    try {
+     await this.auth.signOut();
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

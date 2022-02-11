@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'proyectoFront';
+  constructor(private readonly router: Router,
+    private readonly cookieService: CookieService) { }
+  ngOnInit(): void {
+
+    if (this.cookieService.check('Token_access')) {
+      this.router.navigate(['/inicio']);
+    } else {
+      this.router.navigate(['/home'])
+    }
+
+  }
 }

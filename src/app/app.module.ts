@@ -17,6 +17,7 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginFormComponent } from './components/loginForm/loginForm.component';
+import { CookieService } from 'ngx-cookie-service';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -60,7 +61,7 @@ import { IntegrantesPracticaComponent } from './calendarios/integrantesPractica/
     NgbModule,
   ],
   providers: [
-    ScreenTrackingService,UserTrackingService
+    ScreenTrackingService,UserTrackingService,[CookieService]
   ],
   bootstrap: [AppComponent]
 })
