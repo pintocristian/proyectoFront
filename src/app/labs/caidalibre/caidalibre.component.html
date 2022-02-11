@@ -28,7 +28,7 @@
                          </select>
                         <button class="btn btn-primary button">Enviar datos</button>
                         <button class="btn btn-primary button-1" (click)="descargar()">Descargar PDF</button>
-                        <button class="btn btn-primary button-2">Iniciar</button>
+                        <button class="btn btn-primary button-2" *ngIf="eslider()">Iniciar</button>
                         <button class="btn btn-primary button-3">Reiniciar</button>
                         <button class="btn btn-danger button-4">Terminar practica</button>
                     </div>

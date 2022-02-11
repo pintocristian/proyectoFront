@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, getAdditionalUserInfo, getAuth, GoogleA
 import { Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { CookieService } from 'ngx-cookie-service';
+//import { HttpClient } from '@angular/common/http';
 //import { LoginData } from '../interfaces/login-data';
 
 @Injectable({
@@ -11,8 +12,9 @@ import { CookieService } from 'ngx-cookie-service';
 })
 
 export class AuthService {
+  data = {};
 
-
+  //private API_BASE = 'http://localhost:8080/laboratorio';
   constructor(private auth: Auth, private readonly cookieService: CookieService) { }
 
 
@@ -36,9 +38,20 @@ export class AuthService {
 
   async logout(): Promise<void> {
     try {
-     await this.auth.signOut();
+      await this.auth.signOut();
     } catch (error) {
       console.log(error);
     }
+  }
+
+  /*descargar() {
+    console.log('Descargó')
+    //return this.httpClient.get(`${this.API_BASE}/pdf`).subscribe(result => this.data = result);
+
+  }*/
+
+  traerrol(){
+    console.log('rol');
+    //return this.httpClient.get(`${this.API_BASE}/rol`).subscribe(result => this.data = result);
   }
 }
