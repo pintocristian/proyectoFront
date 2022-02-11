@@ -13,7 +13,7 @@ const routes: Routes = [{
   { path: 'caidalibre', loadChildren: () => import('./labs/caidalibre/caidalibre.module').then(m => m.CaidalibreModule) },
   { path: 'leyhooke', loadChildren: () => import('./labs/leyhooke/leyhooke.module').then(m => m.LeyhookeModule) },
   { path: 'movparabolico', loadChildren: () => import('./labs/movparabolico/movparabolico.module').then(m => m.MovparabolicoModule) },
-  { path: 'calendario', loadChildren: () => import('./calendario/calendario/calendario.module').then(m => m.CalendarioModule) },
+  { path: 'calendario', loadChildren: () => import('./calendarios/calendario/calendario.module').then(m => m.CalendarioModule) },
  ];
 
 @NgModule({

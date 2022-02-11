@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>INTEGRANTES DE LA PRACTICA</h2>
+<mat-dialog-content>
+        <p>Ingresa los integrantes de la practica</p>
+        <mat-form-field appearance="fill">
+            <mat-label>codigo</mat-label>
+            
+          </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-raised-button [mat-dialog-close]="data.codigo" cdkFocusInitial> 
+        Enviar
+    </button>
+</mat-dialog-actions>

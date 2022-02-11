@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { DemoUtilsModule } from '../calendario/utils/module';
+import { DemoUtilsModule } from '../calendarios/utils/module';
 
 @NgModule({
   declarations: [

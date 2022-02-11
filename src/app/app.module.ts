@@ -21,8 +21,11 @@ import { LoginFormComponent } from './components/loginForm/loginForm.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { IntegrantesPracticaComponent } from './calendarios/integrantesPractica/integrantesPractica.component';
 
 
 
@@ -33,6 +36,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     NavbarComponent,
     LoginFormComponent,
+    IntegrantesPracticaComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +54,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatDialogModule,
     MatButtonModule,
     MatFormFieldModule,
     NgbModule,
