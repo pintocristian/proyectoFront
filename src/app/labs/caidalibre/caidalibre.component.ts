@@ -11,8 +11,8 @@ import { AuthService } from 'src/service/service.service';
 })
 export class CaidalibreComponent implements OnInit {
   rol = 'admin';
+  variableespectadores = 'no-preparado';
 
-  public rol$ = this.rol;
 
   constructor(private authSvc: AuthService, private router:Router) { }
   //public user$: Observable<any> = this.authSvc.afAuth.user;
@@ -20,11 +20,38 @@ export class CaidalibreComponent implements OnInit {
   }
 
   public eslider (): boolean{
-    if(this.rol.indexOf('admin')){
-      return true;
+    if(this.rol.indexOf('admin') ){
+      return false;
     }
-    return false;
+    return true;
+    
   }
+
+  public esespectador(): boolean {
+    if(this.rol.indexOf('espectador')){
+      return false;
+    }
+    return true;
+  }
+
+  public liderpreparado(): boolean {
+    if(this.variableespectadores.indexOf('preparado')){
+      return false;
+    }
+    return true;
+  }
+
+  public lidernopreparado(): boolean {
+    if(this.liderpreparado() == true){
+      return false;
+    }
+    return true;
+  }
+
+
+
+
+
 
   descargar() {
     //this.authSvc.descargar();
