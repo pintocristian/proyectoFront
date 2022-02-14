@@ -15,6 +15,7 @@ export class AuthService {
 
 
   private API_BASE = 'http://localhost:8080/usuario';
+  data = {};
 
   logeado: import("@angular/fire/auth").User;
 
@@ -40,9 +41,10 @@ export class AuthService {
 
   }
 
-  enviarDatos() {
+   enviarDatos() {
     console.log("Entro a enviarDatos()");
     //return this.httpClient.post(`${this.API_BASE}/`+this.logeado.email+ `/` +this.logeado.displayName+ `/ingresarUsuario`,this.logeado);
+    return this.httpClient.post(`${this.API_BASE}/`+this.logeado.email+ `/` +this.logeado.displayName+ `/ingresarUsuario`,this.logeado).subscribe(result => this.data = result);
   }
 
 //return this.httpClient.get(`${this.API_BASE}/pdf`).subscribe(result => this.data = result);
