@@ -27,6 +27,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IntegrantesPracticaComponent } from './calendarios/integrantesPractica/integrantesPractica.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 
@@ -58,6 +60,7 @@ import { IntegrantesPracticaComponent } from './calendarios/integrantesPractica/
     MatButtonModule,
     MatFormFieldModule,
     NgbModule,
+    [HttpClientModule,  ]
   ],
   providers: [
     ScreenTrackingService,UserTrackingService
