@@ -31,9 +31,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IntegrantesPracticaComponent } from './calendarios/integrantesPractica/integrantesPractica.component';
 import { VincularmateriaComponent } from './vincularmateria/vincularmateria/vincularmateria.component';
 
-import { HttpClientModule } from '@angular/common/http';
-
-
 
 
 
