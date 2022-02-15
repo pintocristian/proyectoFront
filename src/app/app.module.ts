@@ -34,7 +34,6 @@ import { VincularmateriaComponent } from './vincularmateria/vincularmateria/vinc
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,

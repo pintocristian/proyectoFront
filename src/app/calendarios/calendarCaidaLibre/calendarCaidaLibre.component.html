@@ -25,22 +25,24 @@
 
   <div class="float-child">
     <h2>INTEGRANTES DE LA PRACTICA</h2>
+    <h2 *ngIf="infoEvent()">{{ eventSelected | date:'medium' }}  
+    </h2>
     <mat-dialog-content>
       <p>Ingresa los integrantes de la practica</p>
       <form class="example-form">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Integrante 1</mat-label>
-          <input matInput placeholder="Ex. Pizza" value="">
+          <input matInput value="">
         </mat-form-field>
         <br>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Integrante 2</mat-label>
-          <input matInput placeholder="Ex. Pizza" value="">
+          <input matInput value="">
         </mat-form-field>
         <br>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Integrante 3</mat-label>
-          <input matInput placeholder="Ex. Pizza" value="">
+          <input matInput value="">
         </mat-form-field>
         <br>
       </form>

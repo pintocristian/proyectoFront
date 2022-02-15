@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { authInstanceFactory } from '@angular/fire/auth/auth.module';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
@@ -15,9 +17,13 @@ import { VincularmateriaComponent } from '../vincularmateria/vincularmateria/vin
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.scss']
 })
+
+
+
 export class InicioComponent implements OnInit {
 
   constructor(public authService: AuthService, private router: Router, private cookieService: CookieService, private httpClient: HttpClient, private auth: Auth, public dialog: MatDialog) { }
+  public user$ = this.authService.logeado;
   private API_BASE = 'http://localhost:8080/laboratorio';
 
   ngOnInit(): void {
