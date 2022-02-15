@@ -15,12 +15,11 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
   data = {};
 
-
   private API_BASE = 'http://localhost:8080/usuario';
 
   logeado: import("@angular/fire/auth").User;
   bandera: Boolean = false; 
-
+  correo = signInWithPopup(this.auth, new GoogleAuthProvider());
   
 
   constructor(private auth: Auth, private httpClient: HttpClient) { }
@@ -45,10 +44,10 @@ export class AuthService {
 
   }
 
-  enviarDatos() {
+   enviarDatos() {
     console.log("Entro a enviarDatos()");
     //return this.httpClient.post(`${this.API_BASE}/`+this.logeado.email+ `/` +this.logeado.displayName+ `/ingresarUsuario`,this.logeado);
-    return this.httpClient.post(`${this.API_BASE}/`+this.logeado.email+ `/` +this.logeado.displayName+ `/ingresarUsuario`,this.logeado).subscribe(result => this.data = result);
+    return this.httpClient.post(`${this.API_BASE}/`+ this.logeado.email+ `/` +this.logeado.displayName+ `/ingresarUsuario`,this.logeado).subscribe(result => this.data = result);
   }
 
 //return this.httpClient.get(`${this.API_BASE}/pdf`).subscribe(result => this.data = result);
@@ -73,7 +72,22 @@ export class AuthService {
 
   codigos(codigo_materia:any) {
     console.log("Entro a matricular curso()");
-    this.httpClient.post(`${this.API_BASE}/mellizohurt@unicauca.edu.co/` + codigo_materia + `/` + `matricularCurso`,codigo_materia).subscribe((result:any)=>{this.bandera=result});
-    return this.bandera;
+    this.httpClient.post(`${this.API_BASE}/`+ this.logeado.email + `/` + codigo_materia + `/` + `matricularCurso`,codigo_materia).subscribe((result:any)=>{this.bandera=result});
+    //this.verificarmateria();
+    //this.verCursosMatriculados();
+    this.bandera;
+  }
+
+  verCursosMatriculados(){
+    console.log("Entro a vercursos");
+    return this.httpClient.get(`${this.API_BASE}/`+ this.logeado.email + `/` + `buscarCursosMatriculados`).subscribe(respuesta => {console.log(respuesta)});
+  }
+
+  verificarmateria(){
+    if(this.bandera == true){
+      alert('Puedes matricular esta materia')
+    }else{
+      alert('El código es incorrecto')
+    }
   }
 }
