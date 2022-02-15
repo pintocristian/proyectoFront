@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,18 +18,30 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginFormComponent } from './components/loginForm/loginForm.component';
+import { CookieService } from 'ngx-cookie-service';
+import { FormsModule } from '@angular/forms';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { IntegrantesPracticaComponent } from './calendarios/integrantesPractica/integrantesPractica.component';
+import { VincularmateriaComponent } from './vincularmateria/vincularmateria/vincularmateria.component';
+
+
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    IntegrantesPracticaComponent,
+    VincularmateriaComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,12 +59,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatDialogModule,
     MatButtonModule,
+    FormsModule,
     MatFormFieldModule,
-
+    NgbModule,
+    [HttpClientModule,  ]
   ],
   providers: [
-    ScreenTrackingService,UserTrackingService
+    ScreenTrackingService,UserTrackingService,[CookieService]
   ],
   bootstrap: [AppComponent]
 })

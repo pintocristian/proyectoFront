@@ -1,1 +1,32 @@
-<p>inicio works!</p>
+
+    <div class="col-lg-12 laboratorios">
+        <mat-card class="primera-card">
+            <mat-card-title class="titulo-practica">Practica Caida Libre</mat-card-title>  
+            <mat-card-content> Content</mat-card-content>
+            <br>
+            <br>
+            <button mat-raised-button  class="irPractica" routerLink="/caidalibre">Ir a la practica</button>
+        </mat-card>
+        <mat-card class="primera-card">
+            <mat-card-title class="titulo-practica">Practica Ley de Hooke</mat-card-title>  
+            <mat-card-content> Content</mat-card-content>
+            <br>
+            <br>
+            <button mat-raised-button  class="irPractica" routerLink="/leyhooke">Ir a la practica</button>
+        </mat-card>
+        <mat-card class="primera-card">
+            <mat-card-title class="titulo-practica">Practica Movimiento Parabolico</mat-card-title>  
+            <mat-card-content> Content</mat-card-content>
+            <br>
+            <br>
+            <button mat-raised-button  class="irPractica" routerLink="/movparabolico">Ir a la practica</button>
+        </mat-card>
+    </div>
+    <div>
+        <button mat-raised-button routerLink="/calendario">Ver Calendario</button>  
+    </div>
+    <br>
+    <div>
+        <button class="btn btn-danger" (click)="onLogout()">Logout</button>
+        <button class="btn btn-primary btn-sm" (click)="openDialog()">Vincular Materia</button>
+    </div>

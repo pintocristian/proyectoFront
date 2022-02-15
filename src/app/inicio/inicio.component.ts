@@ -1,4 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { AuthService } from 'src/service/service.service';
+import { createUserWithEmailAndPassword, getAdditionalUserInfo, getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import { HttpClient } from '@angular/common/http';
+import { User } from 'src/app/interfaces/user';
+import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { VincularmateriaComponent } from '../vincularmateria/vincularmateria/vincularmateria.component';
 
 @Component({
   selector: 'app-inicio',
@@ -7,9 +17,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
-  constructor() { }
+  constructor(public authService: AuthService, private router: Router, private cookieService: CookieService, private httpClient: HttpClient, private auth: Auth, public dialog: MatDialog) { }
+  private API_BASE = 'http://localhost:8080/laboratorio';
 
   ngOnInit(): void {
+  }
+
+  async onLogout() {
+    try {
+      await this.authService.logout();
+      
+      this.cookieService.delete('Token_access', '')
+      this.router.navigate(['/login']);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  materias: string;
+  codigo: number;
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(VincularmateriaComponent, {
+      data: { name: this.codigo }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      this.codigo = result;
+    });
   }
 
 }
