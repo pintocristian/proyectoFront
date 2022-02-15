@@ -19,6 +19,7 @@ export class AuthService {
   private API_BASE = 'http://localhost:8080/usuario';
 
   logeado: import("@angular/fire/auth").User;
+  bandera: Boolean = false; 
 
   constructor(private auth: Auth, private httpClient: HttpClient) { }
 
@@ -68,9 +69,9 @@ export class AuthService {
     //return this.httpClient.get(`${this.API_BASE}/rol`).subscribe(result => this.data = result);
   }
 
-  codigos(data:any) {
-    console.log("Entro a enviarDatos()");
-    //return this.httpClient.post(`${this.API_BASE}/`+this.logeado.email+ `/` +this.logeado.displayName+ `/ingresarUsuario`,this.logeado);
-    return this.httpClient.post(`${this.API_BASE}/`+this.data+ `/` + `/matricularcurso`,this.data).subscribe(result => this.data = result);
+  codigos(codigo_materia:any) {
+    console.log("Entro a matricular curso()");
+    this.httpClient.post(`${this.API_BASE}/mellizohurt@unicauca.edu.co/` + codigo_materia + `/` + `matricularCurso`,codigo_materia).subscribe((result:any)=>{this.bandera=result});
+    return this.bandera;
   }
 }

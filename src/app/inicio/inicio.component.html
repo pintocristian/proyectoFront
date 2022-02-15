@@ -7,7 +7,7 @@
             <br>
             <button mat-raised-button  class="irPractica" routerLink="/caidalibre">Ir a la practica</button>
         </mat-card>
-        <div>
+        <div *ngIf="(user$)!">
             {{user$.email}}
             {{user$.displayName}}
         </div>
