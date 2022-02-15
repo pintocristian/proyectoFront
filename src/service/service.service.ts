@@ -3,8 +3,9 @@ import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { createUserWithEmailAndPassword, getAdditionalUserInfo, getAuth, GoogleAuthProvider, signInWithPopup, signOut, UserCredential } from 'firebase/auth';
 import { first, Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
-//import { LoginData } from '../interfaces/login-data';
+import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
+//import { LoginData } from '../interfaces/login-data';
 
 
 @Injectable({
@@ -12,10 +13,10 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class AuthService {
+  data = {};
 
 
   private API_BASE = 'http://localhost:8080/usuario';
-  data = {};
 
   logeado: import("@angular/fire/auth").User;
 
@@ -48,4 +49,28 @@ export class AuthService {
   }
 
 //return this.httpClient.get(`${this.API_BASE}/pdf`).subscribe(result => this.data = result);
+  async logout(): Promise<void> {
+    try {
+      await this.auth.signOut();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  /*descargar() {
+    console.log('Descargó')
+    //return this.httpClient.get(`${this.API_BASE}/pdf`).subscribe(result => this.data = result);
+
+  }*/
+
+  traerrol() {
+    console.log('rol');
+    //return this.httpClient.get(`${this.API_BASE}/rol`).subscribe(result => this.data = result);
+  }
+
+  codigos(data:any) {
+    console.log("Entro a enviarDatos()");
+    //return this.httpClient.post(`${this.API_BASE}/`+this.logeado.email+ `/` +this.logeado.displayName+ `/ingresarUsuario`,this.logeado);
+    return this.httpClient.post(`${this.API_BASE}/`+this.data+ `/` + `/matricularcurso`,this.data).subscribe(result => this.data = result);
+  }
 }
