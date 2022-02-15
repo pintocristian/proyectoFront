@@ -19,7 +19,7 @@ export class VincularmateriaComponent implements OnInit {
 
 
   enviarcodigo(data:any){
-    this.authService.enviarDatos(data);
+    this.authService.codigos(data);
   }
 
 }

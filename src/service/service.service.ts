@@ -54,7 +54,7 @@ export class AuthService {
     //return this.httpClient.get(`${this.API_BASE}/rol`).subscribe(result => this.data = result);
   }
 
-  enviarDatos(data:any) {
+  codigos(data:any) {
     console.log("Entro a enviarDatos()");
     //return this.httpClient.post(`${this.API_BASE}/`+this.logeado.email+ `/` +this.logeado.displayName+ `/ingresarUsuario`,this.logeado);
     return this.httpClient.post(`${this.API_BASE}/`+this.data+ `/` + `/matricularcurso`,this.data).subscribe(result => this.data = result);
