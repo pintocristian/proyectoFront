@@ -29,14 +29,15 @@ export class LoginComponent implements OnInit {
       .loginWithGoogle()
       .then(res => {
         console.log("Se registro: ", res);
-
         if (res != null){
           this.cookieService.set('Token_access', res.user.refreshToken ,4, '/');
           this.router.navigate(['/inicio']);
         } else {
           this.router.navigate(['/home']);
         }
+        
       })
+      
   }
 
 }
