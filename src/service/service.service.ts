@@ -5,6 +5,7 @@ import { first, Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 //import { LoginData } from '../interfaces/login-data';
 
 
@@ -20,10 +21,10 @@ export class AuthService {
 
   logeado: import("@angular/fire/auth").User;
   bandera: Boolean = false; 
-  correo = signInWithPopup(this.auth, new GoogleAuthProvider());
+  //correo = signInWithPopup(this.auth, new GoogleAuthProvider());
   
 
-  constructor(private auth: Auth, private httpClient: HttpClient) { }
+  constructor(private auth: Auth, private httpClient: HttpClient, private cookie: CookieService) { }
 
 
   async loginWithGoogle() {
@@ -32,7 +33,7 @@ export class AuthService {
       this.logeado = (await correo).user;
       var idx = (await correo).user?.email?.indexOf('@unicauca.edu.co');
       if (Number(idx) > -1) {
-        alert("Bienvenido " + (await correo).user?.displayName);
+        //alert("Bienvenido " + (await correo).user?.displayName);
         this.enviarDatos();
         return await correo;
       }
@@ -48,13 +49,13 @@ export class AuthService {
    enviarDatos() {
     console.log("Entro a enviarDatos()");
     //return this.httpClient.post(`${this.API_BASE}/`+this.logeado.email+ `/` +this.logeado.displayName+ `/ingresarUsuario`,this.logeado);
-    return this.httpClient.post(`${this.API_BASE}/`+ this.logeado.email+ `/` +this.logeado.displayName+ `/ingresarUsuario`,this.logeado).subscribe(result => this.data = result);
+    return this.httpClient.post(`${this.API_BASE}/`+ this.logeado.email + `/` + this.logeado.displayName + `/ingresarUsuario`,this.logeado).subscribe(result => this.data = result);
   }
 
 //return this.httpClient.get(`${this.API_BASE}/pdf`).subscribe(result => this.data = result);
-  async logout(): Promise<void> {
+  logout() {
     try {
-      await this.auth.signOut();
+      this.auth.signOut();
     } catch (error) {
       console.log(error);
     }
@@ -73,7 +74,7 @@ export class AuthService {
 
   codigos(codigo_materia:any) {
     console.log("Entro a matricular curso()");
-    this.httpClient.post(`${this.API_BASE}/`+ this.logeado.email + `/` + codigo_materia + `/` + `matricularCurso`,codigo_materia).subscribe((result:any)=>{this.bandera=result});
+    this.httpClient.post(`${this.API_BASE}/`+ this.cookie.get('Token_email') + `/` + codigo_materia + `/` + `matricularCurso`,codigo_materia).subscribe((result:any)=>{this.bandera=result});
     //this.verificarmateria();
     //this.verCursosMatriculados();
     this.bandera;
@@ -81,7 +82,8 @@ export class AuthService {
 
   verCursosMatriculados(){
     console.log("Entro a vercursos");
-    return this.httpClient.get(`${this.API_BASE}/`+ this.logeado.email + `/` + `buscarCursosMatriculados`);
+    console.log(this.cookie.get('Token_email'));
+    return this.httpClient.get(`${this.API_BASE}/`+ this.cookie.get('Token_email') + `/` + `buscarCursosMatriculados`);
   }
 
   verificarmateria(){
