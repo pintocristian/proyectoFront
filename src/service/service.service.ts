@@ -74,7 +74,7 @@ export class AuthService {
 
   codigos(codigo_materia:any) {
     console.log("Entro a matricular curso()");
-    this.httpClient.post(`${this.API_BASE}/`+ this.logeado.email + `/` + codigo_materia + `/` + `matricularCurso`,codigo_materia).subscribe((result:any)=>{this.bandera=result});
+    this.httpClient.post(`${this.API_BASE}/`+ this.cookie.get('Token_email') + `/` + codigo_materia + `/` + `matricularCurso`,codigo_materia).subscribe((result:any)=>{this.bandera=result});
     //this.verificarmateria();
     //this.verCursosMatriculados();
     this.bandera;

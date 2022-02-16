@@ -23,7 +23,7 @@ import { VincularmateriaComponent } from '../vincularmateria/vincularmateria/vin
 export class InicioComponent implements OnInit {
 
   constructor(public authService: AuthService, private router: Router, private cookieService: CookieService, private httpClient: HttpClient, private auth: Auth, public dialog: MatDialog) { }
-  public user$ = this.authService.logeado;
+  public user$ = this.cookieService.get('Token_email');
   public listado : any = [];
 
   ngOnInit(): void {
