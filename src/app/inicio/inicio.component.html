@@ -5,27 +5,12 @@
             <mat-card-content> Content</mat-card-content>
             <br>
             <br>
-            <button mat-raised-button  class="irPractica" routerLink="/caidalibre">Ir a la practica</button>
+            <button mat-raised-button  class="irPractica" routerLink="/materias">Ir a la practica</button>
         </mat-card>
         <div *ngIf="(user$)!">
             {{user$.email}}
             {{user$.displayName}}
         </div>
-        
-        <mat-card class="primera-card">
-            <mat-card-title class="titulo-practica">Practica Ley de Hooke</mat-card-title>  
-            <mat-card-content> Content</mat-card-content>
-            <br>
-            <br>
-            <button mat-raised-button  class="irPractica" routerLink="/leyhooke">Ir a la practica</button>
-        </mat-card>
-        <mat-card class="primera-card">
-            <mat-card-title class="titulo-practica">Practica Movimiento Parabolico</mat-card-title>  
-            <mat-card-content> Content</mat-card-content>
-            <br>
-            <br>
-            <button mat-raised-button  class="irPractica" routerLink="/movparabolico">Ir a la practica</button>
-        </mat-card>
     </div>
     <div>
         <button mat-raised-button routerLink="/calendario">Ver Calendario</button>  

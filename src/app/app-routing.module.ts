@@ -14,6 +14,7 @@ const routes: Routes = [{
   { path: 'leyhooke', loadChildren: () => import('./labs/leyhooke/leyhooke.module').then(m => m.LeyhookeModule) },
   { path: 'movparabolico', loadChildren: () => import('./labs/movparabolico/movparabolico.module').then(m => m.MovparabolicoModule) },
   { path: 'calendario', loadChildren: () => import('./calendarios/calendario/calendario.module').then(m => m.CalendarioModule) },
+  { path: 'materias', loadChildren: () => import('./materias/materias.module').then(m => m.MateriasModule) },
  ];
 
 @NgModule({
