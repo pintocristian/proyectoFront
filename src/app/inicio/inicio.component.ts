@@ -24,11 +24,10 @@ export class InicioComponent implements OnInit {
 
   constructor(public authService: AuthService, private router: Router, private cookieService: CookieService, private httpClient: HttpClient, private auth: Auth, public dialog: MatDialog) { }
   public user$ = this.authService.logeado;
-  private API_BASE = 'http://localhost:8080/laboratorio';
   public listado : any = [];
 
   ngOnInit(): void {
-    this.listado = this.authService.verCursosMatriculados();
+    this.authService.verCursosMatriculados().subscribe(respuesta => {this.listado = respuesta});
   }
 
   async onLogout() {

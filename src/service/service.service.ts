@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class AuthService {
   data = {};
+  public listado : any = [];
 
   private API_BASE = 'http://localhost:8080/usuario';
 
@@ -80,7 +81,7 @@ export class AuthService {
 
   verCursosMatriculados(){
     console.log("Entro a vercursos");
-    return this.httpClient.get(`${this.API_BASE}/`+ this.logeado.email + `/` + `buscarCursosMatriculados`).subscribe(respuesta => {console.log(respuesta)});
+    return this.httpClient.get(`${this.API_BASE}/`+ this.logeado.email + `/` + `buscarCursosMatriculados`);
   }
 
   verificarmateria(){
