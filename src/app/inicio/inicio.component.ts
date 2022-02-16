@@ -30,11 +30,11 @@ export class InicioComponent implements OnInit {
     this.authService.verCursosMatriculados().subscribe(respuesta => {this.listado = respuesta});
   }
 
-  async onLogout() {
+  onLogout() {
     try {
-      await this.authService.logout();
-      
+      this.authService.logout();
       this.cookieService.delete('Token_access', '')
+      this.cookieService.delete('Token_email', '')
       this.router.navigate(['/login']);
     } catch (error) {
       console.log(error);

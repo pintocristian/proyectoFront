@@ -18,26 +18,29 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  iniciarSesion(){
+    this.authService
+    .loginWithGoogle()
+    .then(res => {
+      console.log("Se registro: ", res);
+      if (res != null){
+        this.cookieService.set('Token_access', res.user.refreshToken ,4, '/');
+        this.cookieService.set('Token_email', res.user.email || '' ,4, '/');
+        this.router.navigate(['/inicio']);
+      } else {
+        this.router.navigate(['/home']);
+      }
+      
+    })
+  }
   
-  loginWithGoogle() {
+ // ingresarGoogle() {
     /*this.authService
       .loginWithGoogle()
       .then(() => this.router.navigate(['/dashboard']))
-      .catch((e) => console.log(e.message));*/
-      
-    this.authService
-      .loginWithGoogle()
-      .then(res => {
-        console.log("Se registro: ", res);
-        if (res != null){
-          this.cookieService.set('Token_access', res.user.refreshToken ,4, '/');
-          this.router.navigate(['/inicio']);
-        } else {
-          this.router.navigate(['/home']);
-        }
-        
-      })
-      
-  }
-
+      .catch((e) => console.log(e.message));*/     
+  
+  //}
 }
+
+
