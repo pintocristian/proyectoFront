@@ -16,10 +16,9 @@ export class VincularmateriaComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
-
   enviarcodigo(data:any){
     this.authService.codigos(data);
+    window.location.reload();
   }
 
 }
