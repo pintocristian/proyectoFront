@@ -18,9 +18,11 @@ export class AuthService {
   public listado : any = [];
 
   private API_BASE = 'http://localhost:8080/usuario';
+  private API_BASE_LAB = 'http://localhost:8080/laboratorio';
 
   logeado: import("@angular/fire/auth").User;
   bandera: Boolean = false; 
+  rol: String = "";
   //correo = signInWithPopup(this.auth, new GoogleAuthProvider());
   
 
@@ -82,15 +84,13 @@ export class AuthService {
 
   verCursosMatriculados(){
     console.log("Entro a vercursos");
-    console.log(this.cookie.get('Token_email'));
+    //console.log(this.cookie.get('Token_email'));
     return this.httpClient.get(`${this.API_BASE}/`+ this.cookie.get('Token_email') + `/` + `buscarCursosMatriculados`);
   }
 
-  verificarmateria(){
-    if(this.bandera == true){
-      alert('Puedes matricular esta materia')
-    }else{
-      alert('El código es incorrecto')
-    }
+  saberRol(){
+    console.log("Entro a saberrol");
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+ this.cookie.get('Token_email') + `/` + `buscarQuienEsLider`,{responseType:'text'});
   }
+ 
 }

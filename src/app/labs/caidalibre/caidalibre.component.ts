@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Roles } from 'src/app/interfaces/user';
 import { AuthService } from 'src/service/service.service';
+import { resourceLimits } from 'worker_threads';
+import {finalize} from 'rxjs/operators';
 
 @Component({
   selector: 'app-caidalibre',
@@ -10,17 +12,21 @@ import { AuthService } from 'src/service/service.service';
   styleUrls: ['./caidalibre.component.scss']
 })
 export class CaidalibreComponent implements OnInit {
-  rol = 'admin';
+  rol : String = "";
   variableespectadores = 'no-preparado';
+  rol$ = this.rol;
 
 
   constructor(private authSvc: AuthService, private router:Router) { }
   //public user$: Observable<any> = this.authSvc.afAuth.user;
   ngOnInit(): void {
+    this.authSvc.saberRol().subscribe(respuesta => {
+      this.rol$ = respuesta
+    });
   }
 
-  public eslider (): boolean{
-    if(this.rol.indexOf('admin') ){
+  /*public eslider (): boolean{
+    if(this.rol.indexOf('Lider') ){
       return false;
     }
     return true;
@@ -28,7 +34,7 @@ export class CaidalibreComponent implements OnInit {
   }
 
   public esespectador(): boolean {
-    if(this.rol.indexOf('espectador')){
+    if(this.rol.indexOf('Observador')){
       return false;
     }
     return true;
@@ -46,7 +52,7 @@ export class CaidalibreComponent implements OnInit {
       return false;
     }
     return true;
-  }
+  }*/
 
 
 
