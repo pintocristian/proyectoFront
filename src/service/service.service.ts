@@ -14,15 +14,19 @@ import { Agendamiento } from 'src/app/interfaces/agendamiento';
 })
 
 export class AuthService {
+  
+  
+
   data = {};
 
 
   private API_BASE = 'http://localhost:8080/usuario';
+  private API_BASE_LAB = 'http://localhost:8080/laboratorio';
 
   logeado: import("@angular/fire/auth").User;
   bandera: Boolean = false;
 
-  public eventosQuemados: Agendamiento[];
+  public eventosQuemados: any = [];
 
 
   constructor(private auth: Auth, private httpClient: HttpClient) { }
@@ -47,7 +51,7 @@ export class AuthService {
 
   }
 
-   enviarDatos() {
+  enviarDatos() {
     console.log("Entro a enviarDatos()");
     //return this.httpClient.post(`${this.API_BASE}/`+this.logeado.email+ `/` +this.logeado.displayName+ `/ingresarUsuario`,this.logeado);
     return this.httpClient.post(`${this.API_BASE}/` + this.logeado.email + `/` + this.logeado.displayName + `/ingresarUsuario`, this.logeado).subscribe(result => this.data = result);
@@ -76,50 +80,19 @@ export class AuthService {
   codigos(codigo_materia: any) {
     console.log("Entro a matricular curso()");
     this.httpClient.post(`${this.API_BASE}/mellizohurt@unicauca.edu.co/` + codigo_materia + `/` + `matricularCurso`, codigo_materia).subscribe((result: any) => { this.bandera = result });
+    console.log(this.bandera);
     return this.bandera;
   }
 
-  //agendamiento():Observable<Agendamiento[]>{
-  agendamiento(): Agendamiento[] {
-    const event1: Agendamiento = {
-      codigoGrupal: 1,
-      codigoPlanta: '1',
-      disposicion: true,
-      year: 2022,
-      month: 1,
-      day: 16,
-      horaInicio: '7',
-      horaFin: '9',
-      idAgendamiento: 11,
-      idFranja: '11f'
-    }
-    const event2: Agendamiento = {
-      codigoGrupal: 2,
-      codigoPlanta: '2',
-      disposicion: true,
-      year: 2022,
-      month: 1,
-      day: 16,
-      horaInicio: '14',
-      horaFin: '16',
-      idAgendamiento: 22,
-      idFranja: '22f'
-    }
-    const event3: Agendamiento = {
-      codigoGrupal: 3,
-      codigoPlanta: '3',
-      disposicion: true,
-      year: 2022,
-      month: 1,
-      day: 16,
-      horaInicio: '10',
-      horaFin: '12',
-      idAgendamiento: 33,
-      idFranja: '33f'
-    }
-    this.eventosQuemados[0]=event1;
-    this.eventosQuemados[0]=event2;
-    this.eventosQuemados[0]=event3;
-    return this.eventosQuemados;
+  enviarIntegrantes(eventFranja: number, arrayIntergrantes: any[]) : Observable<number>{
+    console.log("Entro a enviarIntegrantes");
+    return this.httpClient.post<number>(`${this.API_BASE_LAB}/` + eventFranja + `/` + `agregarParticipantes`, arrayIntergrantes);
+    
+    
+  }
+
+  agendamiento(codigo_laboratorio : number): Observable<Agendamiento[]> {
+    console.log("Entro a Agendamiento");
+    return this.httpClient.get<Agendamiento[]>(`${this.API_BASE_LAB}/`+ codigo_laboratorio + `/listarAgendamiento`);
   }
 }

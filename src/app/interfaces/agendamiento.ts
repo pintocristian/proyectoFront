@@ -1,13 +1,15 @@
 
 export class Agendamiento {
-    public codigoGrupal: number;
-    public codigoPlanta: string;
-    public disposicion: boolean;
-    public year: number;
-    public month: number;
-    public day: number;
-    public horaInicio: string;
+    public anio: number;
+    public codGrupal: number;
+    public codigoPlanta: number;
+    public dia: number;
+    public estadoDisposicion: boolean;
     public horaFin: string;
+    public horaInicio: string;
     public idAgendamiento: number;
     public idFranja: string;
+    public mes: number;
+
+    constructor(){} 
 }
