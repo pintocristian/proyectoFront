@@ -23,6 +23,7 @@ export class AuthService {
   logeado: import("@angular/fire/auth").User;
   bandera: Boolean = false; 
   rol: String = "";
+  //var bandera$ : Boolean = false; 
   //correo = signInWithPopup(this.auth, new GoogleAuthProvider());
   
 
@@ -91,6 +92,15 @@ export class AuthService {
   saberRol(){
     console.log("Entro a saberrol");
     return this.httpClient.get(`${this.API_BASE_LAB}/`+ this.cookie.get('Token_email') + `/` + `buscarQuienEsLider`,{responseType:'text'});
+  }
+
+  saberCodigoGrupo(){
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+ this.cookie.get('Token_email') + `/` + `saberCodigoGrupo`,{responseType:'text'});
+  }
+
+  verificarGrupoCompleto(codigo:any){
+    console.log("Entro a verificargrupos");
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo + `/` + `buscarCompletitudEstudiantes`);
   }
  
 }
