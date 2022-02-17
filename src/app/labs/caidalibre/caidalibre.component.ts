@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Roles } from 'src/app/interfaces/user';
 import { AuthService } from 'src/service/service.service';
+import { resourceLimits } from 'worker_threads';
+import {finalize} from 'rxjs/operators';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-caidalibre',
@@ -10,17 +13,43 @@ import { AuthService } from 'src/service/service.service';
   styleUrls: ['./caidalibre.component.scss']
 })
 export class CaidalibreComponent implements OnInit {
-  rol = 'admin';
-  variableespectadores = 'no-preparado';
+  rol : String = "";
+  rol$ = this.rol;
+  //bandera : Boolean = false;
+  bandera$ : Boolean; 
 
 
-  constructor(private authSvc: AuthService, private router:Router) { }
+  constructor(private authSvc: AuthService, private router:Router,private readonly cookieService: CookieService) { }
+
   //public user$: Observable<any> = this.authSvc.afAuth.user;
   ngOnInit(): void {
+    this.authSvc.saberRol().subscribe(respuesta => {
+      this.rol$ = respuesta
+    });
+    if (this.cookieService.check('Token_access')) {
+      this.router.navigate(['/caidalibre']);
+    } else {
+      this.router.navigate(['/home'])
+    }
   }
 
-  public eslider (): boolean{
-    if(this.rol.indexOf('admin') ){
+  prueba(){
+    if(this.bandera$ == false){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  verificar(){
+    this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
+      this.authSvc.verificarGrupoCompleto(respuesta).pipe(finalize(() => this.prueba())).subscribe((result:any)=>{this.bandera$=result})
+    });
+    //window.location.reload();
+  }
+
+  /*public eslider (): boolean{
+    if(this.rol.indexOf('Lider') ){
       return false;
     }
     return true;
@@ -28,7 +57,7 @@ export class CaidalibreComponent implements OnInit {
   }
 
   public esespectador(): boolean {
-    if(this.rol.indexOf('espectador')){
+    if(this.rol.indexOf('Observador')){
       return false;
     }
     return true;
@@ -46,7 +75,7 @@ export class CaidalibreComponent implements OnInit {
       return false;
     }
     return true;
-  }
+  }*/
 
 
 

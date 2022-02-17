@@ -6,6 +6,7 @@ import { User } from 'src/app/interfaces/user';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
 import { Agendamiento } from 'src/app/interfaces/agendamiento';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 //import { LoginData } from '../interfaces/login-data';
 
 
@@ -18,18 +19,22 @@ export class AuthService {
   
 
   data = {};
-
+  public listado : any = [];
 
   private API_BASE = 'http://localhost:8080/usuario';
   private API_BASE_LAB = 'http://localhost:8080/laboratorio';
 
   logeado: import("@angular/fire/auth").User;
-  bandera: Boolean = false;
 
   public eventosQuemados: any = [];
 
+  bandera: Boolean = false; 
+  rol: String = "";
+  //var bandera$ : Boolean = false; 
+  //correo = signInWithPopup(this.auth, new GoogleAuthProvider());
+  
 
-  constructor(private auth: Auth, private httpClient: HttpClient) { }
+  constructor(private auth: Auth, private httpClient: HttpClient, private cookie: CookieService) { }
 
 
   async loginWithGoogle() {
@@ -38,7 +43,7 @@ export class AuthService {
       this.logeado = (await correo).user;
       var idx = (await correo).user?.email?.indexOf('@unicauca.edu.co');
       if (Number(idx) > -1) {
-        alert("Bienvenido " + (await correo).user?.displayName);
+        //alert("Bienvenido " + (await correo).user?.displayName);
         this.enviarDatos();
         return await correo;
       }
@@ -54,13 +59,13 @@ export class AuthService {
   enviarDatos() {
     console.log("Entro a enviarDatos()");
     //return this.httpClient.post(`${this.API_BASE}/`+this.logeado.email+ `/` +this.logeado.displayName+ `/ingresarUsuario`,this.logeado);
-    return this.httpClient.post(`${this.API_BASE}/` + this.logeado.email + `/` + this.logeado.displayName + `/ingresarUsuario`, this.logeado).subscribe(result => this.data = result);
+    return this.httpClient.post(`${this.API_BASE}/`+ this.logeado.email + `/` + this.logeado.displayName + `/ingresarUsuario`,this.logeado).subscribe(result => this.data = result);
   }
 
-  //return this.httpClient.get(`${this.API_BASE}/pdf`).subscribe(result => this.data = result);
-  async logout(): Promise<void> {
+//return this.httpClient.get(`${this.API_BASE}/pdf`).subscribe(result => this.data = result);
+  logout() {
     try {
-      await this.auth.signOut();
+      this.auth.signOut();
     } catch (error) {
       console.log(error);
     }
@@ -77,12 +82,7 @@ export class AuthService {
     //return this.httpClient.get(`${this.API_BASE}/rol`).subscribe(result => this.data = result);
   }
 
-  codigos(codigo_materia: any) {
-    console.log("Entro a matricular curso()");
-    this.httpClient.post(`${this.API_BASE}/mellizohurt@unicauca.edu.co/` + codigo_materia + `/` + `matricularCurso`, codigo_materia).subscribe((result: any) => { this.bandera = result });
-    console.log(this.bandera);
-    return this.bandera;
-  }
+ 
 
   enviarIntegrantes(eventFranja: number, arrayIntergrantes: any[]) : Observable<number>{
     console.log("Entro a enviarIntegrantes");
@@ -93,6 +93,33 @@ export class AuthService {
 
   agendamiento(codigo_laboratorio : number): Observable<Agendamiento[]> {
     console.log("Entro a Agendamiento");
-    return this.httpClient.get<Agendamiento[]>(`${this.API_BASE_LAB}/`+ codigo_laboratorio + `/listarAgendamiento`);
+    return this.httpClient.get<Agendamiento[]>(`${this.API_BASE_LAB}/`+ codigo_laboratorio + `/listarAgendamiento`);}
+  codigos(codigo_materia:any) {
+    console.log("Entro a matricular curso()");
+    this.httpClient.post(`${this.API_BASE}/`+ this.cookie.get('Token_email') + `/` + codigo_materia + `/` + `matricularCurso`,codigo_materia).subscribe((result:any)=>{this.bandera=result});
+    //this.verificarmateria();
+    //this.verCursosMatriculados();
+    this.bandera;
   }
+
+  verCursosMatriculados(){
+    console.log("Entro a vercursos");
+    //console.log(this.cookie.get('Token_email'));
+    return this.httpClient.get(`${this.API_BASE}/`+ this.cookie.get('Token_email') + `/` + `buscarCursosMatriculados`);
+  }
+
+  saberRol(){
+    console.log("Entro a saberrol");
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+ this.cookie.get('Token_email') + `/` + `buscarQuienEsLider`,{responseType:'text'});
+  }
+
+  saberCodigoGrupo(){
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+ this.cookie.get('Token_email') + `/` + `saberCodigoGrupo`,{responseType:'text'});
+  }
+
+  verificarGrupoCompleto(codigo:any){
+    console.log("Entro a verificargrupos");
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo + `/` + `buscarCompletitudEstudiantes`);
+  }
+ 
 }
