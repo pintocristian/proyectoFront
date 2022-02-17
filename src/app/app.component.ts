@@ -13,11 +13,11 @@ export class AppComponent {
     private readonly cookieService: CookieService) { }
   ngOnInit(): void {
 
-    if (this.cookieService.check('Token_access')) {
+    /*if (this.cookieService.check('Token_access')) {
       this.router.navigate(['/inicio']);
     } else {
       this.router.navigate(['/home'])
-    }
+    }*/
 
   }
 }

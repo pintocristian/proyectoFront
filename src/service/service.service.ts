@@ -5,6 +5,7 @@ import { first, Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
+import { Agendamiento } from 'src/app/interfaces/agendamiento';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 //import { LoginData } from '../interfaces/login-data';
 
@@ -14,6 +15,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 
 export class AuthService {
+  
+  
+
   data = {};
   public listado : any = [];
 
@@ -21,8 +25,12 @@ export class AuthService {
   private API_BASE_LAB = 'http://localhost:8080/laboratorio';
 
   logeado: import("@angular/fire/auth").User;
+
+  public eventosQuemados: any = [];
+
   bandera: Boolean = false; 
   rol: String = "";
+  //var bandera$ : Boolean = false; 
   //correo = signInWithPopup(this.auth, new GoogleAuthProvider());
   
 
@@ -48,7 +56,7 @@ export class AuthService {
 
   }
 
-   enviarDatos() {
+  enviarDatos() {
     console.log("Entro a enviarDatos()");
     //return this.httpClient.post(`${this.API_BASE}/`+this.logeado.email+ `/` +this.logeado.displayName+ `/ingresarUsuario`,this.logeado);
     return this.httpClient.post(`${this.API_BASE}/`+ this.logeado.email + `/` + this.logeado.displayName + `/ingresarUsuario`,this.logeado).subscribe(result => this.data = result);
@@ -74,6 +82,18 @@ export class AuthService {
     //return this.httpClient.get(`${this.API_BASE}/rol`).subscribe(result => this.data = result);
   }
 
+ 
+
+  enviarIntegrantes(eventFranja: number, arrayIntergrantes: any[]) : Observable<number>{
+    console.log("Entro a enviarIntegrantes");
+    return this.httpClient.post<number>(`${this.API_BASE_LAB}/` + eventFranja + `/` + `agregarParticipantes`, arrayIntergrantes);
+    
+    
+  }
+
+  agendamiento(codigo_laboratorio : number): Observable<Agendamiento[]> {
+    console.log("Entro a Agendamiento");
+    return this.httpClient.get<Agendamiento[]>(`${this.API_BASE_LAB}/`+ codigo_laboratorio + `/listarAgendamiento`);}
   codigos(codigo_materia:any) {
     console.log("Entro a matricular curso()");
     this.httpClient.post(`${this.API_BASE}/`+ this.cookie.get('Token_email') + `/` + codigo_materia + `/` + `matricularCurso`,codigo_materia).subscribe((result:any)=>{this.bandera=result});
@@ -91,6 +111,15 @@ export class AuthService {
   saberRol(){
     console.log("Entro a saberrol");
     return this.httpClient.get(`${this.API_BASE_LAB}/`+ this.cookie.get('Token_email') + `/` + `buscarQuienEsLider`,{responseType:'text'});
+  }
+
+  saberCodigoGrupo(){
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+ this.cookie.get('Token_email') + `/` + `saberCodigoGrupo`,{responseType:'text'});
+  }
+
+  verificarGrupoCompleto(codigo:any){
+    console.log("Entro a verificargrupos");
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo + `/` + `buscarCompletitudEstudiantes`);
   }
  
 }
