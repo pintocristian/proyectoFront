@@ -5,8 +5,8 @@ export class Agendamiento {
     public codigoPlanta: number;
     public dia: number;
     public estadoDisposicion: boolean;
-    public horaFin: string;
-    public horaInicio: string;
+    public horaFin: number;
+    public horaInicio: number;
     public idAgendamiento: number;
     public idFranja: string;
     public mes: number;

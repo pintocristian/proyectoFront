@@ -26,6 +26,9 @@ export class InicioComponent implements OnInit {
   public user$ = this.cookieService.get('Token_email');
   public listado : any = [];
 
+
+
+  
   ngOnInit(): void {
     this.authService.verCursosMatriculados().subscribe(respuesta => {this.listado = respuesta});
   }

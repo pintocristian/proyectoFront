@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
-import { addDays, addHours, startOfDay } from 'date-fns';
+import { add, addDays, addHours, addMinutes, startOfDay } from 'date-fns';
 import { Agendamiento } from 'src/app/interfaces/agendamiento';
 import { AuthService } from 'src/service/service.service';
 import { IntegrantesPracticaComponent } from '../integrantesPractica/integrantesPractica.component';
@@ -125,7 +125,7 @@ export class CalendarCaidaLibreComponent implements OnInit {
     this.eventosQuemados.forEach((agendamiento: Agendamiento) => {
 
       objCalendario[contador] = {
-        start: addHours(startOfDay(new Date(agendamiento.anio, agendamiento.mes, agendamiento.dia)), 16),
+        start:  addHours(startOfDay(new Date(agendamiento.anio, (agendamiento.mes -1), agendamiento.dia)), agendamiento.horaInicio),
         title: 'Practica Caida Libre 1',
         color: colors.red,
         meta:{

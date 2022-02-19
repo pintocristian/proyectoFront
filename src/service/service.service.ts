@@ -23,6 +23,7 @@ export class AuthService {
 
   private API_BASE = 'http://localhost:8080/usuario';
   private API_BASE_LAB = 'http://localhost:8080/laboratorio';
+  private API_BASE_PRACTICA = 'http://localhost:8080/practica';
 
   logeado: import("@angular/fire/auth").User;
 
@@ -117,6 +118,10 @@ export class AuthService {
     return this.httpClient.get(`${this.API_BASE_LAB}/`+ this.cookie.get('Token_email') + `/` + `saberCodigoGrupo`,{responseType:'text'});
   }
 
+  verificarAgendamientoGrupo(codigo:any) : Observable<Boolean>{
+    console.log("Entro a verificarAgendamiento");
+    return this.httpClient.get<Boolean>(`${this.API_BASE_PRACTICA}/`+ codigo + `/` + `verificarAgendamiento`);
+  }
   verificarGrupoCompleto(codigo:any){
     console.log("Entro a verificargrupos");
     return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo + `/` + `buscarCompletitudEstudiantes`);
