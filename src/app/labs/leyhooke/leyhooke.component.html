@@ -13,6 +13,23 @@
                 </div>
                 <div class="grafica">
                     <h1 class="text-1">campo para la grafica</h1>
+                    <ngx-charts-bar-vertical-2d
+                        [view]="view"
+                        [customColors]="colorScheme"
+                        [results]="multi"
+                        [gradient]="gradient"
+                        [xAxis]="showXAxis"
+                        [yAxis]="showYAxis"
+                        [legend]="showLegend"
+                        [showXAxisLabel]="showXAxisLabel"
+                        [showYAxisLabel]="showYAxisLabel"
+                        [xAxisLabel]="xAxisLabel"
+                        [yAxisLabel]="yAxisLabel"
+                        [legendTitle]="legendTitle"
+                        (select)="onSelect($event)"
+                        (activate)="onActivate($event)"
+                        (deactivate)="onDeactivate($event)">
+                    </ngx-charts-bar-vertical-2d>
                 </div>
             </div>
             <div class="col">
