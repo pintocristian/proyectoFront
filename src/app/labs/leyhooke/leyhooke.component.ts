@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+//import * as countdown from 'countdown';
+
+/*interface Temporizador{
+  horas: number,
+  minutos: number,
+  segundos: number
+}*/
 
 @Component({
   selector: 'app-leyhooke',
@@ -7,6 +14,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeyhookeComponent implements OnInit {
 
+  //temporizador : Temporizador = null;
   view: [number, number] = [614, 400];
 
   // options
@@ -94,7 +102,14 @@ export class LeyhookeComponent implements OnInit {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
+  
+
   ngOnInit(): void {
+    
+    /*let date = new Date("22-02-2022");//poner la hora del calendario
+    countdown(date, (ts)=>{
+      this.temporizador = ts;
+    }, countdown.HOURS | countdown.MINUTES | countdown.SECONDS)*/
   }
 
 }
