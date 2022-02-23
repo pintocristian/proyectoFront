@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeyhookeComponent implements OnInit {
 
-  view: [number, number] = [700, 400];
+  view: [number, number] = [614, 400];
 
   // options
   showXAxis: boolean = true;
@@ -30,8 +30,8 @@ export class LeyhookeComponent implements OnInit {
 
   colorScheme = [
     { name: "verde", value: '#5AA454' },
-    { name: "amarillo", value: '#C7B42C' },
-    { name: "gris", value: '#AAAAAA' }
+    { name: "amarillo", value: '#C7B42C' }//,
+    //{ name: "gris", value: '#AAAAAA' }
   ]
 
   multi = [
