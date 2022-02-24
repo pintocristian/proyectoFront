@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CountdownModule } from 'ngx-countdown';
 
 import { LeyhookeRoutingModule } from './leyhooke-routing.module';
 import { LeyhookeComponent } from './leyhooke.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { LeyhookeComponent } from './leyhooke.component';
   ],
   imports: [
     CommonModule,
-    LeyhookeRoutingModule
+    LeyhookeRoutingModule,
+    NgxChartsModule,
+    CountdownModule
   ]
 })
 export class LeyhookeModule { }
