@@ -54,6 +54,18 @@ header .contenedor{
     position:relative;
   }
 
+.materias{
+    display: flex;
+}
+
+.opciones{
+    position: absolute;
+    margin-top: 250px;
+}
+
+.opCalendario{
+    margin-right: 20px;
+}
 body {
     width: 100vw;
     height: 20vh;
@@ -88,6 +100,7 @@ body {
 .primera-card{
     margin-right: 10px;
     width: auto;
+    display: center;
 }
 
 .emp-profile {

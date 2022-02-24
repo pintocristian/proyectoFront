@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
       if (res != null){
         this.cookieService.set('Token_access', res.user.refreshToken ,4, '/');
         this.cookieService.set('Token_email', res.user.email || '' ,4, '/');
+        this.cookieService.set('Token_name', res.user.displayName || '' ,4, '/');
         this.router.navigate(['/inicio']);
       } else {
         this.router.navigate(['/home']);
@@ -33,14 +34,6 @@ export class LoginComponent implements OnInit {
       
     })
   }
-  
- // ingresarGoogle() {
-    /*this.authService
-      .loginWithGoogle()
-      .then(() => this.router.navigate(['/dashboard']))
-      .catch((e) => console.log(e.message));*/     
-  
-  //}
 }
 
 
