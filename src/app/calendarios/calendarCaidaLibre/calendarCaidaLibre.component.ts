@@ -2,10 +2,9 @@ import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
-import { add, addDays, addHours, addMinutes, startOfDay } from 'date-fns';
+import { addDays, addHours, addMinutes, startOfDay } from 'date-fns';
 import { Agendamiento } from 'src/app/interfaces/agendamiento';
 import { AuthService } from 'src/service/service.service';
-import { IntegrantesPracticaComponent } from '../integrantesPractica/integrantesPractica.component';
 import { colors } from '../utils/colors';
 
 
@@ -32,7 +31,7 @@ export class CalendarCaidaLibreComponent implements OnInit {
   eventHour: number;
   eventMinute: number;
 
-  events: CalendarEvent<{ id: number }>[];
+  events: CalendarEvent<{ id: number, codG: number }>[];
 
   view: CalendarView = CalendarView.Month;
 
@@ -53,20 +52,20 @@ export class CalendarCaidaLibreComponent implements OnInit {
   private COD_LAB: number = 1;
 
   integrantes = new FormGroup({
-    integrante_1: new FormControl('',[Validators.required , Validators.email]),
-    integrante_3: new FormControl('',[Validators.required , Validators.email]),
-    integrante_2: new FormControl('',[Validators.required , Validators.email]),
-    
+    integrante_1: new FormControl('', [Validators.required, Validators.email]),
+    integrante_3: new FormControl('', [Validators.required, Validators.email]),
+    integrante_2: new FormControl('', [Validators.required, Validators.email]),
+
   });
 
-  
-  
+
+
 
   constructor(private authSvc: AuthService, private router: Router, public dialog: MatDialog) {
 
   }
 
-  
+
 
   ngOnInit(): void {
     this.llenarEventos();
@@ -86,52 +85,78 @@ export class CalendarCaidaLibreComponent implements OnInit {
   }
 
   eventClicked({ event }: { event: CalendarEvent }): void {
-    this.eventSelected = event.start;
-    this.eventFranja = event.meta.id;
-    this.eventYear = event.start.getFullYear();
-    this.eventMonth = event.start.getMonth();
-    this.eventDate = event.start.getDate();
-    this.eventHour = event.start.getHours();
-    this.eventMinute = event.start.getMinutes();
 
-    alert("Haz Clickeado el evento! Dia " + event.start.getDate() + " Hora " + event.start.getHours());
+    if (event.meta.codG != -1) {
+      alert("La practica en esta franja horaria ya ha sido agendada por alguien más!");
+    }else {
+      this.eventSelected = event.start;
+      this.eventFranja = event.meta.id;
+      this.eventYear = event.start.getFullYear();
+      this.eventMonth = event.start.getMonth();
+      this.eventDate = event.start.getDate();
+      this.eventHour = event.start.getHours();
+      this.eventMinute = event.start.getMinutes();
+      alert("Haz Clickeado el evento! Dia " + event.start.getDate() + " Hora " + event.start.getHours());
+    }
+
 
   }
 
   objAgendamiento: Agendamiento;
 
   enviarIntegrantes() {
-    var arrayIntergrantes= [this.integrantes.value.integrante_1,
-      this.integrantes.value.integrante_2,
-      this.integrantes.value.integrante_3];
+    var arrayIntergrantes = [this.integrantes.value.integrante_1,
+    this.integrantes.value.integrante_2,
+    this.integrantes.value.integrante_3];
     var rta = -5;
     this.authSvc.enviarIntegrantes(
       this.eventFranja,
       arrayIntergrantes
-      ).subscribe((respuesta)=>{rta = respuesta
+    ).subscribe((respuesta) => {
+      rta = respuesta
       console.log(rta)
-      if(rta==1){
+      if (rta == 1) {
         alert("¡Practica agendada exitosamente!");
-      }else if(rta==0){
+      } else if (rta == 0) {
         alert("Envio un correo no universitario")
       }
     });
-  }
-
-
+  } 
+  
   asingacionEventos() {
-    var objCalendario: CalendarEvent<{ id: number }>[] = [];
+    var objCalendario: CalendarEvent<{ id: number, codG: number }>[] = [];
     var contador = 0;
     this.eventosQuemados.forEach((agendamiento: Agendamiento) => {
 
+
+    var horaInicio = agendamiento.horaInicio.split(':')[0];
+    var MinutosInicio = agendamiento.horaInicio.split(':')[1];
+
+    var horaFin = agendamiento.horaFin.split(':')[0];
+    var MinutosFin = agendamiento.horaFin.split(':')[1];
+
+    var numHoraInicio = parseInt(horaInicio);
+    var numMinutosInicio = parseInt(MinutosInicio);
+
+    var numHoraFin = parseInt(horaFin);
+    var numMinutosFin = parseInt(MinutosFin);
+
+
       objCalendario[contador] = {
-        start:  addHours(startOfDay(new Date(agendamiento.anio, (agendamiento.mes -1), agendamiento.dia)), agendamiento.horaInicio),
-        title: 'Practica Caida Libre 1',
-        color: colors.red,
-        meta:{
+        start: addMinutes(addHours( addDays(startOfDay(new Date(agendamiento.fecha)),1),  numHoraInicio ),numMinutosInicio ) ,
+        title: 'Practica Caida Libre',
+        end: addMinutes(addHours(addDays(startOfDay(new Date(agendamiento.fecha)),1),numHoraFin),numMinutosFin),
+        meta: {
           id: agendamiento.idAgendamiento,
-        }
+          codG: agendamiento.codGrupal,
+        },
         
+      }
+
+      if(agendamiento.codGrupal==-1){
+        objCalendario[contador].color=colors.red;
+      }else{
+        objCalendario[contador].color=colors.grey;
       }
       contador = contador + 1;
     });
