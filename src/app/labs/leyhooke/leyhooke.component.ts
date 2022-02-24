@@ -1,23 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-//import * as countdown from 'countdown';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 
-/*interface Temporizador{
-  horas: number,
-  minutos: number,
-  segundos: number
-}*/
+const KEY = 'time';
+const DEFAULT = 7200; //7200 son 2 horas
+
 
 @Component({
   selector: 'app-leyhooke',
   templateUrl: './leyhooke.component.html',
-  styleUrls: ['./leyhooke.component.scss']
+  styleUrls: ['./leyhooke.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LeyhookeComponent implements OnInit {
 
-  //temporizador : Temporizador = null;
   view: [number, number] = [614, 400];
 
-  // options
+  // opciones de la gráfica
   showXAxis: boolean = true;
   showYAxis: boolean = true;
   gradient: boolean = true;
@@ -28,20 +26,13 @@ export class LeyhookeComponent implements OnInit {
   yAxisLabel: string = 'Population';
   legendTitle: string = 'Years';
 
-  /*colorScheme = {
-    { name: "2019", value: '#febb00' },
-    { name: "2020", value: '#1dd068' },
-    { name: "2021", value: '#1dd068' },
-    { name: "2022", value: '#febb00' }
-    //domain: ['#5AA454', '#C7B42C', '#AAAAAA']
-  };*/
-
   colorScheme = [
     { name: "verde", value: '#5AA454' },
     { name: "amarillo", value: '#C7B42C' }//,
     //{ name: "gris", value: '#AAAAAA' }
   ]
 
+  //JSON de la prueba
   multi = [
     {
       "name": "Germany",
@@ -102,14 +93,19 @@ export class LeyhookeComponent implements OnInit {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
-  
+  config: CountdownConfig = { leftTime: DEFAULT, notify: 0 };
 
   ngOnInit(): void {
-    
-    /*let date = new Date("22-02-2022");//poner la hora del calendario
-    countdown(date, (ts)=>{
-      this.temporizador = ts;
-    }, countdown.HOURS | countdown.MINUTES | countdown.SECONDS)*/
+    let value = +localStorage.getItem(KEY)!! ?? DEFAULT;
+    if (value <= 0) value = DEFAULT;
+    this.config = { ...this.config, leftTime: value };
   }
 
+  handleEvent(ev: CountdownEvent) {
+    if (ev.action === 'notify') {
+      // Save current value
+      localStorage.setItem(KEY, `${ev.left / 1000}`);
+    }
+  }
+  
 }
