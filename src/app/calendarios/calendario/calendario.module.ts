@@ -19,6 +19,8 @@ import { MatButtonModule } from '@angular/material/button';
 
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { CalendarLeyHookeComponent } from '../calendarLeyHooke/calendarLeyHooke.component';
+import { CalendarMovParabolicoComponent } from '../calendarMovParabolico/calendarMovParabolico.component';
 
 
 @NgModule({
@@ -26,6 +28,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     CalendarioComponent,
     MyCalendarComponent,
     CalendarCaidaLibreComponent,
+    CalendarLeyHookeComponent,
+    CalendarMovParabolicoComponent
     
   ],
   imports: [
