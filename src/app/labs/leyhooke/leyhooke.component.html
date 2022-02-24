@@ -1,4 +1,5 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" media="only screen and (max-width: 768px)" href="leyhooke.component.scss">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
@@ -13,12 +14,31 @@
                 </div>
                 <div class="grafica">
                     <h1 class="text-1">campo para la grafica</h1>
+                    <ngx-charts-bar-vertical-2d
+                        [view]="view"
+                        [customColors]="colorScheme"
+                        [results]="multi"
+                        [gradient]="gradient"
+                        [xAxis]="showXAxis"
+                        [yAxis]="showYAxis"
+                        [legend]="showLegend"
+                        [showXAxisLabel]="showXAxisLabel"
+                        [showYAxisLabel]="showYAxisLabel"
+                        [xAxisLabel]="xAxisLabel"
+                        [yAxisLabel]="yAxisLabel"
+                        [legendTitle]="legendTitle"
+                        (select)="onSelect($event)"
+                        (activate)="onActivate($event)"
+                        (deactivate)="onDeactivate($event)">
+                    </ngx-charts-bar-vertical-2d>
                 </div>
             </div>
             <div class="col">
                 <div class=" row container-practica">
                     <h1 class="text">Datos de la practica</h1>
-                    <div class="datos-practica">
+
+                    <countdown class="text" [config]="config" (event)="handleEvent($event)"></countdown>
+                    <div class="datos-practica">      
                         <select name="OS" class="desplegable">
                             <option value="1">Alturas</option> 
                             <option value="2">Tiempo 15</option> 
@@ -31,6 +51,7 @@
                         <button class="btn btn-primary button-2">Iniciar</button>
                         <button class="btn btn-primary button-3">Reiniciar</button>
                         <button class="btn btn-danger button-4">Terminar practica</button>
+
                     </div>
 
                 </div>
