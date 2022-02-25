@@ -18,8 +18,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './calendarCaidaLibre.component.html',
   styleUrls: ['./calendarCaidaLibre.component.scss'],
-
-  encapsulation: ViewEncapsulation.None
 })
 export class CalendarCaidaLibreComponent implements OnInit {
 
