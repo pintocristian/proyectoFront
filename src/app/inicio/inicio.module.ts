@@ -9,6 +9,8 @@ import { MatCardModule } from '@angular/material/card';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { DemoUtilsModule } from '../calendarios/utils/module';
+import { MatMenuModule } from '@angular/material/menu';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { DemoUtilsModule } from '../calendarios/utils/module';
     MatCardModule,
     MatDialogModule,
     MatButtonModule,
-    DemoUtilsModule
+    DemoUtilsModule,
+    MatMenuModule,
+    MatToolbarModule
   ]
 })
 export class InicioModule { }

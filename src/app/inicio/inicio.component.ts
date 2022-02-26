@@ -18,8 +18,6 @@ import { VincularmateriaComponent } from '../vincularmateria/vincularmateria/vin
   styleUrls: ['./inicio.component.scss']
 })
 
-
-
 export class InicioComponent implements OnInit {
   rol$: string;
 
@@ -28,10 +26,14 @@ export class InicioComponent implements OnInit {
   public userName$ = this.cookieService.get('Token_name');
   public listado : any = [];
 
+  public user2$ = this.authService.obtenerUser();
+
+  
 
 
   
   ngOnInit(): void {
+    console.log(this.user2$.displayName);
     this.authService.verCursosMatriculados().subscribe(respuesta => {this.listado = respuesta});
     this.authService.saberRol().subscribe(respuesta => {
       this.rol$ = respuesta
