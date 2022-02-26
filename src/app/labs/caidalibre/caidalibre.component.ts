@@ -7,9 +7,10 @@ import { resourceLimits } from 'worker_threads';
 import {finalize} from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 
 const KEY = 'time';
-const DEFAULT = 7200; //7200 son 2 horas
+const DEFAULT = 3600; //7200 son 2 horas
 
 @Component({
   selector: 'app-caidalibre',
@@ -19,86 +20,43 @@ const DEFAULT = 7200; //7200 son 2 horas
 })
 export class CaidalibreComponent implements OnInit {
 
-  view: [number, number] = [614, 400];
-
   rol : String = "";
   rol$ = this.rol;
   //bandera : Boolean = false;
   bandera$ : Boolean; 
 
-  // opciones de la gráfica
-  showXAxis: boolean = true;
-  showYAxis: boolean = true;
-  gradient: boolean = true;
-  showLegend: boolean = true;
-  showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Country';
-  showYAxisLabel: boolean = true;
-  yAxisLabel: string = 'Population';
-  legendTitle: string = 'Years';
+  public scatterChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+  };
+  public scatterChartLabels: string[] = [ 'Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running' ];
 
-  colorScheme = [
-    { name: "verde", value: '#5AA454' },
-    { name: "amarillo", value: '#C7B42C' }//,
-    //{ name: "gris", value: '#AAAAAA' }
-  ]
+  public scatterChartData: ChartData<'scatter'> = {
+    labels: this.scatterChartLabels,
+    datasets: [
+      {
+        data: [
+          { x: 1, y: 1 },
+          { x: 2, y: 3 },
+          { x: 3, y: -2 },
+          { x: 4, y: 4 },
+          { x: 5, y: -3 },
+        ],
+        label: 'Series A',
+        pointRadius: 10,
+      },
+    ]
+  };
+  public scatterChartType: ChartType = 'scatter';
 
-  //JSON de la prueba
-  multi = [
-    {
-      "name": "Germany",
-      "series": [
-        {
-          "name": "2010",
-          "value": 7300000
-        },
-        {
-          "name": "2011",
-          "value": 8940000
-        }
-      ]
-    },
+  // events
+  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
+
+  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
   
-    {
-      "name": "USA",
-      "series": [
-        {
-          "name": "2010",
-          "value": 7870000
-        },
-        {
-          "name": "2011",
-          "value": 8270000
-        }
-      ]
-    },
-  
-    {
-      "name": "France",
-      "series": [
-        {
-          "name": "2010",
-          "value": 5000002
-        },
-        {
-          "name": "2011",
-          "value": 5800000
-        }
-      ]
-    }
-  ];
-
-  onSelect(data: any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
-
-  onActivate(data: any): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data: any): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  }
 
   constructor(private authSvc: AuthService, private router:Router,private readonly cookieService: CookieService) { }
 

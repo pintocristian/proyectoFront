@@ -5,6 +5,7 @@ import { CountdownModule } from 'ngx-countdown';
 import { CaidalibreRoutingModule } from './caidalibre-routing.module';
 import { CaidalibreComponent } from './caidalibre.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     CommonModule,
     CaidalibreRoutingModule,
     NgxChartsModule,
-    CountdownModule
+    CountdownModule,
+    NgChartsModule
   ]
 })
 export class CaidalibreModule { }
