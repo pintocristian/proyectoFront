@@ -41,34 +41,42 @@
 </div>
 -->
 <nav class="navbar">
-    <div class="nav_logo"></div>
-    <div class="boton_salir">
-        <button class="op"  mat-raised-button color="primary"  routerLink="/calendario">Ver Calendario</button>
-        <button mat-raised-button color="primary" (click)="openDialog()">Vincular Materia</button>
-
-        <button mat-button [matMenuTriggerFor]="menu"><img src="{{user2$.photoURL}}"></button>
-        <mat-menu #menu="matMenu">
-            <li> {{user2$.displayName}} </li>
-            <li> {{user2$.email}} </li>
-            <li><button mat-menu-item (click)="onLogout()">Salir</button></li>
-        </mat-menu>
+    <div class="nav_logo">
     </div>
+
+    <div class="titulo_pagina">
+        <h1>Bienvenido {{userName$}} a los laboratorios remotos de mécanica.</h1>
+    </div>
+
+    <button mat-button [matMenuTriggerFor]="menu"><img src="{{user2$.photoURL}}" id="user-photo"></button>
+    <mat-menu #menu="matMenu">
+        <li> {{user2$.displayName}} </li>
+        <li> {{user2$.email}} </li>
+        <li><button mat-menu-item (click)="onLogout()">Salir</button></li>
+    </mat-menu>
 </nav>
 
 <!--Ejemplo banner debajo de la barra de navegacion-->
 
 <div class="banner_titulo">
     <div class="contenedor_titulo">
-        <div class="titulo_pagina">
-            <h1>Bienvenido {{userName$}} a los laboratorios remotos de mécanica.</h1>
+        <div class="opciones" id="opciones">
+            <!--
+            <button class="op" mat-raised-button color="primary" routerLink="/calendario">Ver Calendario</button>
+            <button mat-raised-button color="primary" (click)="openDialog()">Vincular Materia</button>
+            -->
+            <a routerLink="/calendario">Ver Calendario</a>
+            <a (click)="openDialog()">Vincular Materia</a>
+            <a href="javascript:void(0);" class="icon" (click)="openDrawerMenu()">&#9776;</a>
         </div>
     </div>
+
 </div>
 <br><br>
 <div class="background">
     <mat-card class="primera-card" *ngFor="let lista of listado">
         <mat-card-title class="card-title titulo-practica">{{lista}}</mat-card-title>
-        <mat-card-content> 
+        <mat-card-content>
             <p>ASDFASDFASDF</p>
         </mat-card-content>
         <button mat-raised-button class="irPractica" routerLink="/materias">Ir al curso</button>

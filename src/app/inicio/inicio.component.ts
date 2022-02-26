@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { authInstanceFactory } from '@angular/fire/auth/auth.module';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
@@ -15,7 +15,8 @@ import { VincularmateriaComponent } from '../vincularmateria/vincularmateria/vin
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.scss']
+  styleUrls: ['./inicio.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class InicioComponent implements OnInit {
@@ -28,7 +29,14 @@ export class InicioComponent implements OnInit {
 
   public user2$ = this.authService.obtenerUser();
 
-  
+  openDrawerMenu(){
+    var x = document.getElementById("opciones")!;
+    if (x.className === "opciones"){
+      x.className += " responsive";
+    } else {
+      x.className = "opciones";
+    }
+  }
 
 
   
