@@ -46,6 +46,7 @@ export class AuthService {
       if (Number(idx) > -1) {
         //alert("Bienvenido " + (await correo).user?.displayName);
         this.enviarDatos();
+
         return await correo;
       }
       alert("Error correo no universitario");
@@ -57,20 +58,32 @@ export class AuthService {
 
   }
 
+//return this.httpClient.get(`${this.API_BASE}/pdf`).subscribe(result => this.data = result);
+  logout() {
+    try {
+      this.cambiarEstadoSalida();
+      this.auth.signOut();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  cambiarEstadoEntrada(){
+    console.log("llegue");
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+ this.cookie.get('Token_email') + `/` + `cambiarEstadoParticipanteEntrada`).subscribe(result => this.data = result);
+  }
+
+  cambiarEstadoSalida(){
+    console.log("sali");
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+ this.cookie.get('Token_email') + `/` + `cambiarEstadoParticipanteSalida`).subscribe(result => this.data = result);
+  }
+
   enviarDatos() {
     console.log("Entro a enviarDatos()");
     //return this.httpClient.post(`${this.API_BASE}/`+this.logeado.email+ `/` +this.logeado.displayName+ `/ingresarUsuario`,this.logeado);
     return this.httpClient.post(`${this.API_BASE}/`+ this.logeado.email + `/` + this.logeado.displayName + `/ingresarUsuario`,this.logeado).subscribe(result => this.data = result);
   }
 
-//return this.httpClient.get(`${this.API_BASE}/pdf`).subscribe(result => this.data = result);
-  logout() {
-    try {
-      this.auth.signOut();
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   /*descargar() {
     console.log('Descargó')
