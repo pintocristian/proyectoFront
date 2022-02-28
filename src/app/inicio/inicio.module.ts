@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { InicioRoutingModule } from './inicio-routing.module';
@@ -11,6 +11,9 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { DemoUtilsModule } from '../calendarios/utils/module';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatIconModule} from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatButtonModule,
     DemoUtilsModule,
     MatMenuModule,
-    MatToolbarModule
-  ]
+    MatToolbarModule,
+    FlexLayoutModule,
+    MatIconModule
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })
 export class InicioModule { }

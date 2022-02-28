@@ -25,9 +25,10 @@ export class InicioComponent implements OnInit {
   constructor(public authService: AuthService, private router: Router, private cookieService: CookieService, private httpClient: HttpClient, private auth: Auth, public dialog: MatDialog) { }
   public user$ = this.cookieService.get('Token_email');
   public userName$ = this.cookieService.get('Token_name');
+  public userPhoto$ = this.cookieService.get('Token_photo');
   public listado : any = [];
 
-  public user2$ = this.authService.obtenerUser();
+  
 
   openDrawerMenu(){
     var x = document.getElementById("opciones")!;
@@ -41,7 +42,6 @@ export class InicioComponent implements OnInit {
 
   
   ngOnInit(): void {
-    console.log(this.user2$.displayName);
     this.authService.verCursosMatriculados().subscribe(respuesta => {this.listado = respuesta});
     this.authService.saberRol().subscribe(respuesta => {
       this.rol$ = respuesta
@@ -59,6 +59,7 @@ export class InicioComponent implements OnInit {
       this.cookieService.delete('Token_access', '')
       this.cookieService.delete('Token_email', '')
       this.cookieService.delete('Token_name', '')
+      this.cookieService.delete('Token_photo', '')
       this.router.navigate(['/login']);
     } catch (error) {
       console.log(error);

@@ -40,12 +40,17 @@
     </div>
 </div>
 -->
+
+
+<!--
+    
+
 <nav class="navbar">
     <div class="nav_logo">
     </div>
 
     <div class="titulo_pagina">
-        <h1>Bienvenido {{userName$}} a los laboratorios remotos de mécanica.</h1>
+        <h1 class="t">Bienvenido {{userName$}} a los laboratorios remotos de mécanica.</h1>
     </div>
 
     <button mat-button [matMenuTriggerFor]="menu"><img src="{{user2$.photoURL}}" id="user-photo"></button>
@@ -56,15 +61,14 @@
     </mat-menu>
 </nav>
 
-<!--Ejemplo banner debajo de la barra de navegacion-->
 
 <div class="banner_titulo">
     <div class="contenedor_titulo">
         <div class="opciones" id="opciones">
-            <!--
+        
             <button class="op" mat-raised-button color="primary" routerLink="/calendario">Ver Calendario</button>
             <button mat-raised-button color="primary" (click)="openDialog()">Vincular Materia</button>
-            -->
+            
             <a routerLink="/calendario">Ver Calendario</a>
             <a (click)="openDialog()">Vincular Materia</a>
             <a href="javascript:void(0);" class="icon" (click)="openDrawerMenu()">&#9776;</a>
@@ -81,4 +85,40 @@
         </mat-card-content>
         <button mat-raised-button class="irPractica" routerLink="/materias">Ir al curso</button>
     </mat-card>
+</div>
+-->
+<mat-toolbar color="primary">
+
+    <button mat-button routerLink="/">
+    <mat-icon>home</mat-icon> 
+    {{userName$}}</button>
+    <img class = "img1" src="{{userPhoto$}}" id="user-photo">
+    <!-- This fills the remaining space of the current row -->
+    <span class="fill-remaining-space"></span>
+    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+        <button mat-button routerLink="/products">Products</button>
+        <button mat-button routerLink="/dashboard">Dashboard</button>
+    </div>
+    <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+     <mat-icon>menu</mat-icon>
+    </button>
+
+</mat-toolbar>
+<mat-menu x-position="before" #menu="matMenu">
+    <button mat-menu-item routerLink="/products">Products</button>
+    <button mat-menu-item routerLink="/dashboard">Dashboard</button>
+    <!--<button mat-menu-item>Help</button>-->
+</mat-menu>
+
+<div class="materias">
+    <mat-card class="primera-card" *ngFor="let lista of listado">
+        <mat-card-title class="titulo-practica">{{lista}}</mat-card-title>
+        <mat-card-content> Content</mat-card-content>
+        <button mat-raised-button class="irPractica" routerLink="/materias">Ir al curso</button>
+    </mat-card>
+</div>
+<br>
+<div class="opciones">
+    <button class="opCalendario" mat-raised-button routerLink="/calendario">Ver Calendario</button>
+    <button mat-raised-button (click)="openDialog()">Vincular Materia</button>
 </div>
