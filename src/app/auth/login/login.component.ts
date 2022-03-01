@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
         this.cookieService.set('Token_access', res.user.refreshToken ,4, '/');
         this.cookieService.set('Token_email', res.user.email || '' ,4, '/');
         this.cookieService.set('Token_name', res.user.displayName || '' ,4, '/');
+        this.cookieService.set('Token_photo', res.user.photoURL || '' ,4, '/');
         this.router.navigate(['/inicio']);
       } else {
         this.router.navigate(['/home']);

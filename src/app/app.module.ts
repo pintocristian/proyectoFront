@@ -31,7 +31,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IntegrantesPracticaComponent } from './calendarios/integrantesPractica/integrantesPractica.component';
 import { VincularmateriaComponent } from './vincularmateria/vincularmateria/vincularmateria.component';
 
-
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 
 @NgModule({
@@ -63,11 +63,13 @@ import { VincularmateriaComponent } from './vincularmateria/vincularmateria/vinc
     FormsModule,
     MatFormFieldModule,
     NgbModule,
-    [HttpClientModule,  ]
+    [HttpClientModule,  ],
+    FlexLayoutModule
   ],
   providers: [
     ScreenTrackingService,UserTrackingService,[CookieService]
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }
