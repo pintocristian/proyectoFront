@@ -125,6 +125,13 @@ export class CaidalibreComponent implements OnInit {
     }
   }
 
+  finalizar_practica(){
+    this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
+      this.authSvc.finalizarPractica(respuesta).subscribe((result:any)=>{result})
+      this.router.navigate(['/materias'])
+  });
+}
+
   prueba(){
     if(this.bandera$ == false){
       return false;

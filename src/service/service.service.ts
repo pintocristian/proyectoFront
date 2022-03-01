@@ -140,4 +140,9 @@ export class AuthService {
     return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo + `/` + `buscarCompletitudEstudiantes`);
   }
  
+  finalizarPractica(codigo_grupo:any){
+    console.log("Entro a finalizar practica");
+    return this.httpClient.delete(`${this.API_BASE_LAB}/`+ codigo_grupo + `/` + `finalizarPractica`);
+  }
+
 }
