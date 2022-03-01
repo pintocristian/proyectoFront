@@ -10,7 +10,7 @@ import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 
 const KEY = 'time';
-const DEFAULT = 3600; //7200 son 2 horas
+const DEFAULT = 20; //3600 es 1 hora
 
 @Component({
   selector: 'app-caidalibre',
@@ -70,7 +70,7 @@ export class CaidalibreComponent implements OnInit {
     } else {
       this.router.navigate(['/home'])
     }
-
+    //Cuenta regresiva
     let value = +localStorage.getItem(KEY)!! ?? DEFAULT;
     if (value <= 0) value = DEFAULT;
     this.config = { ...this.config, leftTime: value };
@@ -146,5 +146,9 @@ export class CaidalibreComponent implements OnInit {
   }
 
   config: CountdownConfig = { leftTime: DEFAULT, notify: 0 };
+
+  if (config=0) {
+    console.log("Se acabo todo xd");
+  }
 
 }
