@@ -4,14 +4,16 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <body>
+    <!------ Modificar según el tiempo la carga de la página ---------->
+    <meta http-equiv="refresh" content="1800; url=http://localhost:4200/materias" />
     <div class="container-xxl emp-profile container-min container-fluid container-main">
         <h1 class="tittle">Practica Caida Libre</h1>
         <div>
             <div class="col-md-12">
                 <div class="container-grabacion">
                     <h1 class="text-1"> campo para la grabación</h1>
-                    <!--<iframe width="1000" height="430" src="https://rtsp.me/embed/e5dRnHFD/" frameborder="0" allowfullscreen></iframe>-->
-                    <iframe width="1000" height="430" src="http://186.146.176.79:8555/ISAPI/Streaming/channels/102/httpPreview" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="1000" height="430" src="https://rtsp.me/embed/e5dRnHFD/" frameborder="0" allowfullscreen></iframe>
+                    <!--<iframe width="1000" height="430" src="http://186.146.176.79:8555/ISAPI/Streaming/channels/102/httpPreview" frameborder="0" allowfullscreen></iframe>-->
                 </div>
 
                 <div class="grafica">
@@ -29,6 +31,7 @@
             <div class="col">
                 <div class=" row container-practica">
                     <h1 class="text">Datos de la practica</h1>
+                    
                     <countdown class="text" [config]="config" (event)="handleEvent($event)"></countdown>
                     <div class="datos-practica" *ngIf="rol$ == 'Lider'">
                         <div *ngIf="bandera$; else sino">
