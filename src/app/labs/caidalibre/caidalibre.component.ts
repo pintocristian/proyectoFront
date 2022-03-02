@@ -11,7 +11,7 @@ import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 
 
 const KEY = 'time';
-const DEFAULT = 3600; //7200 son 2 horas
+const DEFAULT = 1800; //3600 es 1 hora
 
 @Component({
   selector: 'app-caidalibre',
@@ -40,7 +40,7 @@ export class CaidalibreComponent implements OnInit {
           { x: 2, y: 3 },
           { x: 3, y: -2 },
           { x: 4, y: 4 },
-          { x: 5, y: -3 },
+          { x: 5, y: -2 },
         ],
         label: 'Series A',
         pointRadius: 10,
@@ -75,7 +75,7 @@ export class CaidalibreComponent implements OnInit {
     } else {
       this.router.navigate(['/home'])
     }
-
+    //Cuenta regresiva
     let value = +localStorage.getItem(KEY)!! ?? DEFAULT;
     if (value <= 0) value = DEFAULT;
     this.config = { ...this.config, leftTime: value };
@@ -151,5 +151,7 @@ export class CaidalibreComponent implements OnInit {
   }
 
   config: CountdownConfig = { leftTime: DEFAULT, notify: 0 };
+
+  
 
 }
