@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { AuthService } from 'src/service/service.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-materias',
@@ -10,7 +11,11 @@ import { AuthService } from 'src/service/service.service';
 })
 export class MateriasComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private cookieService: CookieService) { }
+
+  public user$ = this.cookieService.get('Token_email');
+  public userName$ = this.cookieService.get('Token_name');
+  public userPhoto$ = this.cookieService.get('Token_photo');
 
   ngOnInit(): void {
   }

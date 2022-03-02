@@ -9,6 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 
+
 const KEY = 'time';
 const DEFAULT = 3600; //7200 son 2 horas
 
@@ -56,6 +57,10 @@ export class CaidalibreComponent implements OnInit {
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
   }
+
+  public user$ = this.cookieService.get('Token_email');
+  public userName$ = this.cookieService.get('Token_name');
+  public userPhoto$ = this.cookieService.get('Token_photo');
   
 
   constructor(private authSvc: AuthService, private router:Router,private readonly cookieService: CookieService) { }

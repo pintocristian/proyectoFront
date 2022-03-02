@@ -2,14 +2,35 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+<mat-toolbar color="primary">
 
+    <button mat-button routerLink="/inicio">
+    <mat-icon>home</mat-icon> 
+    {{userName$}}</button>
+    <img class = "img1" src="{{userPhoto$}}" id="user-photo">
+    <!-- This fills the remaining space of the current row -->
+    <span class="fill-remaining-space"></span>
+    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+        <button mat-button routerLink="/products">Products</button>
+        <button mat-button routerLink="/dashboard">Dashboard</button>
+    </div>
+    <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+     <mat-icon>menu</mat-icon>
+    </button>
+
+</mat-toolbar>
+
+<mat-menu x-position="before" #menu="matMenu">
+    <button mat-menu-item routerLink="/products">Products</button>
+    <button mat-menu-item routerLink="/dashboard">Dashboard</button>
+    <!--<button mat-menu-item>Help</button>-->
+</mat-menu>
 <body>
-    <div class="container-xxl emp-profile container-min container-fluid container-main">
+    <div class="">
         <h1 class="tittle">Practica Caida Libre</h1>
         <div>
             <div class="col-md-12">
                 <div class="container-grabacion">
-                    <h1 class="text-1"> campo para la grabación</h1>
                     <iframe width="1000" height="430" src="https://rtsp.me/embed/e5dRnHFD/" frameborder="0" allowfullscreen></iframe>
                     
                 </div>

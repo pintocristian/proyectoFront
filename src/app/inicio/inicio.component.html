@@ -96,8 +96,8 @@
     <!-- This fills the remaining space of the current row -->
     <span class="fill-remaining-space"></span>
     <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-        <button mat-button routerLink="/products">Products</button>
-        <button mat-button routerLink="/dashboard">Dashboard</button>
+        <button mat-button routerLink="/calendario">Ver Calendario</button>
+        <button mat-button (click)="openDialog()">Vincular Materia</button>
     </div>
     <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
      <mat-icon>menu</mat-icon>
@@ -105,8 +105,8 @@
 
 </mat-toolbar>
 <mat-menu x-position="before" #menu="matMenu">
-    <button mat-menu-item routerLink="/products">Products</button>
-    <button mat-menu-item routerLink="/dashboard">Dashboard</button>
+    <button mat-menu-item routerLink="/calendario">Ver Calendario</button>
+    <button mat-menu-item (click)="openDialog()">Vincular Materia</button>
     <!--<button mat-menu-item>Help</button>-->
 </mat-menu>
 
@@ -116,9 +116,4 @@
         <mat-card-content> Content</mat-card-content>
         <button mat-raised-button class="irPractica" routerLink="/materias">Ir al curso</button>
     </mat-card>
-</div>
-<br>
-<div class="opciones">
-    <button class="opCalendario" mat-raised-button routerLink="/calendario">Ver Calendario</button>
-    <button mat-raised-button (click)="openDialog()">Vincular Materia</button>
 </div>
