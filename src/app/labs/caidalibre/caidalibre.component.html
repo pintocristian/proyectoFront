@@ -10,21 +10,8 @@
     <img class = "img1" src="{{userPhoto$}}" id="user-photo">
     <!-- This fills the remaining space of the current row -->
     <span class="fill-remaining-space"></span>
-    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-        <button mat-button routerLink="/products">Products</button>
-        <button mat-button routerLink="/dashboard">Dashboard</button>
-    </div>
-    <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
-     <mat-icon>menu</mat-icon>
-    </button>
 
 </mat-toolbar>
-
-<mat-menu x-position="before" #menu="matMenu">
-    <button mat-menu-item routerLink="/products">Products</button>
-    <button mat-menu-item routerLink="/dashboard">Dashboard</button>
-    <!--<button mat-menu-item>Help</button>-->
-</mat-menu>
 <body>
     <!------ Modificar según el tiempo la carga de la página ---------->
     <meta http-equiv="refresh" content="1800; url=http://localhost:4200/materias" />

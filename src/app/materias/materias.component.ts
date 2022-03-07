@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { AuthService } from 'src/service/service.service';
 import { CookieService } from 'ngx-cookie-service';
+import { VincularmateriaComponent } from '../vincularmateria/vincularmateria/vincularmateria.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-materias',
@@ -11,7 +13,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class MateriasComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router, private cookieService: CookieService) { }
+  constructor(private authService: AuthService, private router: Router, private cookieService: CookieService, public dialog: MatDialog) { }
 
   public user$ = this.cookieService.get('Token_email');
   public userName$ = this.cookieService.get('Token_name');
@@ -34,5 +36,19 @@ export class MateriasComponent implements OnInit {
       alert('No tienes practicas agendadas en este horario');
   
     }
+  }
+
+  codigo: number;
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(VincularmateriaComponent, {
+      data: { name: this.codigo }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      this.codigo = result;
+    });
   }
 }
