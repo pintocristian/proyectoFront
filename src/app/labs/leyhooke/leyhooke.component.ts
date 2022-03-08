@@ -4,9 +4,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 import { finalize } from 'rxjs';
 import { AuthService } from 'src/service/service.service';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 
 const KEY = 'time';
-const DEFAULT = 7200; //7200 son 2 horas
+const DEFAULT = 3600; //3600 es 1 hora
 
 
 @Component({
@@ -17,7 +18,32 @@ const DEFAULT = 7200; //7200 son 2 horas
 })
 export class LeyhookeComponent implements OnInit {
 
-  view: [number, number] = [614, 400];
+  //Opciones gráficas
+  public scatterChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+  };
+
+  public scatterChartLabels: string[] = [ 'Eating' ];
+
+  public scatterChartData: ChartData<'scatter'> = {
+    labels: this.scatterChartLabels,
+    datasets: [
+      {
+        data: [
+          { x: 1, y: 1 },
+          { x: 2, y: 3 },
+          { x: 3, y: -2 },
+          { x: 4, y: 4 },
+          { x: 5, y: -3 },
+        ],
+        label: 'Gráfica X y Y',
+        pointRadius: 5,
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      },
+    ]
+  };
+  public scatterChartType: ChartType = 'scatter';
 
   public listadoOpElongacion: any = [1,2,3,4,5,6];
   public listadoOpFuerza: any = [1,2,3,4,5,6];
@@ -27,37 +53,8 @@ export class LeyhookeComponent implements OnInit {
 
   private COD_LAB: number = 2;
 
-  // opciones de la gráfica
-  showXAxis: boolean = true;
-  showYAxis: boolean = true;
-  gradient: boolean = true;
-  showLegend: boolean = true;
-  showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Country';
-  showYAxisLabel: boolean = true;
-  yAxisLabel: string = 'Population';
-  legendTitle: string = 'Years';
-
-  colorScheme = [
-    { name: "verde", value: '#5AA454' },
-    { name: "amarillo", value: '#C7B42C' }//,
-    //{ name: "gris", value: '#AAAAAA' }
-  ]
-
   constructor(private authSvc: AuthService, private router:Router,private readonly cookieService: CookieService) {
     //Object.assign(this, { multi })
-  }
-
- onSelect(data: any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
-
-  onActivate(data: any): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data: any): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
 
@@ -84,6 +81,15 @@ export class LeyhookeComponent implements OnInit {
       // Save current value
       localStorage.setItem(KEY, `${ev.left / 1000}`);
     }
+  }
+
+  //Eventos gráficas
+  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
+
+  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
   }
 
   descargar() {

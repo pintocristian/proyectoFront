@@ -30,7 +30,7 @@ export class CaidalibreComponent implements OnInit {
   public scatterChartOptions: ChartConfiguration['options'] = {
     responsive: true,
   };
-  public scatterChartLabels: string[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
+  public scatterChartLabels: string[] = ['Eating'/*, 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'*/];
 
   public scatterChartData: ChartData<'scatter'> = {
     labels: this.scatterChartLabels,
@@ -43,9 +43,11 @@ export class CaidalibreComponent implements OnInit {
           { x: 4, y: 4 },
           { x: 5, y: -2 },
         ],
-        label: 'Series A',
-        pointRadius: 10,
-      },
+        label: 'Gráfica X y Y',
+        pointRadius: 5,
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      }, 
     ]
   };
   public scatterChartType: ChartType = 'scatter';

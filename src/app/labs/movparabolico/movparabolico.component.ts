@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbDatepickerKeyboardService } from '@ng-bootstrap/ng-bootstrap';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { child, get } from 'firebase/database';
 import { CookieService } from 'ngx-cookie-service';
 import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 import { finalize } from 'rxjs';
+import { ServiceRealTimeService } from 'src/app/service/service-real-time.service';
 import { AuthService } from 'src/service/service.service';
 
+
 const KEY = 'time';
-const DEFAULT = 1800; //3600 es 1 hora
+const DEFAULT = 3600; //3600 es 1 hora
 
 @Component({
   selector: 'app-movparabolico',
@@ -16,16 +20,13 @@ const DEFAULT = 1800; //3600 es 1 hora
 })
 export class MovparabolicoComponent implements OnInit {
 
-  rol: String = "";
-  rol$ = this.rol;
-  bandera$: Boolean;
 
-  private COD_LAB: number = 3;
 
+  //Gráficas
   public scatterChartOptions: ChartConfiguration['options'] = {
     responsive: true,
   };
-  public scatterChartLabels: string[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
+  public scatterChartLabels: string[] = [ 'Eating' ];
 
   public scatterChartData: ChartData<'scatter'> = {
     labels: this.scatterChartLabels,
@@ -36,16 +37,37 @@ export class MovparabolicoComponent implements OnInit {
           { x: 2, y: 3 },
           { x: 3, y: -2 },
           { x: 4, y: 4 },
-          { x: 5, y: -2 },
+          { x: 5, y: -3 },
         ],
-        label: 'Series A',
-        pointRadius: 10,
+        label: 'Gráfica X y Y',
+        pointRadius: 5,
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      },
+      {
+        data: [
+          { x: 2, y: 2 },
+          { x: 6, y: 3 },
+          { x: 2, y: -3 },
+          { x: 9, y: 8 },
+          { x: 15, y: -5 },
+        ],
+        label: 'Gráfica Y vs H',
+        pointRadius: 5,
+        borderColor: 'rgba(51, 91, 255, 1)',
+        backgroundColor: 'rgba(51, 91, 255, 0.2)',
       },
     ]
   };
   public scatterChartType: ChartType = 'scatter';
 
-  // events
+  rol: String = "";
+  rol$ = this.rol;
+  bandera$: Boolean;
+
+  private COD_LAB: number = 3;
+
+  //Eventos gráficas
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
   }
@@ -63,8 +85,21 @@ export class MovparabolicoComponent implements OnInit {
   public listadoOpVelocidad: any = [];
 
 
-  constructor(private authSvc: AuthService, private router: Router, private readonly cookieService: CookieService) { }
+  constructor(private authSvc: AuthService, private router: Router, private readonly cookieService: CookieService, private dbService: ServiceRealTimeService) {
+    const db = dbService.getDatabase()
 
+    get(child(db.ref, 'guias')). then((res)=>{
+      if (res.exists()) {
+        console.log(res.val());
+       } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+   }
+
+  
   //public user$: Observable<any> = this.authSvc.afAuth.user;
   ngOnInit(): void {
     this.authSvc.obtenerOpcionesMP_Angulo(this.COD_LAB).subscribe(respuesta => { this.listadoOpAngulo = respuesta });
