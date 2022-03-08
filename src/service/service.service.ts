@@ -131,13 +131,13 @@ export class AuthService {
     return this.httpClient.get(`${this.API_BASE_LAB}/`+ this.cookie.get('Token_email') + `/` + `saberCodigoGrupo`,{responseType:'text'});
   }
 
-  verificarAgendamientoGrupo(codigo:any) : Observable<Boolean>{
+  verificarAgendamientoGrupo(codigo:any,codigo_planta:number) : Observable<Boolean>{
     console.log("Entro a verificarAgendamiento");
-    return this.httpClient.get<Boolean>(`${this.API_BASE_PRACTICA}/`+ codigo + `/` + `verificarAgendamiento`);
+    return this.httpClient.get<Boolean>(`${this.API_BASE_PRACTICA}/`+ codigo + `/`+ codigo_planta + `/` + `verificarAgendamiento`);
   }
   verificarGrupoCompleto(codigo:any){
     console.log("Entro a verificargrupos");
-    return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo + `/` + `buscarCompletitudEstudiantes`);
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo + `/`  +`buscarCompletitudEstudiantes`);
   }
  
   finalizarPractica(codigo_grupo:any){
