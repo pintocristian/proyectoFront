@@ -3,8 +3,16 @@
 <link href="https://unpkg.com/angular-calendar@0.29.0/css/angular-calendar.css" rel="stylesheet">
 <link href="https://unpkg.com/flatpickr@4.6.9/dist/flatpickr.css" rel="stylesheet">
 
+<mat-toolbar color="primary">
 
+  <button mat-button routerLink="/inicio">
+  <mat-icon>home</mat-icon> 
+  {{userName$}}</button>
+  <img class = "img1" src="{{userPhoto$}}" id="user-photo">
+  <!-- This fills the remaining space of the current row -->
+  <span class="fill-remaining-space"></span>
 
+</mat-toolbar>
 <mat-tab-group mat-align-tabs="center">
   <mat-tab label="Laboratorio Caida Libre">
     <app-calendarCaidaLibre>Loading...</app-calendarCaidaLibre>
