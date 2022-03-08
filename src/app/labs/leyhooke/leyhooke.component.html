@@ -1,65 +1,85 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link rel="stylesheet" media="only screen and (max-width: 768px)" href="leyhooke.component.scss">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+<mat-toolbar color="primary">
 
+    <button mat-button routerLink="/inicio">
+    <mat-icon>home</mat-icon> 
+    {{userName$}}</button>
+    <img class = "img1" src="{{userPhoto$}}" id="user-photo">
+    <!-- This fills the remaining space of the current row -->
+    <span class="fill-remaining-space"></span>
+
+</mat-toolbar>
 <body>
+    <!------ Modificar según el tiempo la carga de la página ---------->
+    <meta http-equiv="refresh" content="1800; url=http://localhost:4200/materias" />
     <div class="container-xxl emp-profile container-min container-fluid container-main">
-        <h1 class="tittle">Practica Ley de Hooke</h1>
-        <div class="row">
-            <div>
+        <h1 class="tittle">Practica Ley Hooke</h1>
+        <div>
+            <div class="col-md-12">
                 <div class="container-grabacion">
-                    <h1 class="text-1"> campo para la grabación</h1>
+                    <!-- <iframe  src="https://rtsp.me/embed/e5dRnHFD/" frameborder="0" allowfullscreen></iframe>-->
+                    <iframe class="grabacion" src="http://186.146.176.79:8555/ISAPI/Streaming/channels/102/httpPreview" frameborder="0" allowfullscreen></iframe>
                 </div>
+
                 <div class="grafica">
                     <h1 class="text-1">campo para la grafica</h1>
-                    <ngx-charts-bar-vertical-2d
-                        [view]="view"
-                        [customColors]="colorScheme"
-                        [results]="multi"
-                        [gradient]="gradient"
-                        [xAxis]="showXAxis"
-                        [yAxis]="showYAxis"
-                        [legend]="showLegend"
-                        [showXAxisLabel]="showXAxisLabel"
-                        [showYAxisLabel]="showYAxisLabel"
-                        [xAxisLabel]="xAxisLabel"
-                        [yAxisLabel]="yAxisLabel"
-                        [legendTitle]="legendTitle"
-                        (select)="onSelect($event)"
-                        (activate)="onActivate($event)"
-                        (deactivate)="onDeactivate($event)">
-                    </ngx-charts-bar-vertical-2d>
+                    <div style="display: block">
+                        <!--
+                            
+                        <canvas baseChart
+                          [data]="scatterChartData"
+                          [options]="scatterChartOptions"
+                          [type]="scatterChartType">
+                        </canvas>
+                        
+                        -->
+                    </div>
                 </div>
+
             </div>
             <div class="col">
                 <div class=" row container-practica">
                     <h1 class="text">Datos de la practica</h1>
-
+                    
                     <countdown class="text" [config]="config" (event)="handleEvent($event)"></countdown>
-                    <div class="datos-practica">      
-                        <select name="OS" class="desplegable">
-                            <option value="1">Alturas</option> 
-                            <option value="2">Tiempo 15</option> 
-                            <option value="3">Tiempo 30</option>
-                            <option value="10">Tiempo 45</option> 
-                            <option value="11">Tiempo 60</option> 
-                         </select>
-                        <button class="btn btn-primary button">Enviar datos</button>
-                        <button class="btn btn-primary button-1">Descargar PDF</button>
-                        <button class="btn btn-primary button-2">Iniciar</button>
-                        <button class="btn btn-primary button-3">Reiniciar</button>
-                        <button class="btn btn-danger button-4">Terminar practica</button>
-
+                    <div class="datos-practica" *ngIf="rol$ == 'Lider'">
+                        <div *ngIf="bandera$; else sino">
+                            <label>Fuerza</label>
+                            <select name="OS" class="desplegable" >
+                                <option *ngFor="let lista of listadoOpFuerza" value="Fuerza">{{lista}}</option>
+                            </select>
+                            <label>Elongación</label>
+                            <select name="OS" class="desplegable" >
+                                <option *ngFor="let lista of listadoOpElongacion" value="Elongacion">{{lista}}</option>
+                            </select>
+                            <button class="btn btn-primary button">Enviar datos</button>
+                            <button class="btn btn-primary button-1" (click)="descargar()">Descargar PDF</button>
+                            <button class="btn btn-primary button-2" >Iniciar</button>
+                            <button class="btn btn-primary button-3" >Reiniciar</button>
+                            <button class="btn btn-danger button-4" (click)="finalizar_practica()">Terminar practica</button>
+                            <button class="btn btn-danger button-9" mat-raised-button routerLink="/inicio" >Regresar</button>
+                        </div>
+                        <ng-template #sino>
+                            <button class="btn btn-warning button-6" (click)="verificar()">Check</button>
+                            <button class="btn btn-danger button-9" mat-raised-button routerLink="/inicio" >Regresar</button>
+                        </ng-template>
                     </div>
 
+                    <div class="datos-practica" *ngIf="rol$ == 'Observador'">
+                        <button class="btn btn-primary button-7" (click)="descargar()">Descargar PDF</button>
+                        <button class="btn btn-danger button-8" mat-raised-button routerLink="/inicio">Regresar</button>
+
+                    </div>
+                    
                 </div>
-                <div class="container-espacio">
+                <div class="container-datos-practica">
                     <h1 class="text-1">Datos</h1>
                 </div>
             </div>
         </div>
-
     </div>
+    
 </body>

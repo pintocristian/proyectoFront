@@ -4,12 +4,14 @@ import { Observable } from 'rxjs';
 import { Roles } from 'src/app/interfaces/user';
 import { AuthService } from 'src/service/service.service';
 import { resourceLimits } from 'worker_threads';
-import {finalize} from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+
 
 const KEY = 'time';
-const DEFAULT = 7200; //7200 son 2 horas
+const DEFAULT = 1800; //3600 es 1 hora
 
 @Component({
   selector: 'app-caidalibre',
@@ -19,91 +21,57 @@ const DEFAULT = 7200; //7200 son 2 horas
 })
 export class CaidalibreComponent implements OnInit {
 
-  view: [number, number] = [614, 400];
-
-  rol : String = "";
+  rol: String = "";
   rol$ = this.rol;
-  //bandera : Boolean = false;
-  bandera$ : Boolean; 
+  bandera$: Boolean;
 
-  // opciones de la gráfica
-  showXAxis: boolean = true;
-  showYAxis: boolean = true;
-  gradient: boolean = true;
-  showLegend: boolean = true;
-  showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Country';
-  showYAxisLabel: boolean = true;
-  yAxisLabel: string = 'Population';
-  legendTitle: string = 'Years';
+  private COD_LAB: number = 1;
 
-  colorScheme = [
-    { name: "verde", value: '#5AA454' },
-    { name: "amarillo", value: '#C7B42C' }//,
-    //{ name: "gris", value: '#AAAAAA' }
-  ]
+  public scatterChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+  };
+  public scatterChartLabels: string[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
 
-  //JSON de la prueba
-  multi = [
-    {
-      "name": "Germany",
-      "series": [
-        {
-          "name": "2010",
-          "value": 7300000
-        },
-        {
-          "name": "2011",
-          "value": 8940000
-        }
-      ]
-    },
-  
-    {
-      "name": "USA",
-      "series": [
-        {
-          "name": "2010",
-          "value": 7870000
-        },
-        {
-          "name": "2011",
-          "value": 8270000
-        }
-      ]
-    },
-  
-    {
-      "name": "France",
-      "series": [
-        {
-          "name": "2010",
-          "value": 5000002
-        },
-        {
-          "name": "2011",
-          "value": 5800000
-        }
-      ]
-    }
-  ];
+  public scatterChartData: ChartData<'scatter'> = {
+    labels: this.scatterChartLabels,
+    datasets: [
+      {
+        data: [
+          { x: 1, y: 1 },
+          { x: 2, y: 3 },
+          { x: 3, y: -2 },
+          { x: 4, y: 4 },
+          { x: 5, y: -2 },
+        ],
+        label: 'Series A',
+        pointRadius: 10,
+      },
+    ]
+  };
+  public scatterChartType: ChartType = 'scatter';
 
-  onSelect(data: any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+  // events
+  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
   }
 
-  onActivate(data: any): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
+  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
   }
 
-  onDeactivate(data: any): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  }
+  public user$ = this.cookieService.get('Token_email');
+  public userName$ = this.cookieService.get('Token_name');
+  public userPhoto$ = this.cookieService.get('Token_photo');
 
-  constructor(private authSvc: AuthService, private router:Router,private readonly cookieService: CookieService) { }
+
+  public listadoOpciones: any = [1, 2, 3, 4, 5, 6];
+
+
+  constructor(private authSvc: AuthService, private router: Router, private readonly cookieService: CookieService) { }
 
   //public user$: Observable<any> = this.authSvc.afAuth.user;
   ngOnInit(): void {
+    this.authSvc.obtenerOpcionesCL(this.COD_LAB).subscribe(respuesta => { this.listadoOpciones = respuesta });
     this.authSvc.saberRol().subscribe(respuesta => {
       this.rol$ = respuesta
     });
@@ -112,7 +80,7 @@ export class CaidalibreComponent implements OnInit {
     } else {
       this.router.navigate(['/home'])
     }
-
+    //Cuenta regresiva
     let value = +localStorage.getItem(KEY)!! ?? DEFAULT;
     if (value <= 0) value = DEFAULT;
     this.config = { ...this.config, leftTime: value };
@@ -125,75 +93,34 @@ export class CaidalibreComponent implements OnInit {
     }
   }
 
-  finalizar_practica(){
+  finalizar_practica() {
     this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
-      this.authSvc.finalizarPractica(respuesta).subscribe((result:any)=>{result})
+      this.authSvc.finalizarPractica(respuesta).subscribe((result: any) => { result })
       this.router.navigate(['/materias'])
-  });
-}
+    });
+  }
 
-  prueba(){
-    if(this.bandera$ == false){
+  prueba() {
+    if (this.bandera$ == false) {
       return false;
-    }else{
+    } else {
       return true;
     }
   }
 
-  verificar(){
+  verificar() {
     this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
-      this.authSvc.verificarGrupoCompleto(respuesta).pipe(finalize(() => this.prueba())).subscribe((result:any)=>{this.bandera$=result})
+      this.authSvc.verificarGrupoCompleto(respuesta).pipe(finalize(() => this.prueba())).subscribe((result: any) => { this.bandera$ = result })
     });
     //window.location.reload();
   }
 
-  /*public eslider (): boolean{
-    if(this.rol.indexOf('Lider') ){
-      return false;
-    }
-    return true;
-    
-  }
-
-  public esespectador(): boolean {
-    if(this.rol.indexOf('Observador')){
-      return false;
-    }
-    return true;
-  }
-
-  public liderpreparado(): boolean {
-    if(this.variableespectadores.indexOf('preparado')){
-      return false;
-    }
-    return true;
-  }
-
-  public lidernopreparado(): boolean {
-    if(this.liderpreparado() == true){
-      return false;
-    }
-    return true;
-  }*/
-
-
-
-
-
-
   descargar() {
-    //this.authSvc.descargar();
-  }
-
-  async Ontraerol() {
-    try {
-      await this.authSvc.traerrol();
-
-    } catch (error) {
-      console.log(error);
-    }
+    this.authSvc.descargar();
   }
 
   config: CountdownConfig = { leftTime: DEFAULT, notify: 0 };
+
+
 
 }

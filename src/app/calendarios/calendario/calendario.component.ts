@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { CookieService } from 'ngx-cookie-service';
+import { VincularmateriaComponent } from 'src/app/vincularmateria/vincularmateria/vincularmateria.component';
+
 
 @Component({
   selector: 'app-calendario',
@@ -7,9 +11,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalendarioComponent implements OnInit {
 
-  constructor() { }
+  constructor(private cookieService: CookieService, public dialog: MatDialog) { }
+
+  public user$ = this.cookieService.get('Token_email');
+  public userName$ = this.cookieService.get('Token_name');
+  public userPhoto$ = this.cookieService.get('Token_photo');
 
   ngOnInit(): void {
+  }
+  codigo: number;
+  openDialog(): void {
+    const dialogRef = this.dialog.open(VincularmateriaComponent, {
+      data: { name: this.codigo }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      this.codigo = result;
+    });
   }
 
 }

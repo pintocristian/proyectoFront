@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { authInstanceFactory } from '@angular/fire/auth/auth.module';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
@@ -15,10 +15,9 @@ import { VincularmateriaComponent } from '../vincularmateria/vincularmateria/vin
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.scss']
+  styleUrls: ['./inicio.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
-
-
 
 export class InicioComponent implements OnInit {
   rol$: string;
@@ -26,8 +25,19 @@ export class InicioComponent implements OnInit {
   constructor(public authService: AuthService, private router: Router, private cookieService: CookieService, private httpClient: HttpClient, private auth: Auth, public dialog: MatDialog) { }
   public user$ = this.cookieService.get('Token_email');
   public userName$ = this.cookieService.get('Token_name');
+  public userPhoto$ = this.cookieService.get('Token_photo');
   public listado : any = [];
 
+  
+
+  openDrawerMenu(){
+    var x = document.getElementById("opciones")!;
+    if (x.className === "opciones"){
+      x.className += " responsive";
+    } else {
+      x.className = "opciones";
+    }
+  }
 
 
   
@@ -49,6 +59,7 @@ export class InicioComponent implements OnInit {
       this.cookieService.delete('Token_access', '')
       this.cookieService.delete('Token_email', '')
       this.cookieService.delete('Token_name', '')
+      this.cookieService.delete('Token_photo', '')
       this.router.navigate(['/login']);
     } catch (error) {
       console.log(error);

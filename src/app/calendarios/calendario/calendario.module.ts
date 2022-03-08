@@ -21,6 +21,11 @@ import { MatButtonModule } from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CalendarLeyHookeComponent } from '../calendarLeyHooke/calendarLeyHooke.component';
 import { CalendarMovParabolicoComponent } from '../calendarMovParabolico/calendarMovParabolico.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 @NgModule({
@@ -29,7 +34,7 @@ import { CalendarMovParabolicoComponent } from '../calendarMovParabolico/calenda
     MyCalendarComponent,
     CalendarCaidaLibreComponent,
     CalendarLeyHookeComponent,
-    CalendarMovParabolicoComponent
+    CalendarMovParabolicoComponent,
     
   ],
   imports: [
@@ -46,7 +51,16 @@ import { CalendarMovParabolicoComponent } from '../calendarMovParabolico/calenda
     MatButtonModule,
     MatFormFieldModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatCardModule,
+    MatDialogModule,
+    MatButtonModule,
+    DemoUtilsModule,
+    MatMenuModule,
+    MatToolbarModule,
+    FlexLayoutModule,
+    MatIconModule
   ]
 })
 export class CalendarioModule { }
