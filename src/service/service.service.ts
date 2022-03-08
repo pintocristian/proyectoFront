@@ -87,15 +87,10 @@ export class AuthService {
   }
 
 
-  /*descargar() {
+  descargar() {
     console.log('Descargó')
-    //return this.httpClient.get(`${this.API_BASE}/pdf`).subscribe(result => this.data = result);
+    return this.httpClient.get(`${this.API_BASE}/pdf`).subscribe(result => this.data = result);
 
-  }*/
-
-  traerrol() {
-    console.log('rol');
-    //return this.httpClient.get(`${this.API_BASE}/rol`).subscribe(result => this.data = result);
   }
 
  
@@ -147,4 +142,24 @@ export class AuthService {
     return this.httpClient.delete(`${this.API_BASE_LAB}/`+ codigo_grupo + `/` + `finalizarPractica`);
   }
 
+  obtenerOpcionesCL(codigo_planta:number){
+    console.log("Entro a obtener opciones practica caida libre");
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo_planta + `/`  +`listar_Altura_CL`);
+  }
+  obtenerOpcionesLH_Elongacion(codigo_planta:number){
+    console.log("Entro a obtener opciones practica caida libre");
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo_planta + `/`  +`listar_Elongacion_LH`);
+  }
+  obtenerOpcionesLH_Fuerza(codigo_planta:number){
+    console.log("Entro a obtener opciones practica caida libre");
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo_planta + `/`  +`listar_Fuerza_LH`);
+  }
+  obtenerOpcionesMP_Angulo(codigo_planta:number){
+    console.log("Entro a obtener opciones practica caida libre");
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo_planta + `/`  +`listar_Angulo_MP`);
+  }
+  obtenerOpcionesMP_Velocidad(codigo_planta:number){
+    console.log("Entro a obtener opciones practica caida libre");
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo_planta + `/`  +`listar_Velocidad_MP`);
+  }
 }

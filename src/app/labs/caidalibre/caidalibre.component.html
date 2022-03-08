@@ -43,12 +43,9 @@
                     <countdown class="text" [config]="config" (event)="handleEvent($event)"></countdown>
                     <div class="datos-practica" *ngIf="rol$ == 'Lider'">
                         <div *ngIf="bandera$; else sino">
-                            <select name="OS" class="desplegable">
-                                <option value="1">Altura</option>
-                                <option value="2">Tiempo 15</option>
-                                <option value="3">Tiempo 30</option>
-                                <option value="10">Tiempo 45</option>
-                                <option value="11">Tiempo 60</option>
+                            <label>Altura</label>
+                            <select name="OS" class="desplegable" >
+                                <option *ngFor="let lista of listadoOpciones" >{{lista}}</option>
                             </select>
                             <button class="btn btn-primary button">Enviar datos</button>
                             <button class="btn btn-primary button-1" (click)="descargar()">Descargar PDF</button>
@@ -64,13 +61,6 @@
                     </div>
 
                     <div class="datos-practica" *ngIf="rol$ == 'Observador'">
-                        <select name="OS" class="desplegable">
-                            <option value="1">Altura</option>
-                            <option value="2">Tiempo 15</option>
-                            <option value="3">Tiempo 30</option>
-                            <option value="10">Tiempo 45</option>
-                            <option value="11">Tiempo 60</option>
-                        </select>
                         <button class="btn btn-primary button-7" (click)="descargar()">Descargar PDF</button>
                         <button class="btn btn-danger button-8" mat-raised-button routerLink="/inicio">Regresar</button>
 

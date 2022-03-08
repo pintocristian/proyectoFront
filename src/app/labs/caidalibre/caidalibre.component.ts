@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Roles } from 'src/app/interfaces/user';
 import { AuthService } from 'src/service/service.service';
 import { resourceLimits } from 'worker_threads';
-import {finalize} from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
@@ -21,15 +21,16 @@ const DEFAULT = 1800; //3600 es 1 hora
 })
 export class CaidalibreComponent implements OnInit {
 
-  rol : String = "";
+  rol: String = "";
   rol$ = this.rol;
-  //bandera : Boolean = false;
-  bandera$ : Boolean; 
+  bandera$: Boolean;
+
+  private COD_LAB: number = 1;
 
   public scatterChartOptions: ChartConfiguration['options'] = {
     responsive: true,
   };
-  public scatterChartLabels: string[] = [ 'Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running' ];
+  public scatterChartLabels: string[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
 
   public scatterChartData: ChartData<'scatter'> = {
     labels: this.scatterChartLabels,
@@ -61,12 +62,16 @@ export class CaidalibreComponent implements OnInit {
   public user$ = this.cookieService.get('Token_email');
   public userName$ = this.cookieService.get('Token_name');
   public userPhoto$ = this.cookieService.get('Token_photo');
-  
 
-  constructor(private authSvc: AuthService, private router:Router,private readonly cookieService: CookieService) { }
+
+  public listadoOpciones: any = [1, 2, 3, 4, 5, 6];
+
+
+  constructor(private authSvc: AuthService, private router: Router, private readonly cookieService: CookieService) { }
 
   //public user$: Observable<any> = this.authSvc.afAuth.user;
   ngOnInit(): void {
+    this.authSvc.obtenerOpcionesCL(this.COD_LAB).subscribe(respuesta => { this.listadoOpciones = respuesta });
     this.authSvc.saberRol().subscribe(respuesta => {
       this.rol$ = respuesta
     });
@@ -88,77 +93,34 @@ export class CaidalibreComponent implements OnInit {
     }
   }
 
-  finalizar_practica(){
+  finalizar_practica() {
     this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
-      this.authSvc.finalizarPractica(respuesta).subscribe((result:any)=>{result})
+      this.authSvc.finalizarPractica(respuesta).subscribe((result: any) => { result })
       this.router.navigate(['/materias'])
-  });
-}
+    });
+  }
 
-  prueba(){
-    if(this.bandera$ == false){
+  prueba() {
+    if (this.bandera$ == false) {
       return false;
-    }else{
+    } else {
       return true;
     }
   }
 
-  verificar(){
+  verificar() {
     this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
-      this.authSvc.verificarGrupoCompleto(respuesta).pipe(finalize(() => this.prueba())).subscribe((result:any)=>{this.bandera$=result})
+      this.authSvc.verificarGrupoCompleto(respuesta).pipe(finalize(() => this.prueba())).subscribe((result: any) => { this.bandera$ = result })
     });
     //window.location.reload();
   }
 
-  /*public eslider (): boolean{
-    if(this.rol.indexOf('Lider') ){
-      return false;
-    }
-    return true;
-    
-  }
-
-  public esespectador(): boolean {
-    if(this.rol.indexOf('Observador')){
-      return false;
-    }
-    return true;
-  }
-
-  public liderpreparado(): boolean {
-    if(this.variableespectadores.indexOf('preparado')){
-      return false;
-    }
-    return true;
-  }
-
-  public lidernopreparado(): boolean {
-    if(this.liderpreparado() == true){
-      return false;
-    }
-    return true;
-  }*/
-
-
-
-
-
-
   descargar() {
-    //this.authSvc.descargar();
-  }
-
-  async Ontraerol() {
-    try {
-      await this.authSvc.traerrol();
-
-    } catch (error) {
-      console.log(error);
-    }
+    this.authSvc.descargar();
   }
 
   config: CountdownConfig = { leftTime: DEFAULT, notify: 0 };
 
-  
+
 
 }
