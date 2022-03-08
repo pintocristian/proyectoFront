@@ -12,4 +12,12 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openDrawerMenu(){
+    var x = document.getElementById("mainNavBar")!;
+    if (x.className === "navBar"){
+      x.className += " responsive";
+    } else {
+      x.className = "navBar";
+    }
+  }
 }

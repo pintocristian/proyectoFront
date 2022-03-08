@@ -37,7 +37,9 @@ export class AuthService {
 
   constructor(private auth: Auth, private httpClient: HttpClient, private cookie: CookieService) { }
 
-
+  public obtenerUser(){
+    return this.auth.currentUser!;
+  }
   async loginWithGoogle() {
     try {
       var correo = signInWithPopup(this.auth, new GoogleAuthProvider());
