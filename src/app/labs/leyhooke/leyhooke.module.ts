@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgChartsModule } from 'ng2-charts';
+import { NavbarModule } from 'src/app/components/navbar/navbar.module';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { NgChartsModule } from 'ng2-charts';
     MatMenuModule,
     MatToolbarModule,
     FlexLayoutModule,
-    MatIconModule
+    MatIconModule,
+    NavbarModule
   ]
 })
 export class LeyhookeModule { }

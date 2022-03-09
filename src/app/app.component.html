@@ -1,4 +1,12 @@
 <!--
 
-<app-navbar></app-navbar>-->
+
+<div *ngIf="user$==null else desplegarNavBar">
+    
+</div>
+
+<ng-template #desplegarNavBar>
+    <app-navbar></app-navbar>
+</ng-template>-->
+
 <router-outlet></router-outlet>

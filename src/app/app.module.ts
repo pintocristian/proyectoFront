@@ -32,12 +32,13 @@ import { IntegrantesPracticaComponent } from './calendarios/integrantesPractica/
 import { VincularmateriaComponent } from './vincularmateria/vincularmateria/vincularmateria.component';
 
 import {FlexLayoutModule} from "@angular/flex-layout";
-
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
+    //NavbarComponent,
     LoginFormComponent,
     IntegrantesPracticaComponent,
     VincularmateriaComponent,
@@ -64,7 +65,9 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     MatFormFieldModule,
     NgbModule,
     [HttpClientModule,  ],
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatToolbarModule,
+    MatMenuModule
   ],
   providers: [
     ScreenTrackingService,UserTrackingService,[CookieService]

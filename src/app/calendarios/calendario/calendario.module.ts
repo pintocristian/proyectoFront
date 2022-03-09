@@ -26,6 +26,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { NavbarModule } from 'src/app/components/navbar/navbar.module';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatMenuModule,
     MatToolbarModule,
     FlexLayoutModule,
-    MatIconModule
+    MatIconModule,
+    NavbarModule
   ]
 })
 export class CalendarioModule { }

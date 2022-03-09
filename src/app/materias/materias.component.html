@@ -2,19 +2,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<mat-toolbar color="primary">
+<app-navbar></app-navbar>
 
-    <button mat-button routerLink="/inicio">
-    <mat-icon>home</mat-icon> 
-    {{userName$}}</button>
-    <img class = "img1" src="{{userPhoto$}}" id="user-photo">
-    <!-- This fills the remaining space of the current row -->
-    <span class="fill-remaining-space"></span>
-    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-        <button mat-button routerLink="/calendario">Ver Calendario</button>
-    </div>
-
-</mat-toolbar>
 <body>
     <div class="content">
         <mat-card class="primera-card">

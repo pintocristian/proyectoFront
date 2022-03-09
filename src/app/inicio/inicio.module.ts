@@ -13,11 +13,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatIconModule} from '@angular/material/icon';
+import { NavbarComponent } from '../components/navbar/navbar.component';
+import { NavbarModule } from '../components/navbar/navbar.module';
 
 
 @NgModule({
   declarations: [
     InicioComponent,
+    //NavbarComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +33,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatMenuModule,
     MatToolbarModule,
     FlexLayoutModule,
-    MatIconModule
+    MatIconModule,
+    NavbarModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })

@@ -13,7 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgChartsModule } from 'ng2-charts';
 import { CountdownModule } from 'ngx-countdown';
-
+import { NavbarModule } from 'src/app/components/navbar/navbar.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import { CountdownModule } from 'ngx-countdown';
     MatMenuModule,
     MatToolbarModule,
     FlexLayoutModule,
-    MatIconModule
+    MatIconModule,
+    NavbarModule
   ]
 })
 export class MovparabolicoModule { }

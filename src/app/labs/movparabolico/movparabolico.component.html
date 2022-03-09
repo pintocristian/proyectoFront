@@ -2,16 +2,9 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-<mat-toolbar color="primary">
 
-    <button mat-button routerLink="/inicio">
-    <mat-icon>home</mat-icon> 
-    {{userName$}}</button>
-    <img class = "img1" src="{{userPhoto$}}" id="user-photo">
-    <!-- This fills the remaining space of the current row -->
-    <span class="fill-remaining-space"></span>
+<app-navbar></app-navbar>
 
-</mat-toolbar>
 <body>
     <!------ Modificar según el tiempo la carga de la página ---------->
     <meta http-equiv="refresh" content="1800; url=http://localhost:4200/materias" />
