@@ -162,4 +162,9 @@ export class AuthService {
     console.log("Entro a obtener opciones practica caida libre");
     return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo_planta + `/`  +`listar_Velocidad_MP`);
   }
+
+  Iniciopractica(){
+    console.log("Entro a obtener opciones practica caida libre");
+    return this.httpClient.get<Boolean>(`${this.API_BASE_LAB}/` +`iniciarProceso`);
+  }
 }

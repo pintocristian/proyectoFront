@@ -8,6 +8,7 @@ import { finalize } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { Console } from 'console';
 
 
 const KEY = 'time';
@@ -23,6 +24,7 @@ export class CaidalibreComponent implements OnInit {
 
   rol: String = "";
   rol$ = this.rol;
+  bandera: Boolean;
   bandera$: Boolean;
 
   private COD_LAB: number = 1;
@@ -61,6 +63,8 @@ export class CaidalibreComponent implements OnInit {
     console.log(event, active);
   }
 
+
+
   public user$ = this.cookieService.get('Token_email');
   public userName$ = this.cookieService.get('Token_name');
   public userPhoto$ = this.cookieService.get('Token_photo');
@@ -87,6 +91,17 @@ export class CaidalibreComponent implements OnInit {
     if (value <= 0) value = DEFAULT;
     this.config = { ...this.config, leftTime: value };
   }
+
+  public inicio (){
+    this.authSvc.Iniciopractica().subscribe((result: any) => {this.bandera=result 
+    if(this.bandera == false){
+      console.log('Entro false')
+    }else{
+      console.log('Entro true');
+    }});
+
+    }
+    
 
   handleEvent(ev: CountdownEvent) {
     if (ev.action === 'notify') {
