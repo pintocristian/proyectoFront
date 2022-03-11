@@ -1,5 +1,3 @@
-
-
 .nav_logo {
     content: url(https://israteneda.com/fisicamru/img/logo.png);
     object-fit: contain;
@@ -44,7 +42,10 @@
 h1 {
     color: white;
 }
-
+.boton_agregar {
+    float: right;
+    color: white;
+}
 
 .background {
     font-family: "Source Sans 3", sans-serif !important;
@@ -63,7 +64,6 @@ h1 {
     align-items: center;
 }
 
-
 .opCalendario {
     margin-right: 50px;
 }
@@ -77,14 +77,14 @@ h1 {
     background-color: #e4e6f6;
 }
 
-.opciones a{
+.opciones a {
     float: left;
     color: white;
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
     font-family: Tahoma;
-    clear:both;
+    clear: both;
 }
 .opciones a:hover {
     background-color: white;
@@ -97,5 +97,16 @@ h1 {
 .fill-remaining-space {
     /*This fills the remaining space, by using flexbox.  
    Every toolbar row uses a flexbox row layout. */
-   flex: 1 1 auto;
- }
+    flex: 1 1 auto;
+}
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #32408f;
+    text-align: center;
+    color: #f4f4f4;
+    padding-top: 10px;
+}

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 
 import { CalendarioRoutingModule } from './calendario-routing.module';
 import { CalendarioComponent } from './calendario.component';
@@ -8,7 +8,6 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import {MatTabsModule} from '@angular/material/tabs';
-import { MyCalendarComponent } from '../myCalendar/myCalendar.component';
 import { DemoUtilsModule } from '../utils/module';
 import { CalendarCaidaLibreComponent } from '../calendarCaidaLibre/calendarCaidaLibre.component';
 
@@ -29,10 +28,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NavbarModule } from 'src/app/components/navbar/navbar.module';
 
 
+import localeEs from '@angular/common/locales/es';
+
+
+registerLocaleData(localeEs, 'es');
+
 @NgModule({
   declarations: [
     CalendarioComponent,
-    MyCalendarComponent,
     CalendarCaidaLibreComponent,
     CalendarLeyHookeComponent,
     CalendarMovParabolicoComponent,
