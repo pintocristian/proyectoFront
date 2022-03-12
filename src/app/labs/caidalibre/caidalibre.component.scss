@@ -37,8 +37,8 @@ body {
 .fill-remaining-space {
     /*This fills the remaining space, by using flexbox.  
    Every toolbar row uses a flexbox row layout. */
-   flex: 1 1 auto;
- }
+    flex: 1 1 auto;
+}
 .container-min {
     min-height: 700px;
 }
@@ -211,22 +211,28 @@ body {
 }
 
 .button-8 {
-    margin-top: 100px;
+    margin-top: 150px;
     margin-left: 235px;
     width: 300px;
     bottom: 0;
     right: 0;
 }
 
-
 .button-9 {
-    margin-top: 100px;
+    margin-top: 50px;
     margin-left: 100px;
     width: 300px;
     bottom: 0;
     right: 0;
 }
 
+.button-10 {
+    margin-top: 100px;
+    margin-left: 100px;
+    width: 300px;
+    bottom: 0;
+    right: 0;
+}
 
 .col {
     margin-top: 30px;
@@ -266,7 +272,7 @@ body {
     background: rgba(85, 85, 84, 0.945);
 }
 
-.grabacion{
+.grabacion {
     width: 1000px;
     height: 430px;
 }
@@ -293,13 +299,13 @@ body {
         background: rgba(85, 85, 84, 0.945);
         margin-bottom: 30px;
     }
-    .grabacion{
+    .grabacion {
         width: 650px;
         height: 300px;
     }
-    
-    .container-main{
-     margin-top: 500px;
+
+    .container-main {
+        margin-top: 50px;
     }
 
     .button {
@@ -317,21 +323,21 @@ body {
         bottom: 0;
         right: 0;
     }
-    
+
     .button-2 {
-        margin-left: 250px;
+        margin-left: 290px;
         width: 150px;
         bottom: 0;
         right: 0;
     }
-    
+
     .button-3 {
         margin-left: 10px;
         width: 150px;
         bottom: 0;
         right: 0;
     }
-    
+
     .button-4 {
         margin-top: 10px;
         margin-left: 10px;
@@ -341,7 +347,7 @@ body {
     }
 
     .button-6 {
-        margin-top: 100px;
+        margin-top: 30px;
         margin-left: 30px;
         width: 300px;
         bottom: 0;
@@ -355,7 +361,7 @@ body {
         width: 300px;
         bottom: 0;
     }
-    
+
     .button-8 {
         margin-top: 30px;
         margin-left: 0px;
@@ -365,11 +371,16 @@ body {
     }
 
     .button-9 {
-        margin-top: 50px;
+        margin-top: 10px;
         margin-left: 30px;
         width: 300px;
         bottom: 0;
         right: 0;
+    }
+
+    .button-10 {
+        margin-top: 30px;
+        margin-left: 30px;
     }
 
     .container-datos-practica {
@@ -396,126 +407,7 @@ body {
         background: rgba(236, 233, 233, 0.945);
     }
 
-    .container-main{
-        width: 100%;
-    }
-}
-
-@media screen and (max-width: 1560px), (max-heigh: 1130px) {
-    .container-grabacion {
-        float: left;
-        margin-top: 10px;
-        width: 700px;
-        height: 300px;
-        margin-right: 10px;
-        background: rgba(85, 85, 84, 0.945);
-        margin-bottom: 10px;
-    }
-    .grabacion{
-        width: 700px;
-        height: 300px;
-    }
-
-    .container-datos-practica {
-        margin-left: 730px;
-        margin-top: 350px;
-        width: 500px;
-        height: 300px;
-    }
-
-    .container-practica {
-        float: left;
-        width: 650px;
-        height: 150;
-        text-align: center;
-    }
-
-    .grafica {
-        width: 500px;
-        height: 300px;
-        margin: 20px;
-        margin-top: 10px;
-        background: rgba(236, 233, 233, 0.945);
-    }
-    
-    .container-main{
-     margin-top: -250px;
-    }
-
-    .button {
-        margin-left: 60px;
-        margin-bottom: 10px;
-        width: 150px;
-        bottom: 0;
-        right: 0;
-    }
-
-    .button-1 {
-        margin-left: 10px;
-        width: 150px;
-        margin-bottom: 10px;
-        bottom: 0;
-        right: 0;
-    }
-    
-    .button-2 {
-        margin-left: 250px;
-        width: 150px;
-        bottom: 0;
-        right: 0;
-    }
-    
-    .button-3 {
-        margin-left: 10px;
-        width: 150px;
-        bottom: 0;
-        right: 0;
-    }
-    
-    .button-4 {
-        margin-top: 10px;
-        margin-left: 10px;
-        width: 300px;
-        bottom: 0;
-        right: 0;
-    }
-
-    .button-6 {
-        margin-top: 50px;
-        margin-left: 30px;
-        width: 300px;
-        bottom: 0;
-        right: 0;
-    }
-
-    .button-7 {
-        margin-top: 30px;
-        margin-left: 50px;
-        margin-right:20px ;
-        width: 300px;
-        bottom: 0;
-        right: 0;
-    }
-    
-    .button-8 {
-        margin-top: 30px;
-        margin-left: 30px;
-        width: 300px;
-        bottom: 0;
-        right: 0;
-    }
-
-    .button-9 {
-        margin-top: 50px;
-        margin-left: 30px;
-        width: 300px;
-        bottom: 0;
-        right: 0;
-    }
-
- 
-
-    .container-main{
+    .container-main {
         width: 100%;
     }
 }
@@ -530,7 +422,7 @@ body {
         background: rgba(85, 85, 84, 0.945);
         margin-bottom: 10px;
     }
-    .grabacion{
+    .grabacion {
         width: 700px;
         height: 300px;
     }
@@ -556,9 +448,9 @@ body {
         margin-top: 10px;
         background: rgba(236, 233, 233, 0.945);
     }
-    
-    .container-main{
-     margin-top: 150px;
+
+    .container-main {
+        margin-top: 150px;
     }
 
     .button {
@@ -576,21 +468,21 @@ body {
         bottom: 0;
         right: 0;
     }
-    
+
     .button-2 {
         margin-left: 290px;
         width: 150px;
         bottom: 0;
         right: 0;
     }
-    
+
     .button-3 {
         margin-left: 10px;
         width: 150px;
         bottom: 0;
         right: 0;
     }
-    
+
     .button-4 {
         margin-top: 10px;
         margin-left: 10px;
@@ -610,12 +502,12 @@ body {
     .button-7 {
         margin-top: 30px;
         margin-left: 50px;
-        margin-right:20px ;
+        margin-right: 20px;
         width: 300px;
         bottom: 0;
         right: 0;
     }
-    
+
     .button-8 {
         margin-top: 30px;
         margin-left: 30px;
@@ -632,15 +524,10 @@ body {
         right: 0;
     }
 
- 
-
-    .container-main{
+    .container-main {
         width: 100%;
     }
 }
-
-
-
 
 @media screen and (max-width: 1050px) {
     .container-grabacion {
@@ -663,7 +550,7 @@ body {
         background: rgba(223, 223, 223, 0.945);
     }
 
-    .container-main{
+    .container-main {
         margin-top: 400px;
         width: 100%;
     }
@@ -690,7 +577,7 @@ body {
         background: rgba(223, 223, 223, 0.945);
     }
 
-    .container-main{
+    .container-main {
         margin-top: 400px;
         width: 100%;
     }
@@ -705,7 +592,7 @@ body {
         background: rgba(85, 85, 84, 0.945);
         margin-bottom: 30px;
     }
-    .container-main{
+    .container-main {
         margin-top: 900px;
         width: 100%;
     }
@@ -719,7 +606,7 @@ body {
     }
 }
 
-.listado{
+.listado {
     float: right;
     width: 500px;
     background-color: #6c757d;
