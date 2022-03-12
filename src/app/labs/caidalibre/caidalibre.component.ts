@@ -12,7 +12,7 @@ import { Console } from 'console';
 
 
 const KEY = 'time';
-const DEFAULT = 1800; //3600 es 1 hora
+const DEFAULT = 15; //3600 es 1 hora
 
 @Component({
   selector: 'app-caidalibre',
