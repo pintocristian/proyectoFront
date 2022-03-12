@@ -376,6 +376,213 @@ body {
     }
 }
 
+@media screen and (max-width: 1560px), (max-heigh: 1130px) {
+    .container-grabacion {
+        float: left;
+        margin-top: 10px;
+        width: 700px;
+        height: 300px;
+        margin-right: 10px;
+        background: rgba(85, 85, 84, 0.945);
+        margin-bottom: 10px;
+    }
+    .grabacion{
+        width: 700px;
+        height: 300px;
+    }
+
+    .container-datos-practica {
+        margin-left: 730px;
+        margin-top: 350px;
+        width: 500px;
+        height: 300px;
+        background: rgb(54, 54, 52);
+    }
+
+    .container-practica {
+        float: left;
+        width: 650px;
+        height: 150;
+        text-align: center;
+    }
+
+    .grafica {
+        width: 500px;
+        height: 300px;
+        margin: 20px;
+        margin-top: 10px;
+        background: rgba(236, 233, 233, 0.945);
+    }
+    
+    .container-main{
+     margin-top: -250px;
+    }
+
+    .button {
+        margin-left: 60px;
+        margin-bottom: 10px;
+        width: 150px;
+        bottom: 0;
+        right: 0;
+    }
+
+    .button-1 {
+        margin-left: 10px;
+        width: 150px;
+        margin-bottom: 10px;
+        bottom: 0;
+        right: 0;
+    }
+    
+    .button-2 {
+        margin-left: 250px;
+        width: 150px;
+        bottom: 0;
+        right: 0;
+    }
+    
+    .button-3 {
+        margin-left: 10px;
+        width: 150px;
+        bottom: 0;
+        right: 0;
+    }
+    
+    .button-4 {
+        margin-top: 10px;
+        margin-left: 10px;
+        width: 300px;
+        bottom: 0;
+        right: 0;
+    }
+
+    .button-6 {
+        margin-top: 10px;
+        margin-left: 30px;
+        width: 300px;
+        bottom: 0;
+        right: 0;
+    }
+
+    .button-9 {
+        margin-top: 10px;
+        margin-left: 30px;
+        width: 300px;
+        bottom: 0;
+        right: 0;
+    }
+
+ 
+
+    .container-main{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1350px), (max-heigh: 660px) {
+    .container-grabacion {
+        float: left;
+        margin-top: 10px;
+        width: 650px;
+        height: 300px;
+        margin-right: 10px;
+        background: rgba(85, 85, 84, 0.945);
+        margin-bottom: 10px;
+    }
+    .grabacion{
+        width: 700px;
+        height: 300px;
+    }
+
+    .container-datos-practica {
+        margin-left: 730px;
+        margin-top: 350px;
+        width: 500px;
+        height: 150px;
+        background: rgb(54, 54, 52);
+    }
+
+    .container-practica {
+        float: left;
+        width: 650px;
+        height: 150;
+        text-align: center;
+    }
+
+    .grafica {
+        width: 500px;
+        height: 300px;
+        margin: 20px;
+        margin-top: 10px;
+        background: rgba(236, 233, 233, 0.945);
+    }
+    
+    .container-main{
+     margin-top: 150px;
+    }
+
+    .button {
+        margin-left: 60px;
+        margin-bottom: 10px;
+        width: 150px;
+        bottom: 0;
+        right: 0;
+    }
+
+    .button-1 {
+        margin-left: 10px;
+        width: 150px;
+        margin-bottom: 10px;
+        bottom: 0;
+        right: 0;
+    }
+    
+    .button-2 {
+        margin-left: 250px;
+        width: 150px;
+        bottom: 0;
+        right: 0;
+    }
+    
+    .button-3 {
+        margin-left: 10px;
+        width: 150px;
+        bottom: 0;
+        right: 0;
+    }
+    
+    .button-4 {
+        margin-top: 10px;
+        margin-left: 10px;
+        width: 300px;
+        bottom: 0;
+        right: 0;
+    }
+
+    .button-6 {
+        margin-top: 10px;
+        margin-left: 30px;
+        width: 300px;
+        bottom: 0;
+        right: 0;
+    }
+
+    .button-9 {
+        margin-top: 10px;
+        margin-left: 30px;
+        width: 300px;
+        bottom: 0;
+        right: 0;
+    }
+
+ 
+
+    .container-main{
+        width: 100%;
+    }
+}
+
+
 
 
 @media screen and (max-width: 1050px) {
