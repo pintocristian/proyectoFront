@@ -64,7 +64,7 @@ export class CaidalibreComponent implements OnInit {
   public userPhoto$ = this.cookieService.get('Token_photo');
 
 
-  public listadoOpciones: any = [1, 2, 3, 4, 5, 6];
+  public listadoOpciones: any = [];
 
 
   constructor(private authSvc: AuthService, private router: Router, private readonly cookieService: CookieService) { }
