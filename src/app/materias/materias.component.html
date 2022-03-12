@@ -5,31 +5,19 @@
 <app-navbar></app-navbar>
 
 <body>
-    <div class="content">
+    <!--<div class="content">
         <mat-card class="primera-card">
-            <mat-card-title class="titulo-practica">Practica Caida Libre</mat-card-title>  
+            <mat-card-title class="titulo-practica">Practicas</mat-card-title>  
             <mat-card-content> Ingrese a la practica correspondiente</mat-card-content>
             <br>
             <br>
             <section class="button">
-
-                    <!--<button mat-raised-button  class="irPractica" routerLink="/leyhooke">Ir a la ley de hook</button>-->
-                    <br>
-                    <br>
-                    <button mat-raised-button  class="irPractica" (click)="verificarAgendamiento(1)">Ir a Caida Libre</button>
-                    <br>
-                    <br>
-                    <button mat-raised-button  class="irPractica" (click)="verificarAgendamiento(2)">Ir a Ley Hooke</button>
-                    <br>
-                    <br>
-                    <button mat-raised-button  class="irPractica" (click)="verificarAgendamiento(3)">Ir a Movimiento Parabólico</button>
-                    
-            </section>
-            
+                
+            </section>    
         </mat-card>
         <br>
         <br>
-        <!--  
+         
         <mat-card class="primera-card">
             <mat-card-title class="titulo-practica">Practica Movimiento Parabolico</mat-card-title>  
             <mat-card-content> Ingrese a la practica correspondiente</mat-card-content>
@@ -40,7 +28,59 @@
             <br>
             <button mat-raised-button  class="irPractica" routerLink="/materias">Ir a las materias</button>
         </mat-card>
-        -->
+    </div> 
+    <div class="l-container">
+        <div class="b-game-card">
+            <button class="b-game-card__cover" mat-raised-button  class="irPractica" (click)="verificarAgendamiento(1)">Ir a Caida Libre</button>                  
+        </div>
+        <div class="b-game-card">
+            <button class="b-game-card__cover" mat-raised-button  class="irPractica" (click)="verificarAgendamiento(2)">Ir a Ley Hooke</button>
+        </div>
+        <div class="b-game-card">
+            <button class="b-game-card__cover" mat-raised-button  class="irPractica" (click)="verificarAgendamiento(3)">Ir a Movimiento Parabólico</button>
+        </div>
+    </div>-->
+    <div class="pcontainer">
+        <!-- Pricing column -->
+        <div class="pcontainer__column">
+            <!-- Title -->
+            <h1 class="titulo">Practica Ley de Hooke</h1>
+            <!-- Description -->
+            <p class="texto">Practica Ley de Hooke</p>
+            <p class="texto">Practica Ley de Hooke</p>
+            <p class="texto">Practica Ley de Hooke</p>
+            <!-- Button -->
+            <button class="buttonClass" (click)="verificarAgendamiento(2)">Ir a Ley Hooke</button>
+            <button class="buttonClass" >Descargar Guia</button>
+        </div>
+    </div>
+    <div class="pcontainer">
+        <!-- Pricing column -->
+        <div class="pcontainer__column">
+            <!-- Title -->
+            <h1 class="titulo">Practica Movimiento Parabolico</h1>
+            <!-- Description --> 
+            <p class="texto">Practica Movimiento Parabolico</p>
+            <p class="texto">Practica Movimiento Parabolico</p>
+            <p class="texto">Practica Movimiento Parabolico</p>
+            <!-- Button -->
+            <button class="buttonClass" (click)="verificarAgendamiento(3)">Ir a Movimiento Parabólico</button>
+            <button class="buttonClass" >Descargar Guia</button>
+        </div>
+    </div>
+    <div class="pcontainer">
+        <!-- Pricing column -->
+        <div class="pcontainer__column">
+            <!-- Title -->
+            <h1 class="titulo">Practica Caida Libre</h1>
+            <!-- Description --> 
+            <p class="texto"> Esta es la Practica Caida Libre</p>
+            <p class="texto"> Esta es la Practica Caida Libre</p>
+            <p class="texto"> Esta es la Practica Caida Libre</p>
+            <!-- Button -->
+            <button class="buttonClass" (click)="verificarAgendamiento(1)">Ir a Caida Libre</button>
+            <button class="buttonClass" >Descargar Guia</button>
+        </div>
     </div>
 </body>
 
