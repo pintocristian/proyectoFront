@@ -92,8 +92,37 @@ export class LeyhookeComponent implements OnInit {
     console.log(event, active);
   }
 
+  disabled_FinalizarPractica: Boolean = true;
+  disabled_FinalizarSimulacion: Boolean = true;
+  bandera: Boolean;
+
+  public inicio() {
+    this.authSvc.Iniciopractica().subscribe((result: any) => {
+      this.bandera = result
+      if (this.bandera == false) {
+        console.log('Entro false')
+      } else {
+        console.log('Entro true');
+      }
+    });
+
+  }
+
+  finalizarSimulaciones() {
+    this.disabled_FinalizarSimulacion = false;
+  }
+
+  finalizarPractica() {
+    this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
+      this.authSvc.finalizarPractica(respuesta).subscribe((result: any) => { result })
+      this.router.navigate(['/materias'])
+    });
+  }
+  
   descargar() {
-    this.authSvc.descargar();
+    //this.authSvc.descargar();
+    this.disabled_FinalizarPractica = false;
+    alert("Boton activado");
   }
 
   finalizar_practica() {
@@ -101,6 +130,10 @@ export class LeyhookeComponent implements OnInit {
       this.authSvc.finalizarPractica(respuesta).subscribe((result: any) => { result })
       this.router.navigate(['/materias'])
     });
+  }
+
+  reportarFalla(){
+    console.log("reportarFalla()");
   }
 
   verificar() {

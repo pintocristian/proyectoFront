@@ -49,7 +49,7 @@ export class CaidalibreComponent implements OnInit {
         pointRadius: 5,
         borderColor: 'rgba(255, 99, 132, 1)',
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      }, 
+      },
     ]
   };
   public scatterChartType: ChartType = 'scatter';
@@ -92,16 +92,18 @@ export class CaidalibreComponent implements OnInit {
     this.config = { ...this.config, leftTime: value };
   }
 
-  public inicio (){
-    this.authSvc.Iniciopractica().subscribe((result: any) => {this.bandera=result 
-    if(this.bandera == false){
-      console.log('Entro false')
-    }else{
-      console.log('Entro true');
-    }});
+  public inicio() {
+    this.authSvc.Iniciopractica().subscribe((result: any) => {
+      this.bandera = result
+      if (this.bandera == false) {
+        console.log('Entro false')
+      } else {
+        console.log('Entro true');
+      }
+    });
 
-    }
-    
+  }
+
 
   handleEvent(ev: CountdownEvent) {
     if (ev.action === 'notify') {
@@ -110,13 +112,30 @@ export class CaidalibreComponent implements OnInit {
     }
   }
 
-  finalizar_practica() {
+  disabled_FinalizarPractica: Boolean = true;
+  disabled_FinalizarSimulacion: Boolean = true;
+  finalizarSimulaciones() {
+    this.disabled_FinalizarSimulacion = false;
+  }
+
+  descargar() {
+    //this.authSvc.descargar();
+    this.disabled_FinalizarPractica = false;
+    alert("Boton activado");
+  }
+
+  finalizarPractica() {
     this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
       this.authSvc.finalizarPractica(respuesta).subscribe((result: any) => { result })
       this.router.navigate(['/materias'])
     });
   }
 
+  reportarFalla(){
+    console.log("reportarFalla()");
+  }
+
+  
   prueba() {
     if (this.bandera$ == false) {
       return false;
@@ -132,9 +151,7 @@ export class CaidalibreComponent implements OnInit {
     //window.location.reload();
   }
 
-  descargar() {
-    this.authSvc.descargar();
-  }
+  
 
   config: CountdownConfig = { leftTime: DEFAULT, notify: 0 };
 

@@ -132,7 +132,27 @@ export class MovparabolicoComponent implements OnInit {
     }
   }
 
-  finalizar_practica() {
+  disabled_FinalizarPractica: Boolean = true;
+  disabled_FinalizarSimulacion: Boolean = true;
+  bandera: Boolean;
+
+  public inicio() {
+    this.authSvc.Iniciopractica().subscribe((result: any) => {
+      this.bandera = result
+      if (this.bandera == false) {
+        console.log('Entro false')
+      } else {
+        console.log('Entro true');
+      }
+    });
+
+  }
+
+  finalizarSimulaciones() {
+    this.disabled_FinalizarSimulacion = false;
+  }
+
+  finalizarPractica() {
     this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
       this.authSvc.finalizarPractica(respuesta).subscribe((result: any) => { result })
       this.router.navigate(['/materias'])
@@ -155,7 +175,13 @@ export class MovparabolicoComponent implements OnInit {
   }
 
   descargar() {
-    this.authSvc.descargar();
+    //this.authSvc.descargar();
+    this.disabled_FinalizarPractica = false;
+    alert("Boton activado");
+  }
+
+  reportarFalla(){
+    console.log("reportarFalla()");
   }
 
   config: CountdownConfig = { leftTime: DEFAULT, notify: 0 };

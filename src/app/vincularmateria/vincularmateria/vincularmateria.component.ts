@@ -17,8 +17,15 @@ export class VincularmateriaComponent implements OnInit {
   }
 
   enviarcodigo(data:any){
-    this.authService.codigos(data);
-    window.location.reload();
+    this.authService.codigos(data).subscribe(respuesta => {
+      if(respuesta==true){
+        console.log("Imprime true");
+        window.location.reload();
+      }else{
+        alert("Codigo de materia invalido o no encontrado");
+      }
+    });
+    
   }
 
 }

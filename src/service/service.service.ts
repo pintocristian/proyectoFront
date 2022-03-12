@@ -15,11 +15,11 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 
 export class AuthService {
-  
-  
+
+
 
   data = {};
-  public listado : any = [];
+  public listado: any = [];
 
   private API_BASE = 'http://localhost:8080/usuario';
   private API_BASE_LAB = 'http://localhost:8080/laboratorio';
@@ -29,15 +29,15 @@ export class AuthService {
 
   public eventosQuemados: any = [];
 
-  bandera: Boolean = false; 
+  bandera: Boolean = false;
   rol: String = "";
   //var bandera$ : Boolean = false; 
   //correo = signInWithPopup(this.auth, new GoogleAuthProvider());
-  
+
 
   constructor(private auth: Auth, private httpClient: HttpClient, private cookie: CookieService) { }
 
-  public obtenerUser(){
+  public obtenerUser() {
     return this.auth.currentUser!;
   }
   async loginWithGoogle() {
@@ -60,7 +60,7 @@ export class AuthService {
 
   }
 
-//return this.httpClient.get(`${this.API_BASE}/pdf`).subscribe(result => this.data = result);
+  //return this.httpClient.get(`${this.API_BASE}/pdf`).subscribe(result => this.data = result);
   logout() {
     try {
       this.cambiarEstadoSalida();
@@ -70,20 +70,20 @@ export class AuthService {
     }
   }
 
-  cambiarEstadoEntrada(){
+  cambiarEstadoEntrada() {
     console.log("llegue");
-    return this.httpClient.get(`${this.API_BASE_LAB}/`+ this.cookie.get('Token_email') + `/` + `cambiarEstadoParticipanteEntrada`).subscribe(result => this.data = result);
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + this.cookie.get('Token_email') + `/` + `cambiarEstadoParticipanteEntrada`).subscribe(result => this.data = result);
   }
 
-  cambiarEstadoSalida(){
+  cambiarEstadoSalida() {
     console.log("sali");
-    return this.httpClient.get(`${this.API_BASE_LAB}/`+ this.cookie.get('Token_email') + `/` + `cambiarEstadoParticipanteSalida`).subscribe(result => this.data = result);
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + this.cookie.get('Token_email') + `/` + `cambiarEstadoParticipanteSalida`).subscribe(result => this.data = result);
   }
 
   enviarDatos() {
     console.log("Entro a enviarDatos()");
     //return this.httpClient.post(`${this.API_BASE}/`+this.logeado.email+ `/` +this.logeado.displayName+ `/ingresarUsuario`,this.logeado);
-    return this.httpClient.post(`${this.API_BASE}/`+ this.logeado.email + `/` + this.logeado.displayName + `/ingresarUsuario`,this.logeado).subscribe(result => this.data = result);
+    return this.httpClient.post(`${this.API_BASE}/` + this.logeado.email + `/` + this.logeado.displayName + `/ingresarUsuario`, this.logeado).subscribe(result => this.data = result);
   }
 
 
@@ -93,78 +93,85 @@ export class AuthService {
 
   }
 
- 
 
-  enviarIntegrantes(eventFranja: number, arrayIntergrantes: any[]) : Observable<number>{
+
+  enviarIntegrantes(eventFranja: number, arrayIntergrantes: any[]): Observable<number> {
     console.log("Entro a enviarIntegrantes");
     return this.httpClient.post<number>(`${this.API_BASE_LAB}/` + eventFranja + `/` + `agregarParticipantes`, arrayIntergrantes);
-    
-    
+
+
   }
 
-  agendamiento(codigo_laboratorio : number): Observable<Agendamiento[]> {
+  agendamiento(codigo_laboratorio: number): Observable<Agendamiento[]> {
     console.log("Entro a Agendamiento");
-    return this.httpClient.get<Agendamiento[]>(`${this.API_BASE_LAB}/`+ codigo_laboratorio + `/listarAgendamiento`);}
-  codigos(codigo_materia:any) {
+    return this.httpClient.get<Agendamiento[]>(`${this.API_BASE_LAB}/` + codigo_laboratorio + `/listarAgendamiento`);
+  }
+
+  codigos(codigo_materia: any) {
     console.log("Entro a matricular curso()");
-    this.httpClient.post(`${this.API_BASE}/`+ this.cookie.get('Token_email') + `/` + codigo_materia + `/` + `matricularCurso`,codigo_materia).subscribe((result:any)=>{this.bandera=result});
+    return this.httpClient.post(`${this.API_BASE}/` + this.cookie.get('Token_email') + `/` + codigo_materia + `/` + `matricularCurso`, codigo_materia);
+    /*console.log("Entro a matricular curso()");
+    this.httpClient.post(`${this.API_BASE}/` + this.cookie.get('Token_email') + `/` + codigo_materia + `/` + `matricularCurso`, codigo_materia).subscribe((result: any) => {
+      this.bandera = result
+
+      return this.bandera;
+    });*/
     //this.verificarmateria();
     //this.verCursosMatriculados();
-    this.bandera;
   }
 
-  verCursosMatriculados(){
+  verCursosMatriculados() {
     console.log("Entro a vercursos");
     //console.log(this.cookie.get('Token_email'));
-    return this.httpClient.get(`${this.API_BASE}/`+ this.cookie.get('Token_email') + `/` + `buscarCursosMatriculados`);
+    return this.httpClient.get(`${this.API_BASE}/` + this.cookie.get('Token_email') + `/` + `buscarCursosMatriculados`);
   }
 
-  saberRol(){
+  saberRol() {
     console.log("Entro a saberrol");
-    return this.httpClient.get(`${this.API_BASE_LAB}/`+ this.cookie.get('Token_email') + `/` + `buscarQuienEsLider`,{responseType:'text'});
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + this.cookie.get('Token_email') + `/` + `buscarQuienEsLider`, { responseType: 'text' });
   }
 
-  saberCodigoGrupo(){
-    return this.httpClient.get(`${this.API_BASE_LAB}/`+ this.cookie.get('Token_email') + `/` + `saberCodigoGrupo`,{responseType:'text'});
+  saberCodigoGrupo() {
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + this.cookie.get('Token_email') + `/` + `saberCodigoGrupo`, { responseType: 'text' });
   }
 
-  verificarAgendamientoGrupo(codigo:any,codigo_planta:number) : Observable<Boolean>{
+  verificarAgendamientoGrupo(codigo: any, codigo_planta: number): Observable<Boolean> {
     console.log("Entro a verificarAgendamiento");
-    return this.httpClient.get<Boolean>(`${this.API_BASE_PRACTICA}/`+ codigo + `/`+ codigo_planta + `/` + `verificarAgendamiento`);
+    return this.httpClient.get<Boolean>(`${this.API_BASE_PRACTICA}/` + codigo + `/` + codigo_planta + `/` + `verificarAgendamiento`);
   }
-  verificarGrupoCompleto(codigo:any){
+  verificarGrupoCompleto(codigo: any) {
     console.log("Entro a verificargrupos");
-    return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo + `/`  +`buscarCompletitudEstudiantes`);
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo + `/` + `buscarCompletitudEstudiantes`);
   }
- 
-  finalizarPractica(codigo_grupo:any){
+
+  finalizarPractica(codigo_grupo: any) {
     console.log("Entro a finalizar practica");
-    return this.httpClient.delete(`${this.API_BASE_LAB}/`+ codigo_grupo + `/` + `finalizarPractica`);
+    return this.httpClient.delete(`${this.API_BASE_LAB}/` + codigo_grupo + `/` + `finalizarPractica`);
   }
 
-  obtenerOpcionesCL(codigo_planta:number){
+  obtenerOpcionesCL(codigo_planta: number) {
     console.log("Entro a obtener opciones practica caida libre");
-    return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo_planta + `/`  +`listar_Altura_CL`);
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo_planta + `/` + `listar_Altura_CL`);
   }
-  obtenerOpcionesLH_Elongacion(codigo_planta:number){
+  obtenerOpcionesLH_Elongacion(codigo_planta: number) {
     console.log("Entro a obtener opciones practica caida libre");
-    return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo_planta + `/`  +`listar_Elongacion_LH`);
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo_planta + `/` + `listar_Elongacion_LH`);
   }
-  obtenerOpcionesLH_Fuerza(codigo_planta:number){
+  obtenerOpcionesLH_Fuerza(codigo_planta: number) {
     console.log("Entro a obtener opciones practica caida libre");
-    return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo_planta + `/`  +`listar_Fuerza_LH`);
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo_planta + `/` + `listar_Fuerza_LH`);
   }
-  obtenerOpcionesMP_Angulo(codigo_planta:number){
+  obtenerOpcionesMP_Angulo(codigo_planta: number) {
     console.log("Entro a obtener opciones practica caida libre");
-    return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo_planta + `/`  +`listar_Angulo_MP`);
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo_planta + `/` + `listar_Angulo_MP`);
   }
-  obtenerOpcionesMP_Velocidad(codigo_planta:number){
+  obtenerOpcionesMP_Velocidad(codigo_planta: number) {
     console.log("Entro a obtener opciones practica caida libre");
-    return this.httpClient.get(`${this.API_BASE_LAB}/`+ codigo_planta + `/`  +`listar_Velocidad_MP`);
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo_planta + `/` + `listar_Velocidad_MP`);
   }
 
-  Iniciopractica(){
+  Iniciopractica() {
     console.log("Entro a obtener opciones practica caida libre");
-    return this.httpClient.get<Boolean>(`${this.API_BASE_LAB}/` +`iniciarProceso`);
+    return this.httpClient.get<Boolean>(`${this.API_BASE_LAB}/` + `iniciarProceso`);
   }
 }
