@@ -1,18 +1,19 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { DefaultUrlSerializer, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Roles } from 'src/app/interfaces/user';
 import { AuthService } from 'src/service/service.service';
-import { resourceLimits } from 'worker_threads';
+import { resourceLimits, threadId } from 'worker_threads';
 import { finalize } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
-import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartType,ChartOptions } from 'chart.js';
 import { Console } from 'console';
 
 
+
 const KEY = 'time';
-const DEFAULT = 1800; //3600 es 1 hora
+var  DEFAULT = 0; //3600 es 1 hora
 
 @Component({
   selector: 'app-caidalibre',
@@ -22,13 +23,32 @@ const DEFAULT = 1800; //3600 es 1 hora
 })
 export class CaidalibreComponent implements OnInit {
 
+  salesData: ChartData<'line'> = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+    datasets: [
+      { label: 'Mobiles', data: [1000, 1200, 1050, 2000, 500], tension: 0.5 },
+      { label: 'Laptop', data: [200, 100, 400, 50, 90], tension: 0.5 },
+      { label: 'AC', data: [500, 400, 350, 450, 650], tension: 0.5 },
+      { label: 'Headset', data: [1200, 1500, 1020, 1600, 900], tension: 0.5 },
+    ],
+  };
+  chartOptions: ChartOptions = {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Monthly Sales Data',
+      },
+    },
+  };
+
   rol: String = "";
   rol$ = this.rol;
   bandera: Boolean;
   bandera$: Boolean;
 
   private COD_LAB: number = 1;
-
+  
   public scatterChartOptions: ChartConfiguration['options'] = {
     responsive: true,
   };
@@ -63,7 +83,7 @@ export class CaidalibreComponent implements OnInit {
     console.log(event, active);
   }
 
-
+  duracion$ : number  = 0 ;
 
   public user$ = this.cookieService.get('Token_email');
   public userName$ = this.cookieService.get('Token_name');
@@ -72,11 +92,12 @@ export class CaidalibreComponent implements OnInit {
 
   public listadoOpciones: any = [1, 2, 3, 4, 5, 6];
 
-
+  
   constructor(private authSvc: AuthService, private router: Router, private readonly cookieService: CookieService) { }
 
   //public user$: Observable<any> = this.authSvc.afAuth.user;
   ngOnInit(): void {
+    this.verificarDuracion();
     this.authSvc.obtenerOpcionesCL(this.COD_LAB).subscribe(respuesta => { this.listadoOpciones = respuesta });
     this.authSvc.saberRol().subscribe(respuesta => {
       this.rol$ = respuesta
@@ -103,6 +124,7 @@ export class CaidalibreComponent implements OnInit {
     });
 
   }
+  
 
 
   handleEvent(ev: CountdownEvent) {
@@ -151,8 +173,16 @@ export class CaidalibreComponent implements OnInit {
     //window.location.reload();
   }
 
+  verificarDuracion() {
+    this.authSvc.saberCodigoGrupo().subscribe(respuesta=> {this.authSvc.duracionPractica(respuesta,this.COD_LAB).pipe(finalize(() => this.prueba())).subscribe((result: any) => { 
+      console.log(result);
+      this.duracion$=result;
+      DEFAULT = this.duracion$;
+      console.log(DEFAULT);
+    })
+  });}
   
-
+  
   config: CountdownConfig = { leftTime: DEFAULT, notify: 0 };
 
 

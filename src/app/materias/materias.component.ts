@@ -28,6 +28,7 @@ export class MateriasComponent implements OnInit {
   bandera: Boolean = false;
 
   codigo_planta: number;
+  
   verificarAgendamiento(codigo_planta:number) {
     this.codigo_planta = codigo_planta;
     this.authService.saberCodigoGrupo().subscribe(respuesta=> {this.authService.verificarAgendamientoGrupo(respuesta,codigo_planta).pipe(finalize(() => this.prueba())).subscribe((result: any) => { this.bandera=result })

@@ -37,7 +37,7 @@ import { NavbarModule } from 'src/app/components/navbar/navbar.module';
     MatToolbarModule,
     FlexLayoutModule,
     MatIconModule,
-    NavbarModule
+    NavbarModule,
   ]
 })
 export class CaidalibreModule { }

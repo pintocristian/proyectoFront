@@ -34,6 +34,7 @@ import { VincularmateriaComponent } from './vincularmateria/vincularmateria/vinc
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { MatMenuModule } from '@angular/material/menu';
     [HttpClientModule,  ],
     FlexLayoutModule,
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
+    NgChartsModule
   ],
   providers: [
     ScreenTrackingService,UserTrackingService,[CookieService]

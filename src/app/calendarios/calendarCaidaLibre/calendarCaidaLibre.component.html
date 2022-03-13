@@ -24,11 +24,11 @@
 
         <div [ngSwitch]="view" >
           <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [locale]="locale"
-            [excludeDays]="excludeDays" (columnHeaderClicked)="clickedColumn = $event.isoDayNumber"
+            (columnHeaderClicked)="clickedColumn = $event.isoDayNumber"
             (dayClicked)="clickedDate = $event.day.date">
           </mwl-calendar-month-view>
           <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" [dayStartHour]="7" [locale]="locale"
-            [excludeDays]="excludeDays" [dayEndHour]="19" (dayHeaderClicked)="clickedDate = $event.day.date"
+            [dayEndHour]="19" (dayHeaderClicked)="clickedDate = $event.day.date"
             (hourSegmentClicked)="clickedDate = $event.date" (eventClicked)="eventClicked($event)">
           </mwl-calendar-week-view>
           <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [dayStartHour]="7" [locale]="locale"

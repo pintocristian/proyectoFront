@@ -174,4 +174,9 @@ export class AuthService {
     console.log("Entro a obtener opciones practica caida libre");
     return this.httpClient.get<Boolean>(`${this.API_BASE_LAB}/` + `iniciarProceso`);
   }
+
+  duracionPractica(codigo: any, codigo_planta: number): Observable<number> {
+    console.log("Entro a duracionPractica");
+    return this.httpClient.get<number>(`${this.API_BASE_PRACTICA}/` + codigo + `/` + codigo_planta + `/` + `duracion`);
+  }
 }

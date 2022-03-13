@@ -20,17 +20,16 @@
 
                 <div class="grafica">
                     <h1 class="text-1">campo para la grafica</h1>
-                    <div style="display: block">
-                        <canvas baseChart [data]="scatterChartData" [options]="scatterChartOptions"
-                            [type]="scatterChartType">
-                        </canvas>
-                    </div>
+                    <canvas baseChart [data]="salesData" [type]="'line'" [options]="chartOptions">
+                    </canvas>
                 </div>
 
             </div>
             <div class="col">
                 <div class=" row container-practica">
                     <h1 class="text">Datos de la practica</h1>
+
+
 
                     <countdown class="text" [config]="config" (event)="handleEvent($event)"></countdown>
                     <div class="datos-practica" *ngIf="rol$ == 'Lider'">
