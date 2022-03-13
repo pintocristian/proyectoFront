@@ -7,13 +7,11 @@ import { resourceLimits, threadId } from 'worker_threads';
 import { finalize } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
-import { ChartConfiguration, ChartData, ChartType,ChartOptions } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartType, ChartOptions, Chart } from 'chart.js';
 import { Console } from 'console';
 
-
-
 const KEY = 'time';
-var  DEFAULT = 0; //3600 es 1 hora
+var DEFAULT = 0; //3600 es 1 hora
 
 @Component({
   selector: 'app-caidalibre',
@@ -47,23 +45,22 @@ export class CaidalibreComponent implements OnInit {
   bandera: Boolean;
   bandera$: Boolean;
 
+
+
+
+
   private COD_LAB: number = 1;
-  
+
   public scatterChartOptions: ChartConfiguration['options'] = {
     responsive: true,
   };
   public scatterChartLabels: string[] = ['Eating'/*, 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'*/];
-
+  public listado: any = [];
   public scatterChartData: ChartData<'scatter'> = {
     labels: this.scatterChartLabels,
     datasets: [
       {
-        data: [
-          { x: 1, y: 1 },
-          { x: 2, y: 3 },
-          { x: 3, y: -2 },
-          { x: 4, y: 4 },
-          { x: 5, y: -2 },
+        data: [this.listado
         ],
         label: 'Gráfica X y Y',
         pointRadius: 5,
@@ -73,6 +70,13 @@ export class CaidalibreComponent implements OnInit {
     ]
   };
   public scatterChartType: ChartType = 'scatter';
+  public listadoAltura: any = [];
+
+
+
+  xValues = this.listado;
+  yValues = this.listado;
+
 
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
@@ -83,7 +87,7 @@ export class CaidalibreComponent implements OnInit {
     console.log(event, active);
   }
 
-  duracion$ : number  = 0 ;
+  duracion$: number = 0;
 
   public user$ = this.cookieService.get('Token_email');
   public userName$ = this.cookieService.get('Token_name');
@@ -92,12 +96,14 @@ export class CaidalibreComponent implements OnInit {
 
   public listadoOpciones: any = [1, 2, 3, 4, 5, 6];
 
-  
+
   constructor(private authSvc: AuthService, private router: Router, private readonly cookieService: CookieService) { }
 
   //public user$: Observable<any> = this.authSvc.afAuth.user;
   ngOnInit(): void {
     this.verificarDuracion();
+    this.listarAltura();
+    console.log(this.listado);
     this.authSvc.obtenerOpcionesCL(this.COD_LAB).subscribe(respuesta => { this.listadoOpciones = respuesta });
     this.authSvc.saberRol().subscribe(respuesta => {
       this.rol$ = respuesta
@@ -111,6 +117,19 @@ export class CaidalibreComponent implements OnInit {
     let value = +localStorage.getItem(KEY)!! ?? DEFAULT;
     if (value <= 0) value = DEFAULT;
     this.config = { ...this.config, leftTime: value };
+
+    new Chart("myChart", {
+      type: "line",
+      data: {
+        labels: this.xValues,
+        datasets: [{
+          backgroundColor: "rgba(0,0,0,1.0)",
+          borderColor: "rgba(0,0,0,0.1)",
+          data: this.yValues
+        }]
+      },
+    });
+
   }
 
   public inicio() {
@@ -124,7 +143,7 @@ export class CaidalibreComponent implements OnInit {
     });
 
   }
-  
+
 
 
   handleEvent(ev: CountdownEvent) {
@@ -153,11 +172,11 @@ export class CaidalibreComponent implements OnInit {
     });
   }
 
-  reportarFalla(){
+  reportarFalla() {
     console.log("reportarFalla()");
   }
 
-  
+
   prueba() {
     if (this.bandera$ == false) {
       return false;
@@ -174,15 +193,30 @@ export class CaidalibreComponent implements OnInit {
   }
 
   verificarDuracion() {
-    this.authSvc.saberCodigoGrupo().subscribe(respuesta=> {this.authSvc.duracionPractica(respuesta,this.COD_LAB).pipe(finalize(() => this.prueba())).subscribe((result: any) => { 
+    this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
+      this.authSvc.duracionPractica(respuesta, this.COD_LAB).pipe(finalize(() => this.prueba())).subscribe((result: any) => {
+        console.log(result);
+        this.duracion$ = result;
+        DEFAULT = this.duracion$;
+        console.log(DEFAULT);
+      })
+    });
+  }
+
+  public listarAltura() {
+    console.log("entro a listar alturaaaaaaaaaaaaaa");
+    this.authSvc.obtenerDatosCLAltura(1).pipe(finalize(() => this.prueba())).subscribe((result: any) => {
+      this.listadoAltura = result;
       console.log(result);
-      this.duracion$=result;
-      DEFAULT = this.duracion$;
-      console.log(DEFAULT);
-    })
-  });}
-  
-  
+
+      for (var i = 0; i < this.listadoAltura.length; i++) {
+        this.listado.push(this.listadoAltura[i]);
+        console.log(this.listado);
+      }
+    });
+  }
+
+
   config: CountdownConfig = { leftTime: DEFAULT, notify: 0 };
 
 

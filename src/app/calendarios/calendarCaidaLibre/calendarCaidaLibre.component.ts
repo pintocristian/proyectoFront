@@ -176,4 +176,6 @@ export class CalendarCaidaLibreComponent implements OnInit {
       this.eventosQuemados = response;
     });
   }
+
+  
 }

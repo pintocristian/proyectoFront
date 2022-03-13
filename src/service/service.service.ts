@@ -175,6 +175,11 @@ export class AuthService {
     return this.httpClient.get<Boolean>(`${this.API_BASE_LAB}/` + `iniciarProceso`);
   }
 
+  obtenerDatosCLAltura(codigo:any){
+    console.log("Entro a obtener datos para graficar altura");
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo +`/retornarAltura`);
+  }
+  
   duracionPractica(codigo: any, codigo_planta: number): Observable<number> {
     console.log("Entro a duracionPractica");
     return this.httpClient.get<number>(`${this.API_BASE_PRACTICA}/` + codigo + `/` + codigo_planta + `/` + `duracion`);

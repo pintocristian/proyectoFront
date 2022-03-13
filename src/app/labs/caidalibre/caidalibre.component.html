@@ -2,9 +2,11 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
 <app-navbar></app-navbar>
-
+  
 <body>
     <!------ Modificar según el tiempo la carga de la página ---------->
     <meta http-equiv="refresh" content="1800; url=http://localhost:4200/materias" />
@@ -20,8 +22,7 @@
 
                 <div class="grafica">
                     <h1 class="text-1">campo para la grafica</h1>
-                    <canvas baseChart [data]="salesData" [type]="'line'" [options]="chartOptions">
-                    </canvas>
+                    <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
                 </div>
 
             </div>
@@ -30,7 +31,7 @@
                     <h1 class="text">Datos de la practica</h1>
 
 
-
+<a href="#">PRUEBA</a>
                     <countdown class="text" [config]="config" (event)="handleEvent($event)"></countdown>
                     <div class="datos-practica" *ngIf="rol$ == 'Lider'">
                         <div *ngIf="bandera$; else sino">
