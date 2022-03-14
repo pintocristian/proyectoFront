@@ -1,17 +1,18 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbDatepickerKeyboardService } from '@ng-bootstrap/ng-bootstrap';
-import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { Chart, ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { child, DatabaseReference, get } from 'firebase/database';
 import { CookieService } from 'ngx-cookie-service';
 import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 import { finalize } from 'rxjs';
 import { ServiceRealTimeService } from 'src/app/service/service-real-time.service';
 import { AuthService } from 'src/service/service.service';
+import Swal from 'sweetalert2';
 
 
-const KEY = 'time';
-const DEFAULT = 3600; //3600 es 1 hora
+var KEY = 'timeMP';
+var DEFAULT = 0; //3600 es 1 hora
 
 @Component({
   selector: 'app-movparabolico',
@@ -23,44 +24,13 @@ export class MovparabolicoComponent implements OnInit {
   db: DatabaseReference;
   tematica: string = '';
 
-  //Gráficas
-  public scatterChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-  };
-  public scatterChartLabels: string[] = ['Eating'];
+  tittle = 'sweetAlert';
 
-  public scatterChartData: ChartData<'scatter'> = {
-    labels: this.scatterChartLabels,
-    datasets: [
-      {
-        data: [
-          { x: 1, y: 1 },
-          { x: 2, y: 3 },
-          { x: 3, y: -2 },
-          { x: 4, y: 4 },
-          { x: 5, y: -3 },
-        ],
-        label: this.tematica,
-        pointRadius: 5,
-        borderColor: 'rgba(255, 99, 132, 1)',
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      },
-      {
-        data: [
-          { x: 2, y: 2 },
-          { x: 6, y: 3 },
-          { x: 2, y: -3 },
-          { x: 9, y: 8 },
-          { x: 15, y: -5 },
-        ],
-        label: 'Gráfica Y vs H',
-        pointRadius: 5,
-        borderColor: 'rgba(51, 91, 255, 1)',
-        backgroundColor: 'rgba(51, 91, 255, 0.2)',
-      },
-    ]
-  };
-  public scatterChartType: ChartType = 'scatter';
+  disabled_FinalizarPractica: Boolean = true;
+  disabled_FinalizarSimulacion: Boolean = true;
+  disabled_Iniciar: boolean = false;
+  bandera: Boolean;
+
 
   rol: String = "";
   rol$ = this.rol;
@@ -68,14 +38,6 @@ export class MovparabolicoComponent implements OnInit {
 
   private COD_LAB: number = 3;
 
-  //Eventos gráficas
-  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
 
   public user$ = this.cookieService.get('Token_email');
   public userName$ = this.cookieService.get('Token_name');
@@ -85,10 +47,19 @@ export class MovparabolicoComponent implements OnInit {
   public listadoOpAngulo: any = [];
   public listadoOpVelocidad: any = [];
 
+  public lista1: any = [];
+  public lista2: any = [];
+  public listadoY: any = [];
+  public listadoX: any = [];
 
+
+  xValues = this.listadoX;
+  yValues = this.listadoY;
+
+  duracion$: number = 0;
 
   constructor(private authSvc: AuthService, private router: Router, private readonly cookieService: CookieService, private dbService: ServiceRealTimeService) {
-    
+
   }
 
   conexionRealTime() {
@@ -108,7 +79,11 @@ export class MovparabolicoComponent implements OnInit {
   //public user$: Observable<any> = this.authSvc.afAuth.user;
   ngOnInit(): void {
     this.db = this.dbService.getDatabase();
+    localStorage.clear();
     this.conexionRealTime();
+    this.verificarDuracion();
+    this.listarX();
+    this.listarY();
     this.authSvc.obtenerOpcionesMP_Angulo(this.COD_LAB).subscribe(respuesta => { this.listadoOpAngulo = respuesta });
     this.authSvc.obtenerOpcionesMP_Velocidad(this.COD_LAB).subscribe(respuesta => { this.listadoOpVelocidad = respuesta });
     this.authSvc.saberRol().subscribe(respuesta => {
@@ -119,11 +94,38 @@ export class MovparabolicoComponent implements OnInit {
     } else {
       this.router.navigate(['/home'])
     }
+    if (this.cookieService.check('Token_access')) {
+      this.router.navigate(['/movparabolico']);
+    } else {
+      this.router.navigate(['/login']);
+    }
+
+
     //Cuenta regresiva
     let value = +localStorage.getItem(KEY)!! ?? DEFAULT;
     if (value <= 0) value = DEFAULT;
     this.config = { ...this.config, leftTime: value };
+
+    new Chart("myChart", {
+      type: "line",
+      data: {
+        labels: this.xValues,
+        datasets: [{
+          backgroundColor: "rgba(0,0,0,1.0)",
+          borderColor: "rgba(0,0,0,0.1)",
+          data: this.yValues,
+          label: 'Mostrar Grafica (Confirmar)',
+        }],
+      },
+      options: {
+        scales: {
+          yAxes: { min: 0, max: 40 },
+        }
+      },
+    });
+
   }
+
 
   handleEvent(ev: CountdownEvent) {
     if (ev.action === 'notify') {
@@ -131,8 +133,61 @@ export class MovparabolicoComponent implements OnInit {
       localStorage.setItem(KEY, `${ev.left / 1000}`);
     }
   }
+  timesUp(event: CountdownEvent) {
+    if (event.action == "done") {
+      console.log("Finished");
+      localStorage.removeItem(KEY);
+      localStorage.clear();
+      this.router.navigate(['/materias']);
+    }
+  }
 
-  finalizar_practica() {
+
+  public inicio() {
+    this.authSvc.Iniciopractica(this.COD_LAB).subscribe((result: any) => {
+      this.bandera = result
+      if (this.bandera == false) {
+        console.log('Entro false')
+      } else {
+        console.log('Entro true');
+      }
+    });
+
+  }
+
+  alerta() {
+    Swal.fire({
+      title: 'Estás saliendo de la practica!',
+      text: "Ten cuidado estás por salir de la practica",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, deseo salir'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/materias'])
+      }
+    })
+  }
+  closeSwal() {
+    throw new Error('Method not implemented.');
+  }
+
+  finalizarSimulaciones() {
+    this.disabled_FinalizarSimulacion = false;
+    this.disabled_Iniciar= true;
+    this.authSvc.finalizarSimulacion(this.COD_LAB).subscribe((result:any) =>{
+      if(result == true){
+        alert("Puso true");
+      }else{
+        alert("Puso false");
+      }
+    });
+  }
+
+  finalizarPractica() {
     this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
       this.authSvc.finalizarPractica(respuesta).subscribe((result: any) => { result })
       this.router.navigate(['/materias'])
@@ -155,7 +210,56 @@ export class MovparabolicoComponent implements OnInit {
   }
 
   descargar() {
-    this.authSvc.descargar();
+    this.authSvc.descargar(this.COD_LAB).subscribe((result) => {
+      result
+      if (result == true) {
+        alert("Archivo descargado exitosamente, revisa tu carpeta de descargas")
+      }else{
+        alert("No se ha podido descargar el Archivo");
+      }
+    });
+    this.disabled_FinalizarPractica = false;
+  }
+
+  reportarFalla() {
+    console.log("reportarFalla()");
+  }
+
+  verificarDuracion() {
+    this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
+      this.authSvc.duracionPractica(respuesta, this.COD_LAB).pipe(finalize(() => this.prueba())).subscribe((result: any) => {
+        console.log(result);
+        this.duracion$ = result;
+        DEFAULT = this.duracion$;
+        console.log(DEFAULT);
+      })
+    });
+  }
+
+  public listarX() {
+    console.log("entro a listar alturaaaaaaaaaaaaaa");
+    this.authSvc.obtenerDatosMPX(3).pipe(finalize(() => this.prueba())).subscribe((result: any) => {
+      this.lista1 = result;
+      console.log(result);
+
+      for (var i = 0; i < this.lista1.length; i++) {
+        this.listadoY.push(this.lista1[i]);
+        console.log(this.listadoY);
+      }
+    });
+  }
+
+  public listarY() {
+    console.log("entro a listar alturaaaaaaaaaaaaaa");
+    this.authSvc.obtenerDatosMPY(3).pipe(finalize(() => this.prueba())).subscribe((result: any) => {
+      this.lista2 = result;
+      console.log(result);
+
+      for (var i = 0; i < this.lista2.length; i++) {
+        this.listadoX.push(this.lista2[i]);
+        console.log(this.listadoX);
+      }
+    });
   }
 
   config: CountdownConfig = { leftTime: DEFAULT, notify: 0 };

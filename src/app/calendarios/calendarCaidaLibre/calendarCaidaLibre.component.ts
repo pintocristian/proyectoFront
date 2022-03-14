@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { CalendarEvent, CalendarView } from 'angular-calendar';
+import { CalendarDateFormatter, CalendarEvent, CalendarView } from 'angular-calendar';
 import { addDays, addHours, addMinutes, startOfDay } from 'date-fns';
 import { Agendamiento } from 'src/app/interfaces/agendamiento';
 import { AuthService } from 'src/service/service.service';
@@ -12,12 +12,20 @@ import { colors } from '../utils/colors';
 import { finalize } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { CustomDateFormatter } from '../utils/custom_date_formatter';
+
 
 @Component({
   selector: 'app-calendarCaidaLibre',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './calendarCaidaLibre.component.html',
   styleUrls: ['./calendarCaidaLibre.component.scss'],
+  providers: [
+    {
+      provide: CalendarDateFormatter,
+      useClass: CustomDateFormatter,
+    },
+  ],
 })
 export class CalendarCaidaLibreComponent implements OnInit {
 
@@ -47,7 +55,7 @@ export class CalendarCaidaLibreComponent implements OnInit {
 
   public eventosAux: Agendamiento[];
 
-  private COD_LAB: number = 1;
+  private COD_LAB: number = 2;
 
   integrantes = new FormGroup({
     integrante_1: new FormControl('', [Validators.required, Validators.email]),
@@ -168,4 +176,6 @@ export class CalendarCaidaLibreComponent implements OnInit {
       this.eventosQuemados = response;
     });
   }
+
+
 }

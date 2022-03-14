@@ -1,98 +1,58 @@
-<!--<mat-toolbar color="primary">
-    <span>My Application</span>
-</mat-toolbar>
+<!DOCTYPE html>
+<html lang="en">
 
-<div *ngIf="(user$)!">
-    <h2>Bienvenido {{userName$}} a los laboratorios remotos de mécanica.</h2>
-    <nav>
-        <div class="salir">
-            <button class="btn btn-danger" (click)="onLogout()">Logout</button>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--FONT AWESOME-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<app-navbar></app-navbar>
+
+<body>
+
+
+    <div class="banner_titulo">
+        <div class="contenedor_titulo">
+            <div class="titulo_pagina">
+                <h1>Inicio</h1>
+            </div>
+            <div>
+                <button class="boton_agregar" mat-button (click)="openDialog()">Vincular Materia</button>
+            </div>
         </div>
-    </nav>
-    <nav>
-        <ul class="menu">
-            <li class="logo"><a href="#">Invisible App</a></li>
-            <li class="item"><a href="#">Home</a></li>
-            <li class="item"><a href="#">About</a></li>
-            <li class="item"><a href="#">Services</a></li>
-            <li class="item"><a href="#">Features</a></li>
-            <li class="item"><a href="#">Blog</a></li>
-            <li class="item"><a href="#">Contact</a> </li>
-            <li class="item button"><a href="#">Log In</a></li>
-            <li class="item button secondary"><a href="#">Sign Up</a></li>
-            <li class="toggle"><a href="#"><i class="fas fa-bars"></i></a></li>
-        </ul>
-    </nav>
+    </div>
 
-</div>
-<div class="background">
+
     <div class="materias">
         <mat-card class="primera-card" *ngFor="let lista of listado">
             <mat-card-title class="titulo-practica">{{lista}}</mat-card-title>
-            <mat-card-content> Content</mat-card-content>
+            <mat-card-content>
+                <p>
+                    Content
+                </p>
+            </mat-card-content>
             <button mat-raised-button class="irPractica" routerLink="/materias">Ir al curso</button>
         </mat-card>
     </div>
-    <br>
-    <div class="opciones">
-        <button class="opCalendario" mat-raised-button routerLink="/calendario">Ver Calendario</button>
-        <button mat-raised-button (click)="openDialog()">Vincular Materia</button>
+</body>
+<footer class="footer">
+    <div class="content">
+        <section class="social_icons">
+            <a href="http://www.unicauca.edu.co/versionP/" title="Pagina Web Unicauca" target="_blank"><i
+                    class="fa fa-university"></i></a>
+            <a href="https://es-la.facebook.com/universidadelcauca/" title="Facebook" target="_blank"><i
+                    class="fa fa-facebook"></i></a>
+            <a href="https://www.instagram.com/universidadelcauca/?hl=es" title="Instagram" target="_blank"><i
+                    class="fa fa-instagram"></i></a>
+            <a href="https://twitter.com/unicauca" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+            <a href="https://www.youtube.com/c/unicaucapopayan/featured" title="YouTube" target="_blank"><i
+                    class="fa fa-youtube"></i></a>
+        </section>
     </div>
-</div>
--->
+</footer>
 
-
-<!--
-    
-
-<nav class="navbar">
-    <div class="nav_logo">
-    </div>
-
-    <div class="titulo_pagina">
-        <h1 class="t">Bienvenido {{userName$}} a los laboratorios remotos de mécanica.</h1>
-    </div>
-
-    <button mat-button [matMenuTriggerFor]="menu"><img src="{{user2$.photoURL}}" id="user-photo"></button>
-    <mat-menu #menu="matMenu">
-        <li> {{user2$.displayName}} </li>
-        <li> {{user2$.email}} </li>
-        <li><button mat-menu-item (click)="onLogout()">Salir</button></li>
-    </mat-menu>
-</nav>
-
-
-<div class="banner_titulo">
-    <div class="contenedor_titulo">
-        <div class="opciones" id="opciones">
-        
-            <button class="op" mat-raised-button color="primary" routerLink="/calendario">Ver Calendario</button>
-            <button mat-raised-button color="primary" (click)="openDialog()">Vincular Materia</button>
-            
-            <a routerLink="/calendario">Ver Calendario</a>
-            <a (click)="openDialog()">Vincular Materia</a>
-            <a href="javascript:void(0);" class="icon" (click)="openDrawerMenu()">&#9776;</a>
-        </div>
-    </div>
-
-</div>
-<br><br>
-<div class="background">
-    <mat-card class="primera-card" *ngFor="let lista of listado">
-        <mat-card-title class="card-title titulo-practica">{{lista}}</mat-card-title>
-        <mat-card-content>
-            <p>ASDFASDFASDF</p>
-        </mat-card-content>
-        <button mat-raised-button class="irPractica" routerLink="/materias">Ir al curso</button>
-    </mat-card>
-</div>
--->
-<app-navbar></app-navbar>
-
-<div class="materias">
-    <mat-card class="primera-card" *ngFor="let lista of listado">
-        <mat-card-title class="titulo-practica">{{lista}}</mat-card-title>
-        <mat-card-content> Content</mat-card-content>
-        <button mat-raised-button class="irPractica" routerLink="/materias">Ir al curso</button>
-    </mat-card>
-</div>
+</html>

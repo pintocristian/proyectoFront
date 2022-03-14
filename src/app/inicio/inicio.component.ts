@@ -12,6 +12,10 @@ import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { VincularmateriaComponent } from '../vincularmateria/vincularmateria/vincularmateria.component';
 
+
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
+
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
@@ -28,7 +32,8 @@ export class InicioComponent implements OnInit {
   public userPhoto$ = this.cookieService.get('Token_photo');
   public listado : any = [];
 
-  
+  materias: string;
+  codigo: number;
 
   openDrawerMenu(){
     var x = document.getElementById("opciones")!;
@@ -65,9 +70,6 @@ export class InicioComponent implements OnInit {
       console.log(error);
     }
   }
-
-  materias: string;
-  codigo: number;
 
   openDialog(): void {
     const dialogRef = this.dialog.open(VincularmateriaComponent, {

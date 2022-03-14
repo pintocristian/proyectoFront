@@ -16,6 +16,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatIconModule} from '@angular/material/icon';
 import { NavbarModule } from 'src/app/components/navbar/navbar.module';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 
@@ -37,7 +38,8 @@ import { NavbarModule } from 'src/app/components/navbar/navbar.module';
     MatToolbarModule,
     FlexLayoutModule,
     MatIconModule,
-    NavbarModule
+    NavbarModule,
+    MatTabsModule,
   ]
 })
 export class CaidalibreModule { }

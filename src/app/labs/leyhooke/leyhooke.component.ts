@@ -4,10 +4,11 @@ import { CookieService } from 'ngx-cookie-service';
 import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 import { finalize } from 'rxjs';
 import { AuthService } from 'src/service/service.service';
-import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartType, ChartOptions, Chart } from 'chart.js';
+import Swal from 'sweetalert2';
 
-const KEY = 'time';
-const DEFAULT = 3600; //3600 es 1 hora
+var KEY = 'timeLH';
+var DEFAULT = 0; //3600 es 1 hora
 
 
 @Component({
@@ -18,62 +19,82 @@ const DEFAULT = 3600; //3600 es 1 hora
 })
 export class LeyhookeComponent implements OnInit {
 
-  //Opciones gráficas
-  public scatterChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-  };
-
-  public scatterChartLabels: string[] = [ 'Eating' ];
-
-  public scatterChartData: ChartData<'scatter'> = {
-    labels: this.scatterChartLabels,
-    datasets: [
-      {
-        data: [
-          { x: 1, y: 1 },
-          { x: 2, y: 3 },
-          { x: 3, y: -2 },
-          { x: 4, y: 4 },
-          { x: 5, y: -3 },
-        ],
-        label: 'Gráfica X y Y',
-        pointRadius: 5,
-        borderColor: 'rgba(255, 99, 132, 1)',
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      },
-    ]
-  };
-  public scatterChartType: ChartType = 'scatter';
-
-  public listadoOpElongacion: any = [1,2,3,4,5,6];
-  public listadoOpFuerza: any = [1,2,3,4,5,6];
-  bandera$ : Boolean; 
-  rol : String = "";
+  public listadoOpElongacion: any = [1, 2, 3, 4, 5, 6];
+  public listadoOpFuerza: any = [1, 2, 3, 4, 5, 6];
+  bandera$: Boolean;
+  rol: String = "";
   rol$ = this.rol;
 
-  private COD_LAB: number = 2;
-
-  constructor(private authSvc: AuthService, private router:Router,private readonly cookieService: CookieService) {
-    //Object.assign(this, { multi })
-  }
-
+  private COD_LAB: number = 1;
 
   public user$ = this.cookieService.get('Token_email');
   public userName$ = this.cookieService.get('Token_name');
   public userPhoto$ = this.cookieService.get('Token_photo');
 
+  disabled_FinalizarPractica: Boolean = true;
+  disabled_FinalizarSimulacion: Boolean = true;
+  disabled_Iniciar: Boolean = false;
+  bandera: Boolean;
 
   config: CountdownConfig = { leftTime: DEFAULT, notify: 0 };
 
+  duracion$: number = 0;
+
+  public lista1: any = [];
+  public lista2: any = [];
+  public listadoElongaciones: any = [];
+  public listadoPesos: any = [];
+
+  xValues = this.listadoPesos;
+
+  yValues = this.listadoElongaciones;
+
+  storageLeyHooke: Storage;
+
+  constructor(private authSvc: AuthService, private router: Router, private readonly cookieService: CookieService) {
+    //Object.assign(this, { multi })
+  }
+
+
+
   ngOnInit(): void {
-    this.authSvc.obtenerOpcionesLH_Elongacion(this.COD_LAB).subscribe(respuesta => {this.listadoOpElongacion = respuesta});
-    this.authSvc.obtenerOpcionesLH_Fuerza(this.COD_LAB).subscribe(respuesta => {this.listadoOpFuerza = respuesta});
+    this.verificarDuracion();
+    this.listarElongaciones();
+    this.listarPesos();
+    this.authSvc.obtenerOpcionesLH_Elongacion(this.COD_LAB).subscribe(respuesta => { this.listadoOpElongacion = respuesta });
+    this.authSvc.obtenerOpcionesLH_Fuerza(this.COD_LAB).subscribe(respuesta => { this.listadoOpFuerza = respuesta });
     this.authSvc.saberRol().subscribe(respuesta => {
       this.rol$ = respuesta
     });
+    if (this.cookieService.check('Token_access')) {
+      this.router.navigate(['/leyhooke']);
+    } else {
+      this.router.navigate(['/login '])
+    }
+
+
+    //Cuenta regresiva
     let value = +localStorage.getItem(KEY)!! ?? DEFAULT;
     if (value <= 0) value = DEFAULT;
     this.config = { ...this.config, leftTime: value };
+
+    new Chart("myChart", {
+      type: "line",
+      data: {
+        labels: this.xValues,
+        datasets: [{
+          backgroundColor: "rgba(0,0,0,1.0)",
+          borderColor: "rgba(0,0,0,0.1)",
+          data: this.yValues,
+          label: 'Mostrar Grafica (Confirmar)',
+        }],
+      },
+      options: {
+        scales: {
+          yAxes: { min: 0, max: 50 },
+        }
+      },
+    });
   }
 
   handleEvent(ev: CountdownEvent) {
@@ -83,33 +104,84 @@ export class LeyhookeComponent implements OnInit {
     }
   }
 
-  //Eventos gráficas
-  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
+  timesUp(event: CountdownEvent) {
+    if (event.action == "done") {
+      console.log("Finished");
+      localStorage.clear();
+      localStorage.removeItem(KEY);
+      this.router.navigate(['/materias']);
+    }
   }
 
-  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
+  public inicio() {
+    this.authSvc.Iniciopractica(this.COD_LAB).subscribe((result: any) => {
+      this.bandera = result
+      if (this.bandera == false) {
+        console.log('Entro false')
+      } else {
+        console.log('Entro true');
+      }
+    });
+
   }
 
-  descargar() {
-    this.authSvc.descargar();
+  alerta() {
+    Swal.fire({
+      title: 'Estás saliendo de la practica!',
+      text: "Ten cuidado estás por salir de la practica",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, deseo salir'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/materias'])
+      }
+    })
+  }
+  closeSwal() {
+    throw new Error('Method not implemented.');
   }
 
-  finalizar_practica() {
+  finalizarSimulaciones() {
+    this.disabled_FinalizarSimulacion = false;
+    this.disabled_Iniciar= true;
+    this.authSvc.finalizarSimulacion(this.COD_LAB).subscribe((result:any) =>{
+      if(result == true){
+        alert("Puso true");
+      }else{
+        alert("Puso false");
+      }
+    });
+  }
+
+  finalizarPractica() {
     this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
       this.authSvc.finalizarPractica(respuesta).subscribe((result: any) => { result })
       this.router.navigate(['/materias'])
     });
   }
 
-  verificar() {
-    this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
-      this.authSvc.verificarGrupoCompleto(respuesta).pipe(finalize(() => this.prueba())).subscribe((result: any) => { this.bandera$ = result })
+  descargar() {
+    this.authSvc.descargar(this.COD_LAB).subscribe((result) => {
+      result
+      if (result == true) {
+        alert("Archivo descargado exitosamente, revisa tu carpeta de descargas")
+      }else{
+        alert("No se ha podido descargar el Archivo");
+      }
     });
-    //window.location.reload();
+    this.disabled_FinalizarPractica = false;
   }
-  
+
+
+
+  reportarFalla() {
+    console.log("reportarFalla()");
+  }
+
   prueba() {
     if (this.bandera$ == false) {
       return false;
@@ -118,7 +190,51 @@ export class LeyhookeComponent implements OnInit {
     }
   }
 
-  
+  verificar() {
+    this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
+      this.authSvc.verificarGrupoCompleto(respuesta).pipe(finalize(() => this.prueba())).subscribe((result: any) => { this.bandera$ = result })
+    });
+    //window.location.reload();
+  }
 
-  
+  verificarDuracion() {
+    this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
+      this.authSvc.duracionPractica(respuesta, this.COD_LAB).pipe(finalize(() => this.prueba())).subscribe((result: any) => {
+        console.log(result);
+        this.duracion$ = result;
+        DEFAULT = this.duracion$;
+        console.log(DEFAULT);
+      })
+    });
+  }
+
+  public listarElongaciones() {
+    console.log("entro a listar elongacion");
+    this.authSvc.obtenerDatosLHElongaciones(1).subscribe((result: any) => {
+      this.lista1 = result;
+
+      for (var i = 0; i < this.lista1.length; i++) {
+        this.listadoElongaciones.push(this.lista1[i]);
+        console.log(this.listadoElongaciones);
+      }
+    });
+  }
+
+  public listarPesos() {
+    console.log("entro a listar pesos");
+    this.authSvc.obtenerDatosLHPesos(1).subscribe((result: any) => {
+      this.lista2 = result;
+
+      for (var i = 0; i < this.lista2.length; i++) {
+        this.listadoPesos.push(this.lista2[i]);
+        console.log(this.listadoPesos);
+      }
+    });
+  }
+
+
+
+
+
+
 }
