@@ -87,9 +87,9 @@ export class AuthService {
   }
 
 
-  descargar() {
-    console.log('Descargó')
-    return this.httpClient.get(`${this.API_BASE}/pdf`).subscribe(result => this.data = result);
+  descargar( codigo_planta: number) {
+    console.log('Entro a descargarPDF')
+    return this.httpClient.get(`${this.API_BASE_LAB}/`+codigo_planta+`/`+`descargarDatos`);
 
   }
 
@@ -153,7 +153,7 @@ export class AuthService {
     return this.httpClient.delete(`${this.API_BASE_LAB}/` + codigo_grupo + `/` + `finalizarPractica`);
   }
 
-  obtenerOpcionesCL(codigo_planta: number) {
+  obtenerOpcionesCL_Repeticiones(codigo_planta: number) {
     console.log("Entro a obtener opciones practica caida libre");
     return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo_planta + `/` + `listar_Altura_CL`);
   }
@@ -174,9 +174,9 @@ export class AuthService {
     return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo_planta + `/` + `listar_Velocidad_MP`);
   }
 
-  Iniciopractica() {
+  Iniciopractica(codigo_planta: number) {
     console.log("Entro a obtener opciones practica caida libre");
-    return this.httpClient.get<Boolean>(`${this.API_BASE_LAB}/` + `iniciarProceso`);
+    return this.httpClient.get<Boolean>(`${this.API_BASE_LAB}/` + codigo_planta + `/` + `iniciarProceso`);
   }
 
   obtenerDatosCLAltura(codigo:any){
@@ -191,7 +191,7 @@ export class AuthService {
   
   obtenerDatosLHElongaciones(codigo:any){
     console.log("Entro a obtener Elongacion Ley Hooke");
-    return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo +`/retornarElongacion`);
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo +`/retornarElongaciones`);
   }
 
   obtenerDatosLHPesos(codigo:any){

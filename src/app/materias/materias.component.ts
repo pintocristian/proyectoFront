@@ -14,6 +14,7 @@ import { emitWarning } from 'process';
 })
 export class MateriasComponent implements OnInit {
 
+  
   constructor(private authService: AuthService, private router: Router, private cookieService: CookieService, public dialog: MatDialog) { }
 
   public user$ = this.cookieService.get('Token_email');
@@ -34,9 +35,9 @@ export class MateriasComponent implements OnInit {
     console.log("Entro a Descargar Guia Front")
     this.authService.descargarGuia(codigo_planta).subscribe((result:any)=>{
       if(result==true){
-        console.log("Retorno True");
+        alert("¡Guia Descargada, revisa tu carpeta de Descargas!");
       }else{
-        console.log("Retorno False")
+        alert("No se ha encontrado una guia para descargar");
       }
     });
 

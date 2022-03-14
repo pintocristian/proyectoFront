@@ -7,7 +7,7 @@ import { AuthService } from 'src/service/service.service';
 import { ChartConfiguration, ChartData, ChartType, ChartOptions, Chart } from 'chart.js';
 import Swal from 'sweetalert2';
 
-const KEY = 'timeLH';
+var KEY = 'timeLH';
 var DEFAULT = 1800; //3600 es 1 hora
 
 
@@ -25,7 +25,7 @@ export class LeyhookeComponent implements OnInit {
   rol: String = "";
   rol$ = this.rol;
 
-  private COD_LAB: number = 2;
+  private COD_LAB: number = 1;
 
   public user$ = this.cookieService.get('Token_email');
   public userName$ = this.cookieService.get('Token_name');
@@ -45,6 +45,7 @@ export class LeyhookeComponent implements OnInit {
   public listadoPesos: any = [];
 
   xValues = this.listadoPesos;
+
   yValues = this.listadoElongaciones;
 
   storageLeyHooke: Storage;
@@ -56,7 +57,10 @@ export class LeyhookeComponent implements OnInit {
 
 
   ngOnInit(): void {
+    localStorage.clear();
     this.verificarDuracion();
+    this.listarElongaciones();
+    this.listarPesos();
     this.authSvc.obtenerOpcionesLH_Elongacion(this.COD_LAB).subscribe(respuesta => { this.listadoOpElongacion = respuesta });
     this.authSvc.obtenerOpcionesLH_Fuerza(this.COD_LAB).subscribe(respuesta => { this.listadoOpFuerza = respuesta });
     this.authSvc.saberRol().subscribe(respuesta => {
@@ -87,8 +91,8 @@ export class LeyhookeComponent implements OnInit {
       },
       options: {
         scales: {
-          yAxes: {min: 0, max:50},
-      }
+          yAxes: { min: 0, max: 50 },
+        }
       },
     });
   }
@@ -100,8 +104,17 @@ export class LeyhookeComponent implements OnInit {
     }
   }
 
+  timesUp(event: CountdownEvent) {
+    if (event.action == "done") {
+      console.log("Finished");
+      localStorage.removeItem(KEY);
+      localStorage.clear();
+      this.router.navigate(['/materias']);
+    }
+  }
+
   public inicio() {
-    this.authSvc.Iniciopractica().subscribe((result: any) => {
+    this.authSvc.Iniciopractica(this.COD_LAB).subscribe((result: any) => {
       this.bandera = result
       if (this.bandera == false) {
         console.log('Entro false')
@@ -144,12 +157,18 @@ export class LeyhookeComponent implements OnInit {
   }
 
   descargar() {
-    //this.authSvc.descargar();
+    this.authSvc.descargar(this.COD_LAB).subscribe((result) => {
+      result
+      if (result == true) {
+        alert("Archivo descargado exitosamente, revisa tu carpeta de descargas")
+      }else{
+        alert("No se ha podido descargar el Archivo");
+      }
+    });
     this.disabled_FinalizarPractica = false;
-    alert("Boton activado");
   }
 
- 
+
 
   reportarFalla() {
     console.log("reportarFalla()");
@@ -162,7 +181,7 @@ export class LeyhookeComponent implements OnInit {
       return true;
     }
   }
-  
+
   verificar() {
     this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
       this.authSvc.verificarGrupoCompleto(respuesta).pipe(finalize(() => this.prueba())).subscribe((result: any) => { this.bandera$ = result })
@@ -207,7 +226,7 @@ export class LeyhookeComponent implements OnInit {
     });
   }
 
-  
+
 
 
 

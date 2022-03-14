@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 
 
 
-const KEY = 'timeCL';
+var KEY = 'timeCL';
 var DEFAULT = 0; //3600 es 1 hora
 
 @Component({
@@ -31,7 +31,7 @@ export class CaidalibreComponent implements OnInit {
   bandera: Boolean;
   bandera$: Boolean;
 
-  private COD_LAB: number = 1;
+  private COD_LAB: number = 2;
   public lista1: any = [];
   public lista2: any = [];
   public listadoAltura: any = [];
@@ -53,22 +53,23 @@ export class CaidalibreComponent implements OnInit {
   disabled_FinalizarPractica: Boolean = true;
   disabled_FinalizarSimulacion: Boolean = true;
 
-  storageCaidaLibre : Storage;
+  storageCaidaLibre: Storage;
 
   constructor(private authSvc: AuthService, private router: Router, private readonly cookieService: CookieService) { }
 
   ngOnInit(): void {
+    localStorage.clear();
     this.verificarDuracion();
     this.listarAltura();
     this.listarTiempo();
-    this.authSvc.obtenerOpcionesCL(this.COD_LAB).subscribe(respuesta => { this.listadoOpciones = respuesta });
+    this.authSvc.obtenerOpcionesCL_Repeticiones(this.COD_LAB).subscribe(respuesta => { this.listadoOpciones = respuesta });
     this.authSvc.saberRol().subscribe(respuesta => {
       this.rol$ = respuesta
     });
     if (this.cookieService.check('Token_access')) {
       this.router.navigate(['/caidalibre']);
     } else {
-      this.router.navigate(['/login ']);
+      this.router.navigate(['/login']);
     }
 
 
@@ -98,7 +99,7 @@ export class CaidalibreComponent implements OnInit {
   }
 
   public inicio() {
-    this.authSvc.Iniciopractica().subscribe((result: any) => {
+    this.authSvc.Iniciopractica(this.COD_LAB).subscribe((result: any) => {
       this.bandera = result
       if (this.bandera == false) {
         console.log('Entro false')
@@ -118,10 +119,14 @@ export class CaidalibreComponent implements OnInit {
     }
 
   }
-  timesUp(event: CountdownEvent) { if (event.action == "done") {
-     console.log("Finished"); 
-     this.router.navigate(['/materias']);
-    } }
+  timesUp(event: CountdownEvent) {
+    if (event.action == "done") {
+      console.log("Finished");
+      localStorage.removeItem(KEY);
+      localStorage.clear();
+      this.router.navigate(['/materias']);
+    }
+  }
 
 
   finalizarSimulaciones() {
@@ -129,9 +134,15 @@ export class CaidalibreComponent implements OnInit {
   }
 
   descargar() {
-    //this.authSvc.descargar();
+    this.authSvc.descargar(this.COD_LAB).subscribe((result) => {
+      result
+      if (result == true) {
+        alert("Archivo descargado exitosamente, revisa tu carpeta de descargas")
+      }else{
+        alert("No se ha podido descargar el Archivo");
+      }
+    });
     this.disabled_FinalizarPractica = false;
-    alert("Boton activado");
   }
 
 
@@ -220,5 +231,5 @@ export class CaidalibreComponent implements OnInit {
   }
 
   config: CountdownConfig = { leftTime: DEFAULT, notify: 0 };
-  
+
 }
