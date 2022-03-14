@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 
 
 
-const KEY = 'time';
+const KEY = 'timeCL';
 var DEFAULT = 0; //3600 es 1 hora
 
 @Component({
@@ -24,72 +24,22 @@ var DEFAULT = 0; //3600 es 1 hora
 })
 export class CaidalibreComponent implements OnInit {
 
-  salesData: ChartData<'line'> = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-    datasets: [
-      { label: 'Mobiles', data: [1000, 1200, 1050, 2000, 500], tension: 0.5 },
-      { label: 'Laptop', data: [200, 100, 400, 50, 90], tension: 0.5 },
-      { label: 'AC', data: [500, 400, 350, 450, 650], tension: 0.5 },
-      { label: 'Headset', data: [1200, 1500, 1020, 1600, 900], tension: 0.5 },
-    ],
-  };
-  chartOptions: ChartOptions = {
-    responsive: true,
-    plugins: {
-      title: {
-        display: true,
-        text: 'Monthly Sales Data',
-      },
-    },
-  };
-  tittle = 'sweetAlert'
+  tittle = 'sweetAlert';
 
   rol: String = "";
   rol$ = this.rol;
   bandera: Boolean;
   bandera$: Boolean;
 
-
-
-
-
   private COD_LAB: number = 1;
-
-  public scatterChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-  };
-  public scatterChartLabels: string[] = ['Eating'/*, 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'*/];
-  public listado: any = [];
-  public scatterChartData: ChartData<'scatter'> = {
-    labels: this.scatterChartLabels,
-    datasets: [
-      {
-        data: [this.listado
-        ],
-        label: 'Gráfica X y Y',
-        pointRadius: 5,
-        borderColor: 'rgba(255, 99, 132, 1)',
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      },
-    ]
-  };
-  public scatterChartType: ChartType = 'scatter';
+  public lista1: any = [];
+  public lista2: any = [];
   public listadoAltura: any = [];
+  public listadoTiempo: any = [];
 
 
-
-  xValues = this.listado;
-  yValues = this.listado;
-
-
-  // events
-  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
+  xValues = this.listadoTiempo;
+  yValues = this.listadoAltura;
 
   duracion$: number = 0;
 
@@ -100,14 +50,17 @@ export class CaidalibreComponent implements OnInit {
 
   public listadoOpciones: any = [];
 
+  disabled_FinalizarPractica: Boolean = true;
+  disabled_FinalizarSimulacion: Boolean = true;
+
+  storageCaidaLibre : Storage;
 
   constructor(private authSvc: AuthService, private router: Router, private readonly cookieService: CookieService) { }
 
-  //public user$: Observable<any> = this.authSvc.afAuth.user;
   ngOnInit(): void {
     this.verificarDuracion();
     this.listarAltura();
-    console.log(this.listado);
+    this.listarTiempo();
     this.authSvc.obtenerOpcionesCL(this.COD_LAB).subscribe(respuesta => { this.listadoOpciones = respuesta });
     this.authSvc.saberRol().subscribe(respuesta => {
       this.rol$ = respuesta
@@ -115,7 +68,7 @@ export class CaidalibreComponent implements OnInit {
     if (this.cookieService.check('Token_access')) {
       this.router.navigate(['/caidalibre']);
     } else {
-      this.router.navigate(['/home'])
+      this.router.navigate(['/login ']);
     }
 
 
@@ -131,8 +84,14 @@ export class CaidalibreComponent implements OnInit {
         datasets: [{
           backgroundColor: "rgba(0,0,0,1.0)",
           borderColor: "rgba(0,0,0,0.1)",
-          data: this.yValues
-        }]
+          data: this.yValues,
+          label: 'Mostrar Grafica (Confirmar)',
+        }],
+      },
+      options: {
+        scales: {
+          yAxes: { min: 0, max: 50 },
+        }
       },
     });
 
@@ -157,10 +116,14 @@ export class CaidalibreComponent implements OnInit {
       // Save current value
       localStorage.setItem(KEY, `${ev.left / 1000}`);
     }
-  }
 
-  disabled_FinalizarPractica: Boolean = true;
-  disabled_FinalizarSimulacion: Boolean = true;
+  }
+  timesUp(event: CountdownEvent) { if (event.action == "done") {
+     console.log("Finished"); 
+     this.router.navigate(['/materias']);
+    } }
+
+
   finalizarSimulaciones() {
     this.disabled_FinalizarSimulacion = false;
   }
@@ -171,7 +134,7 @@ export class CaidalibreComponent implements OnInit {
     alert("Boton activado");
   }
 
-  
+
   alerta() {
     Swal.fire({
       title: 'Estás saliendo de la practica!',
@@ -184,7 +147,7 @@ export class CaidalibreComponent implements OnInit {
       confirmButtonText: 'Si, deseo salir'
     }).then((result) => {
       if (result.isConfirmed) {
-          this.router.navigate(['/materias'])
+        this.router.navigate(['/materias'])
       }
     })
   }
@@ -232,20 +195,30 @@ export class CaidalibreComponent implements OnInit {
 
   public listarAltura() {
     console.log("entro a listar alturaaaaaaaaaaaaaa");
-    this.authSvc.obtenerDatosCLAltura(1).pipe(finalize(() => this.prueba())).subscribe((result: any) => {
-      this.listadoAltura = result;
+    this.authSvc.obtenerDatosCLAltura(2).pipe(finalize(() => this.prueba())).subscribe((result: any) => {
+      this.lista1 = result;
       console.log(result);
 
-      for (var i = 0; i < this.listadoAltura.length; i++) {
-        this.listado.push(this.listadoAltura[i]);
-        console.log(this.listado);
+      for (var i = 0; i < this.lista1.length; i++) {
+        this.listadoAltura.push(this.lista1[i]);
+        console.log(this.listadoAltura);
       }
     });
   }
 
+  public listarTiempo() {
+    console.log("entro a listar alturaaaaaaaaaaaaaa");
+    this.authSvc.obtenerDatosCLTiempo(2).pipe(finalize(() => this.prueba())).subscribe((result: any) => {
+      this.lista2 = result;
+      console.log(result);
+
+      for (var i = 0; i < this.lista2.length; i++) {
+        this.listadoTiempo.push(this.lista2[i]);
+        console.log(this.listadoTiempo);
+      }
+    });
+  }
 
   config: CountdownConfig = { leftTime: DEFAULT, notify: 0 };
-
-
-
+  
 }

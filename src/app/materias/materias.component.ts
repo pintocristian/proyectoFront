@@ -21,7 +21,7 @@ export class MateriasComponent implements OnInit {
   public userPhoto$ = this.cookieService.get('Token_photo');
 
 
-  
+
 
   ngOnInit(): void {
   }
@@ -29,23 +29,35 @@ export class MateriasComponent implements OnInit {
   bandera: Boolean = false;
 
   codigo_planta: number;
-  
-  verificarAgendamiento(codigo_planta:number) {
+
+  descargarGuia(codigo_planta: number) {
+    console.log("Entro a Descargar Guia Front")
+    this.authService.descargarGuia(codigo_planta).subscribe((result:any)=>{
+      if(result==true){
+        console.log("Retorno True");
+      }else{
+        console.log("Retorno False")
+      }
+    });
+
+  }
+  verificarAgendamiento(codigo_planta: number) {
     this.codigo_planta = codigo_planta;
-    this.authService.saberCodigoGrupo().subscribe(respuesta=> {this.authService.verificarAgendamientoGrupo(respuesta,codigo_planta).pipe(finalize(() => this.prueba())).subscribe((result: any) => { this.bandera=result })
-  });
+    this.authService.saberCodigoGrupo().subscribe(respuesta => {
+      this.authService.verificarAgendamientoGrupo(respuesta, codigo_planta).pipe(finalize(() => this.prueba())).subscribe((result: any) => { this.bandera = result })
+    });
   }
 
-  prueba(){
+  prueba() {
     if (this.bandera) {
-      if(this.codigo_planta==1){
-        this.router.navigate(['/caidalibre']);
-      }else if(this.codigo_planta==2){
+      if (this.codigo_planta == 1) {
         this.router.navigate(['/leyhooke']);
-      }else if(this.codigo_planta==3){
+      } else if (this.codigo_planta == 2) {
+        this.router.navigate(['/caidalibre']);
+      } else if (this.codigo_planta == 3) {
         this.router.navigate(['/movparabolico']);
       }
-      
+
     } else {
       alert('No tienes practicas agendadas en este horario');
     }

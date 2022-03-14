@@ -93,18 +93,22 @@ export class AuthService {
 
   }
 
+  descargarGuia( codigo_planta: number){
+    console.log("Entro a descargarGuia()");
+    return this.httpClient.get(`${this.API_BASE_PRACTICA}/`+codigo_planta+`/` + `descargarArchivoProfesor`);
+  }
 
 
   enviarIntegrantes(eventFranja: number, arrayIntergrantes: any[]): Observable<number> {
     console.log("Entro a enviarIntegrantes");
-    return this.httpClient.post<number>(`${this.API_BASE_LAB}/` + eventFranja + `/` + `agregarParticipantes`, arrayIntergrantes);
+    return this.httpClient.post<number>(`${this.API_BASE_PRACTICA}/` + eventFranja + `/` + `agregarParticipantes`, arrayIntergrantes);
 
 
   }
 
   agendamiento(codigo_laboratorio: number): Observable<Agendamiento[]> {
     console.log("Entro a Agendamiento");
-    return this.httpClient.get<Agendamiento[]>(`${this.API_BASE_LAB}/` + codigo_laboratorio + `/listarAgendamiento`);
+    return this.httpClient.get<Agendamiento[]>(`${this.API_BASE_PRACTICA}/` + codigo_laboratorio + `/listarAgendamiento`);
   }
 
   codigos(codigo_materia: any) {
@@ -176,10 +180,36 @@ export class AuthService {
   }
 
   obtenerDatosCLAltura(codigo:any){
-    console.log("Entro a obtener datos para graficar altura");
+    console.log("Entro a obtener datos Caida Libre");
     return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo +`/retornarAltura`);
   }
+
+  obtenerDatosCLTiempo(codigo:any){
+    console.log("Entro a obtener tiempo Caida Libre");
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo +`/retornarTiempo`);
+  }
   
+  obtenerDatosLHElongaciones(codigo:any){
+    console.log("Entro a obtener Elongacion Ley Hooke");
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo +`/retornarElongacion`);
+  }
+
+  obtenerDatosLHPesos(codigo:any){
+    console.log("Entro a obtener Pesos Ley Hooke");
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo +`/retornarPesos`);
+  }
+
+  obtenerDatosMPX(codigo:any){
+    console.log("Entro a obtener X Mov Parabolico");
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo +`/retornarX`);
+  }
+
+  obtenerDatosMPY(codigo:any){
+    console.log("Entro a obtener Y Mov Parabolico");
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo +`/retornarY`);
+  }
+
+
   duracionPractica(codigo: any, codigo_planta: number): Observable<number> {
     console.log("Entro a duracionPractica");
     return this.httpClient.get<number>(`${this.API_BASE_PRACTICA}/` + codigo + `/` + codigo_planta + `/` + `duracion`);

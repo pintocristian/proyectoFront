@@ -2,7 +2,8 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
 <app-navbar></app-navbar>
 
 <body>
@@ -20,22 +21,17 @@
 
                 <div class="grafica">
                     <h1 class="text-1">campo para la grafica</h1>
-                    <div style="display: block">
-                        <canvas baseChart [data]="scatterChartData" [options]="scatterChartOptions"
-                            [type]="scatterChartType">
-                        </canvas>
-                    </div>
+                    <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
                 </div>
 
             </div>
             <div class="col">
                 <div class=" row container-practica">
                     <h1 class="text">Datos de la practica</h1>
-
                     <countdown class="text" [config]="config" (event)="handleEvent($event)"></countdown>
                     <div class="datos-practica" *ngIf="rol$ == 'Lider'">
                         <div *ngIf="bandera$; else sino">
-                            <label>Fuerza</label>
+                            <label>Altura</label>
                             <select name="OS" class="desplegable">
                                 <option *ngFor="let lista of listadoOpFuerza" value="Fuerza">{{lista}}</option>
                             </select>
@@ -48,30 +44,32 @@
                             <button class="btn btn-primary button-2" (click)="inicio()">Iniciar</button>
                             <button class="btn btn-primary button-3">Reiniciar</button>
                             <button class="btn btn-danger button-4" (click)="finalizarSimulaciones()">Terminar
-                                Simulaciones</button>
+                                 Simulaciones</button>
                             <button class="btn btn-danger button-4" [disabled]="disabled_FinalizarPractica"
                                 (click)="finalizarPractica()">Terminar
                                 practica</button>
-                            <button class="btn btn-danger  button-4" (click)="reportarFalla()">Reportar Falla</button>
+                            <button class="btn btn-danger  button-12" (click)="reportarFalla()">Reportar Falla</button>
                             <button class="btn btn-danger button-9" mat-raised-button
                                 routerLink="/inicio">Regresar</button>
                         </div>
                         <ng-template #sino>
                             <button class="btn btn-warning button-6" (click)="verificar()">Check</button>
-                            <button class="btn btn-danger button-9" mat-raised-button
-                                routerLink="/inicio">Regresar</button>
+                            <button class="btn btn-danger button-10" (click)="alerta()">Regresar</button>
+                            <button class="btn btn-danger  button-11" (click)="reportarFalla()">Reportar Falla</button>
                         </ng-template>
                     </div>
 
                     <div class="datos-practica" *ngIf="rol$ == 'Observador'">
                         <button class="btn btn-primary button-7" (click)="descargar()">Descargar PDF</button>
-                        <button class="btn btn-danger button-8" mat-raised-button routerLink="/inicio">Regresar</button>
+                        <button class="btn btn-danger button-8" (click)="alerta()">Regresar</button>
 
                     </div>
 
                 </div>
                 <div class="container-datos-practica">
                     <h1 class="text-1">Datos</h1>
+                    <p class="text-2">{{listadoOpFuerza}}</p>
+                    <p class="text-2">{{listadoOpElongacion}}</p>
                 </div>
             </div>
         </div>

@@ -55,7 +55,7 @@ export class CalendarCaidaLibreComponent implements OnInit {
 
   public eventosAux: Agendamiento[];
 
-  private COD_LAB: number = 1;
+  private COD_LAB: number = 2;
 
   integrantes = new FormGroup({
     integrante_1: new FormControl('', [Validators.required, Validators.email]),
@@ -177,5 +177,5 @@ export class CalendarCaidaLibreComponent implements OnInit {
     });
   }
 
-  
+
 }

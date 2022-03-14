@@ -10,8 +10,8 @@ import { ServiceRealTimeService } from 'src/app/service/service-real-time.servic
 import { AuthService } from 'src/service/service.service';
 
 
-const KEY = 'time';
-const DEFAULT = 3600; //3600 es 1 hora
+const KEY = 'timeMP';
+const DEFAULT = 0; //3600 es 1 hora
 
 @Component({
   selector: 'app-movparabolico',
@@ -85,7 +85,7 @@ export class MovparabolicoComponent implements OnInit {
   public listadoOpAngulo: any = [];
   public listadoOpVelocidad: any = [];
 
-
+  storageMovParabolico: Storage;
 
   constructor(private authSvc: AuthService, private router: Router, private readonly cookieService: CookieService, private dbService: ServiceRealTimeService) {
     
@@ -120,7 +120,7 @@ export class MovparabolicoComponent implements OnInit {
       this.router.navigate(['/home'])
     }
     //Cuenta regresiva
-    let value = +localStorage.getItem(KEY)!! ?? DEFAULT;
+    let value = +this.storageMovParabolico.getItem(KEY)!! ?? DEFAULT;
     if (value <= 0) value = DEFAULT;
     this.config = { ...this.config, leftTime: value };
   }
@@ -128,7 +128,7 @@ export class MovparabolicoComponent implements OnInit {
   handleEvent(ev: CountdownEvent) {
     if (ev.action === 'notify') {
       // Save current value
-      localStorage.setItem(KEY, `${ev.left / 1000}`);
+      this.storageMovParabolico.setItem(KEY, `${ev.left / 1000}`);
     }
   }
 

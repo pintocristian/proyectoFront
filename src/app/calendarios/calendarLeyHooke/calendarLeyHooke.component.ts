@@ -43,7 +43,7 @@ export class CalendarLeyHookeComponent implements OnInit {
 
   public eventosAux: Agendamiento[];
 
-  private COD_LAB: number = 2;
+  private COD_LAB: number = 1;
 
   integrantes = new FormGroup({
     integrante_1: new FormControl('', [Validators.required, Validators.email]),
