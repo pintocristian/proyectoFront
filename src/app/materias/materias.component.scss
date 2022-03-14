@@ -132,76 +132,6 @@ body {
     top: -10px;
 }
 
-.irPractica {
-    background-color: #4caf50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-}
-.searchBox {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, 50%);
-    border-radius: 40px;
-    padding: 5px 10px;
-    display: flex;
-}
-
-.searchBox:hover > .searchInput {
-    width: 240px;
-    padding: 10px;
-}
-
-.searchBox:hover > .searchButton {
-    background: white;
-    color: #2f3640;
-}
-
-.searchBox:hover {
-    background: #2f3640;
-}
-
-.searchBox:hover > .searchButton:hover {
-    background-color: var(--primary);
-    border: 1px solid var(--primary);
-    color: var(--white);
-}
-
-.searchButton {
-    color: white;
-    float: right;
-    width: auto;
-    padding: 10px 20px;
-    border-radius: 40px;
-    background: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: 0.4s;
-    border: 0;
-    font-style: normal !important;
-    font-weight: 600;
-    text-align: center;
-    border: 1px solid var(--white);
-}
-
-.searchInput {
-    border: none;
-    background: none;
-    outline: none !important;
-    float: left;
-    padding: 0;
-    color: white;
-    font-size: 16px;
-    transition: 0.4s;
-    width: 0px;
-}
-
 @media screen and (max-width: 1020px) {
     .content h1 {
         font-size: 2em;
@@ -287,3 +217,79 @@ body {
    Every toolbar row uses a flexbox row layout. */
    flex: 1 1 auto;
  }
+
+ /*#region CARTAS*/
+ .pcontainer {
+    /* Content is centered horizontally */
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.pcontainer__column {
+    /* Content is centered vertically */
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #295fd4b9;
+
+    /* Make all columns have the same width */
+    flex: 1;
+
+    /* OPTIONAL: Space between columns */
+    margin: 0px 8px;
+
+    /* OPTIONAL: Border */
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+}
+
+.pcontainer__column:hover {
+    background: rgba(29, 29, 32, 0.925)
+  }
+
+.texto{
+    font-size:15px;
+    font-family:Arial;
+    margin-top: .5em;
+    margin-bottom: .5em;
+    margin-left: 1em;
+    margin-right: .5em;
+}
+
+.titulo{
+    font-size:30px;
+    font-family:Arial;
+    margin-top: .5em;
+    margin-bottom: .5em;
+    margin-left: 1em;
+    margin-right: .5em;
+}
+/*#endregion RegionName*/
+
+.buttonClass {
+    font-size:15px;
+    font-family:Arial;
+    width:140px;
+    height:50px;
+    border-width:1px;
+    color:#fff;
+    border-color:rgba(24, 65, 171, 1);
+    font-weight:bold;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+    border-bottom-left-radius:10px;
+    border-bottom-right-radius:10px;
+    text-shadow: 1px 1px 0px rgba(39, 41, 102, 1);
+    background:rgba(68, 109, 199, 1);
+    margin-top: .5em;
+    margin-bottom: .5em;
+    margin-left: 1em;
+    margin-right: .5em;
+  }
+  
+  .buttonClass:hover {
+    background: rgba(42, 47, 191, 1)
+  }           
