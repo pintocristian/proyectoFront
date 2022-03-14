@@ -52,13 +52,13 @@ export class CaidalibreComponent implements OnInit {
 
   disabled_FinalizarPractica: Boolean = true;
   disabled_FinalizarSimulacion: Boolean = true;
+  disabled_Iniciar: boolean = false;
 
   storageCaidaLibre: Storage;
 
   constructor(private authSvc: AuthService, private router: Router, private readonly cookieService: CookieService) { }
 
   ngOnInit(): void {
-    localStorage.clear();
     this.verificarDuracion();
     this.listarAltura();
     this.listarTiempo();
@@ -122,8 +122,8 @@ export class CaidalibreComponent implements OnInit {
   timesUp(event: CountdownEvent) {
     if (event.action == "done") {
       console.log("Finished");
-      localStorage.removeItem(KEY);
       localStorage.clear();
+      localStorage.removeItem(KEY);
       this.router.navigate(['/materias']);
     }
   }
@@ -131,6 +131,15 @@ export class CaidalibreComponent implements OnInit {
 
   finalizarSimulaciones() {
     this.disabled_FinalizarSimulacion = false;
+    this.disabled_Iniciar= true;
+    this.authSvc.finalizarSimulacion(this.COD_LAB).subscribe((result:any) =>{
+      if(result == true){
+        alert("Puso true");
+      }else{
+        alert("Puso false");
+      }
+    });
+
   }
 
   descargar() {

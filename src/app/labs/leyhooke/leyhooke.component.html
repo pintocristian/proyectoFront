@@ -39,29 +39,25 @@
                             <select name="OS" class="desplegable">
                                 <option *ngFor="let lista of listadoOpElongacion" value="Elongacion">{{lista}}</option>
                             </select>
-                            <button class="btn btn-primary button-1" [disabled]="disabled_FinalizarSimulacion"
+                            <button class="config_boton" mat-raised-button color="primary" [disabled]="disabled_FinalizarSimulacion"
                                 (click)="descargar()">Descargar</button>
-                            <button class="btn btn-primary button-2" (click)="inicio()">Iniciar</button>
-                            <button class="btn btn-primary button-3">Reiniciar</button>
-                            <button class="btn btn-danger button-4" (click)="finalizarSimulaciones()">Terminar
+                            <button class="config_boton" mat-raised-button color="primary" [disabled]="disabled_Iniciar" (click)="inicio()">Iniciar</button>
+                            <button class="config_boton" mat-raised-button color="primary" (click)="finalizarSimulaciones()">Terminar
                                  Simulaciones</button>
-                            <button class="btn btn-danger button-4" [disabled]="disabled_FinalizarPractica"
+                            <button class="config_boton" mat-raised-button color="primary" [disabled]="disabled_FinalizarPractica"
                                 (click)="finalizarPractica()">Terminar
                                 practica</button>
-                            <button class="btn btn-danger  button-12" (click)="reportarFalla()">Reportar Falla</button>
-                            <button class="btn btn-danger button-9" mat-raised-button
-                                routerLink="/inicio">Regresar</button>
+                            <button class="config_boton" mat-raised-button color="primary" (click)="reportarFalla()">Reportar Falla</button>
                         </div>
                         <ng-template #sino>
-                            <button class="btn btn-warning button-6" (click)="verificar()">Check</button>
-                            <button class="btn btn-danger button-10" (click)="alerta()">Regresar</button>
-                            <button class="btn btn-danger  button-11" (click)="reportarFalla()">Reportar Falla</button>
+                            <button mat-raised-button color="primary" (click)="verificar()">Check</button>
+                            <br>
+                            <br>
                         </ng-template>
                     </div>
 
                     <div class="datos-practica" *ngIf="rol$ == 'Observador'">
-                        <button class="btn btn-primary button-7" (click)="descargar()">Descargar PDF</button>
-                        <button class="btn btn-danger button-8" (click)="alerta()">Regresar</button>
+                        <button class="btn btn-primary button-7" (click)="descargar()">Descargar</button>
 
                     </div>
 

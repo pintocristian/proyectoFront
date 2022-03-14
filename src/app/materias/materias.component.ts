@@ -25,6 +25,7 @@ export class MateriasComponent implements OnInit {
 
 
   ngOnInit(): void {
+    localStorage.clear();
   }
 
   bandera: Boolean = false;

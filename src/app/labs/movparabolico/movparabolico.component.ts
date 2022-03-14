@@ -28,6 +28,7 @@ export class MovparabolicoComponent implements OnInit {
 
   disabled_FinalizarPractica: Boolean = true;
   disabled_FinalizarSimulacion: Boolean = true;
+  disabled_Iniciar: boolean = false;
   bandera: Boolean;
 
 
@@ -176,6 +177,14 @@ export class MovparabolicoComponent implements OnInit {
 
   finalizarSimulaciones() {
     this.disabled_FinalizarSimulacion = false;
+    this.disabled_Iniciar= true;
+    this.authSvc.finalizarSimulacion(this.COD_LAB).subscribe((result:any) =>{
+      if(result == true){
+        alert("Puso true");
+      }else{
+        alert("Puso false");
+      }
+    });
   }
 
   finalizarPractica() {

@@ -15,9 +15,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 
 export class AuthService {
-
-
-
+  
   data = {};
   public listado: any = [];
 
@@ -72,12 +70,12 @@ export class AuthService {
 
   cambiarEstadoEntrada() {
     console.log("llegue");
-    return this.httpClient.get(`${this.API_BASE_LAB}/` + this.cookie.get('Token_email') + `/` + `cambiarEstadoParticipanteEntrada`).subscribe(result => this.data = result);
+    return this.httpClient.get(`${this.API_BASE}/` + this.cookie.get('Token_email') + `/` + `cambiarEstadoParticipanteEntrada`).subscribe(result => this.data = result);
   }
 
   cambiarEstadoSalida() {
     console.log("sali");
-    return this.httpClient.get(`${this.API_BASE_LAB}/` + this.cookie.get('Token_email') + `/` + `cambiarEstadoParticipanteSalida`).subscribe(result => this.data = result);
+    return this.httpClient.get(`${this.API_BASE}/` + this.cookie.get('Token_email') + `/` + `cambiarEstadoParticipanteSalida`).subscribe(result => this.data = result);
   }
 
   enviarDatos() {
@@ -114,14 +112,6 @@ export class AuthService {
   codigos(codigo_materia: any) {
     console.log("Entro a matricular curso()");
     return this.httpClient.post(`${this.API_BASE}/` + this.cookie.get('Token_email') + `/` + codigo_materia + `/` + `matricularCurso`, codigo_materia);
-    /*console.log("Entro a matricular curso()");
-    this.httpClient.post(`${this.API_BASE}/` + this.cookie.get('Token_email') + `/` + codigo_materia + `/` + `matricularCurso`, codigo_materia).subscribe((result: any) => {
-      this.bandera = result
-
-      return this.bandera;
-    });*/
-    //this.verificarmateria();
-    //this.verCursosMatriculados();
   }
 
   verCursosMatriculados() {
@@ -151,6 +141,11 @@ export class AuthService {
   finalizarPractica(codigo_grupo: any) {
     console.log("Entro a finalizar practica");
     return this.httpClient.delete(`${this.API_BASE_LAB}/` + codigo_grupo + `/` + `finalizarPractica`);
+  }
+
+  finalizarSimulacion(cod_lab: any) {
+    console.log("Entro a finalizar simulacion");
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + cod_lab + `/` + `finalizarProceso`);
   }
 
   obtenerOpcionesCL_Repeticiones(codigo_planta: number) {

@@ -8,7 +8,7 @@ import { ChartConfiguration, ChartData, ChartType, ChartOptions, Chart } from 'c
 import Swal from 'sweetalert2';
 
 var KEY = 'timeLH';
-var DEFAULT = 1800; //3600 es 1 hora
+var DEFAULT = 0; //3600 es 1 hora
 
 
 @Component({
@@ -33,6 +33,7 @@ export class LeyhookeComponent implements OnInit {
 
   disabled_FinalizarPractica: Boolean = true;
   disabled_FinalizarSimulacion: Boolean = true;
+  disabled_Iniciar: Boolean = false;
   bandera: Boolean;
 
   config: CountdownConfig = { leftTime: DEFAULT, notify: 0 };
@@ -57,7 +58,6 @@ export class LeyhookeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    localStorage.clear();
     this.verificarDuracion();
     this.listarElongaciones();
     this.listarPesos();
@@ -107,8 +107,8 @@ export class LeyhookeComponent implements OnInit {
   timesUp(event: CountdownEvent) {
     if (event.action == "done") {
       console.log("Finished");
-      localStorage.removeItem(KEY);
       localStorage.clear();
+      localStorage.removeItem(KEY);
       this.router.navigate(['/materias']);
     }
   }
@@ -147,6 +147,14 @@ export class LeyhookeComponent implements OnInit {
 
   finalizarSimulaciones() {
     this.disabled_FinalizarSimulacion = false;
+    this.disabled_Iniciar= true;
+    this.authSvc.finalizarSimulacion(this.COD_LAB).subscribe((result:any) =>{
+      if(result == true){
+        alert("Puso true");
+      }else{
+        alert("Puso false");
+      }
+    });
   }
 
   finalizarPractica() {
@@ -202,9 +210,8 @@ export class LeyhookeComponent implements OnInit {
 
   public listarElongaciones() {
     console.log("entro a listar elongacion");
-    this.authSvc.obtenerDatosLHElongaciones(1).pipe(finalize(() => this.prueba())).subscribe((result: any) => {
+    this.authSvc.obtenerDatosLHElongaciones(1).subscribe((result: any) => {
       this.lista1 = result;
-      console.log(result);
 
       for (var i = 0; i < this.lista1.length; i++) {
         this.listadoElongaciones.push(this.lista1[i]);
@@ -215,9 +222,8 @@ export class LeyhookeComponent implements OnInit {
 
   public listarPesos() {
     console.log("entro a listar pesos");
-    this.authSvc.obtenerDatosLHPesos(1).pipe(finalize(() => this.prueba())).subscribe((result: any) => {
+    this.authSvc.obtenerDatosLHPesos(1).subscribe((result: any) => {
       this.lista2 = result;
-      console.log(result);
 
       for (var i = 0; i < this.lista2.length; i++) {
         this.listadoPesos.push(this.lista2[i]);
