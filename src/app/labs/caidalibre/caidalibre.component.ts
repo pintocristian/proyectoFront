@@ -9,6 +9,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 import { ChartConfiguration, ChartData, ChartType, ChartOptions, Chart } from 'chart.js';
 import { Console } from 'console';
+import Swal from 'sweetalert2';
+
+
 
 const KEY = 'time';
 var DEFAULT = 0; //3600 es 1 hora
@@ -39,6 +42,7 @@ export class CaidalibreComponent implements OnInit {
       },
     },
   };
+  tittle = 'sweetAlert'
 
   rol: String = "";
   rol$ = this.rol;
@@ -94,7 +98,7 @@ export class CaidalibreComponent implements OnInit {
   public userPhoto$ = this.cookieService.get('Token_photo');
 
 
-  public listadoOpciones: any = [1, 2, 3, 4, 5, 6];
+  public listadoOpciones: any = [];
 
 
   constructor(private authSvc: AuthService, private router: Router, private readonly cookieService: CookieService) { }
@@ -113,6 +117,8 @@ export class CaidalibreComponent implements OnInit {
     } else {
       this.router.navigate(['/home'])
     }
+
+
     //Cuenta regresiva
     let value = +localStorage.getItem(KEY)!! ?? DEFAULT;
     if (value <= 0) value = DEFAULT;
@@ -163,6 +169,27 @@ export class CaidalibreComponent implements OnInit {
     //this.authSvc.descargar();
     this.disabled_FinalizarPractica = false;
     alert("Boton activado");
+  }
+
+  
+  alerta() {
+    Swal.fire({
+      title: 'Estás saliendo de la practica!',
+      text: "Ten cuidado estás por salir de la practica",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, deseo salir'
+    }).then((result) => {
+      if (result.isConfirmed) {
+          this.router.navigate(['/materias'])
+      }
+    })
+  }
+  closeSwal() {
+    throw new Error('Method not implemented.');
   }
 
   finalizarPractica() {

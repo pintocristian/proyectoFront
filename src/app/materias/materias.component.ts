@@ -5,6 +5,7 @@ import { AuthService } from 'src/service/service.service';
 import { CookieService } from 'ngx-cookie-service';
 import { VincularmateriaComponent } from '../vincularmateria/vincularmateria/vincularmateria.component';
 import { MatDialog } from '@angular/material/dialog';
+import { emitWarning } from 'process';
 
 @Component({
   selector: 'app-materias',
@@ -47,7 +48,6 @@ export class MateriasComponent implements OnInit {
       
     } else {
       alert('No tienes practicas agendadas en este horario');
-  
     }
   }
 
