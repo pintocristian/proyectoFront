@@ -2,11 +2,10 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-<script
-src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 </script>
 <app-navbar></app-navbar>
-  
+
 <body>
     <!------ Modificar según el tiempo la carga de la página ---------->
     <meta http-equiv="refresh" content="1800; url=http://localhost:4200/materias" />
@@ -23,14 +22,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                 <div class="grafica">
                     <h1 class="text-1">campo para la grafica</h1>
                     <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
-                    <h1 class="text-1">Gráfica</h1>
-                    <div style="display: block">
-                        <canvas baseChart
-                          [data]="scatterChartData"
-                          [options]="scatterChartOptions"
-                          [type]="scatterChartType">
-                        </canvas>
-                    </div>
+
                 </div>
 
             </div>
@@ -39,7 +31,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                     <h1 class="text">Datos de la practica</h1>
 
 
-<a href="#">PRUEBA</a>
+                    <a href="#">PRUEBA</a>
                     <countdown class="text" [config]="config" (event)="handleEvent($event)"></countdown>
                     <div class="datos-practica" *ngIf="rol$ == 'Lider'">
                         <div *ngIf="bandera$; else sino">
@@ -52,20 +44,18 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                             <button class="btn btn-primary button-2" (click)="inicio()">Iniciar</button>
                             <button class="btn btn-primary button-3">Reiniciar</button>
                             <button class="btn btn-danger button-4" (click)="finalizarSimulaciones()">Terminar
-                                Simulaciones</button>
+                                 Simulaciones</button>
                             <button class="btn btn-danger button-4" [disabled]="disabled_FinalizarPractica"
                                 (click)="finalizarPractica()">Terminar
                                 practica</button>
-                            <button class="btn btn-danger  button-4" (click)="reportarFalla()">Reportar Falla</button>
+                            <button class="btn btn-danger  button-12" (click)="reportarFalla()">Reportar Falla</button>
                             <button class="btn btn-danger button-9" mat-raised-button
                                 routerLink="/inicio">Regresar</button>
                         </div>
                         <ng-template #sino>
                             <button class="btn btn-warning button-6" (click)="verificar()">Check</button>
                             <button class="btn btn-danger button-10" (click)="alerta()">Regresar</button>
-                            <button class="btn btn-danger button-9" mat-raised-button
-                                routerLink="/inicio">Regresar</button>
-                            <button class="btn btn-danger  button-4" (click)="reportarFalla()">Reportar Falla</button>
+                            <button class="btn btn-danger  button-11" (click)="reportarFalla()">Reportar Falla</button>
                         </ng-template>
                     </div>
 
