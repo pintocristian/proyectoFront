@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { VincularmateriaComponent } from '../vincularmateria/vincularmateria/vincularmateria.component';
 import { MatDialog } from '@angular/material/dialog';
 
+
 @Component({
   selector: 'app-materias',
   templateUrl: './materias.component.html',
@@ -33,6 +34,30 @@ export class MateriasComponent implements OnInit {
     this.authService.saberCodigoGrupo().subscribe(respuesta=> {this.authService.verificarAgendamientoGrupo(respuesta,codigo_planta).pipe(finalize(() => this.prueba())).subscribe((result: any) => { this.bandera=result })
   });
   }
+
+LeyHookeBotonOn() {
+    var uno: any;
+    uno = document.getElementById('LeyHookeBotonOn');
+  if (uno.textContent == '¡Descarga Completada!' ) 
+          uno.textContent = 'Descargar Guia';
+  else uno.textContent = '¡Descarga Completada!';
+}
+
+MovParabolicoBotonOn() {
+  var dos: any;
+  dos = document.getElementById('MovParabolicoBotonOn');
+if (dos.textContent == '¡Descarga Completada!') 
+        dos.textContent = 'Descargar Guia';
+else dos.textContent = '¡Descarga Completada!'; 
+}
+
+CaidaLibreBotonOn() {
+  var uno: any;
+  uno = document.getElementById('CaidaLibreBotonOn');
+if (uno.textContent == '¡Descarga Completada!') 
+        uno.textContent = 'Descargar Guia';
+else uno.textContent = '¡Descarga Completada!'; 
+}
 
   prueba(){
     if (this.bandera) {

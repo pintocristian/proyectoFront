@@ -1,5 +1,6 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
 </head>
 
 <app-navbar></app-navbar>
@@ -51,7 +52,7 @@
             <p class="texto">Practica Ley de Hooke</p>
             <!-- Button -->
             <button class="buttonClass" (click)="verificarAgendamiento(2)">Ir a Ley Hooke</button>
-            <button class="buttonClass" >Descargar Guia</button>
+            <button class="buttonClass" id="LeyHookeBotonOn" (click)="LeyHookeBotonOn()">Descargar Guia</button>
         </div>
     </div>
     <div class="pcontainer">
@@ -65,7 +66,9 @@
             <p class="texto">Practica Movimiento Parabolico</p>
             <!-- Button -->
             <button class="buttonClass" (click)="verificarAgendamiento(3)">Ir a Movimiento Parabólico</button>
-            <button class="buttonClass" >Descargar Guia</button>
+            
+            <button class="buttonClass" id="MovParabolicoBotonOn" (click)="MovParabolicoBotonOn()">Descargar Guia</button>
+
         </div>
     </div>
     <div class="pcontainer">
@@ -79,12 +82,10 @@
             <p class="texto"> Esta es la Practica Caida Libre</p>
             <!-- Button -->
             <button class="buttonClass" (click)="verificarAgendamiento(1)">Ir a Caida Libre</button>
-            <button class="buttonClass" >Descargar Guia</button> 
+            <button class="buttonClass" id="CaidaLibreBotonOn" (click)="CaidaLibreBotonOn()">Descargar Guia</button> 
         </div>
     </div>
 </body>
-
-
 
 <!--
 <body>
