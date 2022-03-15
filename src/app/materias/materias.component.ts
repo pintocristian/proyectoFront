@@ -7,6 +7,8 @@ import { VincularmateriaComponent } from '../vincularmateria/vincularmateria/vin
 import { MatDialog } from '@angular/material/dialog';
 import { emitWarning } from 'process';
 import swal from 'sweetalert';
+import { defaultButtonList, getButtonListOpts } from 'sweetalert/typings/modules/options/buttons';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-materias',
@@ -15,7 +17,7 @@ import swal from 'sweetalert';
 })
 export class MateriasComponent implements OnInit {
 
-  
+
   constructor(private authService: AuthService, private router: Router, private cookieService: CookieService, public dialog: MatDialog) { }
 
   public user$ = this.cookieService.get('Token_email');
@@ -35,18 +37,22 @@ export class MateriasComponent implements OnInit {
 
   descargarGuia(codigo_planta: number) {
     console.log("Entro a Descargar Guia Front")
-    this.authService.descargarGuia(codigo_planta).subscribe((result:any)=>{
-      if(result==true){
-        swal({
+    this.authService.descargarGuia(codigo_planta).subscribe((result: any) => {
+      if (result == true) {
+        Swal.fire({
           title: "¡Guia Descargada!",
           text: "Revisa tu carpeta de Descargas.",
-          icon: "success",          
+          icon: "success",
+          confirmButtonColor: '#32408f',
+          confirmButtonText: 'Aceptar'
         });
-      }else{
-        swal({
+      } else {
+        Swal.fire({
           title: "¡ERROR!",
           text: "No se ha encontrado una guia para descargar.",
-          icon: "error"
+          icon: "error",
+          confirmButtonColor: '#32408f',
+          confirmButtonText: 'Aceptar'
         });
       }
     });
@@ -95,24 +101,24 @@ export class MateriasComponent implements OnInit {
   LeyHookeBotonOn() {
     var uno: any;
     uno = document.getElementById('LeyHookeBotonOn');
-  if (uno.textContent == '¡Descarga Completada!' ) 
-          uno.textContent = 'Descargar Guia';
-  else uno.textContent = '¡Descarga Completada!';
-}
+    if (uno.textContent == '¡Descarga Completada!')
+      uno.textContent = 'Descargar Guia';
+    else uno.textContent = '¡Descarga Completada!';
+  }
 
-MovParabolicoBotonOn() {
-  var dos: any;
-  dos = document.getElementById('MovParabolicoBotonOn');
-if (dos.textContent == '¡Descarga Completada!') 
-        dos.textContent = 'Descargar Guia';
-else dos.textContent = '¡Descarga Completada!'; 
-}
+  MovParabolicoBotonOn() {
+    var dos: any;
+    dos = document.getElementById('MovParabolicoBotonOn');
+    if (dos.textContent == '¡Descarga Completada!')
+      dos.textContent = 'Descargar Guia';
+    else dos.textContent = '¡Descarga Completada!';
+  }
 
-CaidaLibreBotonOn() {
-  var uno: any;
-  uno = document.getElementById('CaidaLibreBotonOn');
-if (uno.textContent == '¡Descarga Completada!') 
-        uno.textContent = 'Descargar Guia';
-else uno.textContent = '¡Descarga Completada!'; 
-}
+  CaidaLibreBotonOn() {
+    var uno: any;
+    uno = document.getElementById('CaidaLibreBotonOn');
+    if (uno.textContent == '¡Descarga Completada!')
+      uno.textContent = 'Descargar Guia';
+    else uno.textContent = '¡Descarga Completada!';
+  }
 }
