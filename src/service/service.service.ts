@@ -149,9 +149,9 @@ export class AuthService {
   }
 
   obtenerOpcionesCL_Repeticiones(codigo_planta: number) {
-    console.log("Entro a obtener opciones practica caida libre");
+    console.log("Entro a obtener opciones repeticiones");
     return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo_planta + `/` + `listar_Altura_CL`);
-  }
+  }/* 
   obtenerOpcionesLH_Elongacion(codigo_planta: number) {
     console.log("Entro a obtener opciones practica caida libre");
     return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo_planta + `/` + `listar_Elongacion_LH`);
@@ -159,7 +159,12 @@ export class AuthService {
   obtenerOpcionesLH_Fuerza(codigo_planta: number) {
     console.log("Entro a obtener opciones practica caida libre");
     return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo_planta + `/` + `listar_Fuerza_LH`);
+  }*/
+  obtenerOpcionesLH_Pesos(codigo_planta: number) {
+    console.log("Entro a obtener opcionesLey Hooke");
+    return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo_planta + `/` + `listar_Pesos_LH`);
   }
+
   obtenerOpcionesMP_Angulo(codigo_planta: number) {
     console.log("Entro a obtener opciones practica caida libre");
     return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo_planta + `/` + `listar_Angulo_MP`);
@@ -169,6 +174,16 @@ export class AuthService {
     return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo_planta + `/` + `listar_Velocidad_MP`);
   }
 
+  InicioLeyHooke(peso: number) {
+    console.log("Entro a InicioLeyHooke");
+    return this.httpClient.get<Boolean>(`${this.API_BASE_LAB}/`+ peso+`/` + `iniciarLeyHooke`);
+  }
+  
+  InicioCaidaLibre(peso: number) {
+    console.log("Entro a InicioCaidaLibre");
+    return this.httpClient.get<Boolean>(`${this.API_BASE_LAB}/` + peso +`/` + `iniciarCaidaLibre`);
+  }
+  
   InicioMovParabolico(angulo: number,velocidad: number) {
     console.log("Entro a InicioMovParabolico");
     return this.httpClient.get<Boolean>(`${this.API_BASE_LAB}/` + angulo + `/`+ velocidad+`/` + `iniciarMovimientoParabolico`);

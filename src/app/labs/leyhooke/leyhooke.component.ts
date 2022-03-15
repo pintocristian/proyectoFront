@@ -19,8 +19,8 @@ var DEFAULT = 0; //3600 es 1 hora
 })
 export class LeyhookeComponent implements OnInit {
 
-  public listadoOpElongacion: any = [1, 2, 3, 4, 5, 6];
-  public listadoOpFuerza: any = [1, 2, 3, 4, 5, 6];
+  public listadoOpPesos: any = [];
+  public listadoOpFuerza: any = [];
   bandera$: Boolean;
   rol: String = "";
   rol$ = this.rol;
@@ -61,8 +61,7 @@ export class LeyhookeComponent implements OnInit {
     this.verificarDuracion();
     this.listarElongaciones();
     this.listarPesos();
-    this.authSvc.obtenerOpcionesLH_Elongacion(this.COD_LAB).subscribe(respuesta => { this.listadoOpElongacion = respuesta });
-    this.authSvc.obtenerOpcionesLH_Fuerza(this.COD_LAB).subscribe(respuesta => { this.listadoOpFuerza = respuesta });
+    this.authSvc.obtenerOpcionesLH_Pesos(this.COD_LAB).subscribe(respuesta => { this.listadoOpPesos = respuesta });
     this.authSvc.saberRol().subscribe(respuesta => {
       this.rol$ = respuesta
     });
@@ -88,11 +87,7 @@ export class LeyhookeComponent implements OnInit {
           data: this.yValues,
           label: 'Mostrar Grafica (Confirmar)',
         }],
-      },
-      options: {
-        scales: {
-          yAxes: { min: 0, max: 50 },
-        }
+      
       },
     });
   }
@@ -113,16 +108,18 @@ export class LeyhookeComponent implements OnInit {
     }
   }
 
-  public inicio() {
-    /*this.authSvc.Iniciopractica(this.COD_LAB).subscribe((result: any) => {
+  public inicio(peso:any) {
+    peso = document.getElementById('peso');
+    var val_peso = peso.value;
+    alert("Peso: " + val_peso);
+    this.authSvc.InicioLeyHooke(val_peso).subscribe((result: any) => {
       this.bandera = result
       if (this.bandera == false) {
         console.log('Entro false')
       } else {
         console.log('Entro true');
       }
-    });*/
-
+    });
   }
 
   alerta() {

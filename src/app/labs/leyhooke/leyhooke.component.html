@@ -27,21 +27,17 @@
             </div>
             <div class="col">
                 <div class=" row container-practica">
-                    <h1 class="text">Datos de la practica</h1>
-                    <countdown class="text" [config]="config" (event)="handleEvent($event)" (event)="timesUp($event)"></countdown>
+                    <h1 class="text">Datos de la practica: <countdown class="text" [config]="config" (event)="handleEvent($event)" (event)="timesUp($event)"></countdown></h1>
+                                        
                     <div class="datos-practica" *ngIf="rol$ == 'Lider'">
                         <div *ngIf="bandera$; else sino">
-                            <label>Altura</label>
-                            <select name="OS" class="desplegable">
-                                <option *ngFor="let lista of listadoOpFuerza" value="Fuerza">{{lista}}</option>
-                            </select>
-                            <label>Elongación</label>
-                            <select name="OS" class="desplegable">
-                                <option *ngFor="let lista of listadoOpElongacion" value="Elongacion">{{lista}}</option>
+                            <label>Pesos</label>
+                            <select id="peso" name="OS" class="desplegable">
+                                <option *ngFor="let lista of listadoOpPesos">{{lista}}</option>
                             </select>
                             <button class="config_boton" mat-raised-button color="primary" [disabled]="disabled_FinalizarSimulacion"
                                 (click)="descargar()">Descargar</button>
-                            <button class="config_boton" mat-raised-button color="primary" [disabled]="disabled_Iniciar" (click)="inicio()">Iniciar</button>
+                            <button class="config_boton" mat-raised-button color="primary" [disabled]="disabled_Iniciar" (click)="inicio('peso')">Iniciar</button>
                             <button class="config_boton" mat-raised-button color="primary" (click)="finalizarSimulaciones()">Terminar
                                  Simulaciones</button>
                             <button class="config_boton" mat-raised-button color="primary" [disabled]="disabled_FinalizarPractica"
@@ -64,8 +60,7 @@
                 </div>
                 <div class="container-datos-practica">
                     <h1 class="text-1">Datos</h1>
-                    <p class="text-2">{{listadoOpFuerza}}</p>
-                    <p class="text-2">{{listadoOpElongacion}}</p>
+                    <p class="text-2">{{listadoOpPesos}}</p>
                 </div>
             </div>
         </div>

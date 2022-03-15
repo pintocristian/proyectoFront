@@ -142,10 +142,14 @@ export class MovparabolicoComponent implements OnInit {
   }
 
 
-  public inicio(angulo:any, velocidad:any) {
-    console.log(document.getElementById('angulo'));
-    console.log(document.getElementById('velocidad'));
-    /*this.authSvc.InicioMovParabolico(angulo,velocidad).subscribe((result: any) => {
+  public inicio(angulo: any, velocidad: any) {
+    angulo = document.getElementById('angulo');
+    var val_angulo = angulo.value;
+    alert("Angulo: " + val_angulo);
+    velocidad = document.getElementById('velocidad');
+    var val_velocidad = velocidad.value;
+    alert("Velocidad: " + val_velocidad);
+    this.authSvc.InicioMovParabolico(val_angulo,val_velocidad).subscribe((result: any) => {
       this.bandera = result
       if (this.bandera == false) {
         console.log('Entro false')
@@ -153,7 +157,7 @@ export class MovparabolicoComponent implements OnInit {
         console.log('Entro true');
       }
     });
-*/
+
   }
 
   alerta() {
@@ -178,11 +182,11 @@ export class MovparabolicoComponent implements OnInit {
 
   finalizarSimulaciones() {
     this.disabled_FinalizarSimulacion = false;
-    this.disabled_Iniciar= true;
-    this.authSvc.finalizarSimulacion(this.COD_LAB).subscribe((result:any) =>{
-      if(result == true){
+    this.disabled_Iniciar = true;
+    this.authSvc.finalizarSimulacion(this.COD_LAB).subscribe((result: any) => {
+      if (result == true) {
         alert("Puso true");
-      }else{
+      } else {
         alert("Puso false");
       }
     });
@@ -215,7 +219,7 @@ export class MovparabolicoComponent implements OnInit {
       result
       if (result == true) {
         alert("Archivo descargado exitosamente, revisa tu carpeta de descargas")
-      }else{
+      } else {
         alert("No se ha podido descargar el Archivo");
       }
     });

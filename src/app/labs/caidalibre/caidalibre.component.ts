@@ -98,8 +98,11 @@ export class CaidalibreComponent implements OnInit {
 
   }
 
-  public inicio() {
-  /*this.authSvc.Iniciopractica(this.COD_LAB).subscribe((result: any) => {
+  public inicio(peso:any) {
+    peso = document.getElementById('peso');
+    var val_peso = peso.value;
+    alert("Peso: " + val_peso);
+    this.authSvc.InicioCaidaLibre(val_peso).subscribe((result: any) => {
       this.bandera = result
       if (this.bandera == false) {
         console.log('Entro false')
@@ -107,7 +110,6 @@ export class CaidalibreComponent implements OnInit {
         console.log('Entro true');
       }
     });
-*/
   }
 
 

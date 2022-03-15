@@ -32,12 +32,12 @@
                     <div class="datos-practica" *ngIf="rol$ == 'Lider'">
                         <div *ngIf="bandera$; else sino">
                             <label>Repeticiones</label>
-                            <select name="OS" class="desplegable">
+                            <select id="peso" name="OS" class="desplegable">
                                 <option *ngFor="let lista of listadoOpciones">{{lista}}</option>
                             </select>
                             <button class="config_boton" mat-raised-button color="primary" [disabled]="disabled_FinalizarSimulacion"
                                 (click)="descargar()">Descargar</button>
-                            <button class="config_boton" mat-raised-button color="primary" [disabled]="disabled_Iniciar" (click)="inicio()">Iniciar</button>
+                            <button class="config_boton" mat-raised-button color="primary" [disabled]="disabled_Iniciar" (click)="inicio('peso')">Iniciar</button>
                             <button class="config_boton" mat-raised-button color="primary" (click)="finalizarSimulaciones()">Terminar
                                  Simulaciones</button>
                             <button class="config_boton" mat-raised-button color="primary" [disabled]="disabled_FinalizarPractica"
