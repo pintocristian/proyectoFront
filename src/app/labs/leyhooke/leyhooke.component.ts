@@ -114,14 +114,14 @@ export class LeyhookeComponent implements OnInit {
   }
 
   public inicio() {
-    this.authSvc.Iniciopractica(this.COD_LAB).subscribe((result: any) => {
+    /*this.authSvc.Iniciopractica(this.COD_LAB).subscribe((result: any) => {
       this.bandera = result
       if (this.bandera == false) {
         console.log('Entro false')
       } else {
         console.log('Entro true');
       }
-    });
+    });*/
 
   }
 
@@ -147,11 +147,11 @@ export class LeyhookeComponent implements OnInit {
 
   finalizarSimulaciones() {
     this.disabled_FinalizarSimulacion = false;
-    this.disabled_Iniciar= true;
-    this.authSvc.finalizarSimulacion(this.COD_LAB).subscribe((result:any) =>{
-      if(result == true){
+    this.disabled_Iniciar = true;
+    this.authSvc.finalizarSimulacion(this.COD_LAB).subscribe((result: any) => {
+      if (result == true) {
         alert("Puso true");
-      }else{
+      } else {
         alert("Puso false");
       }
     });
@@ -169,7 +169,7 @@ export class LeyhookeComponent implements OnInit {
       result
       if (result == true) {
         alert("Archivo descargado exitosamente, revisa tu carpeta de descargas")
-      }else{
+      } else {
         alert("No se ha podido descargar el Archivo");
       }
     });

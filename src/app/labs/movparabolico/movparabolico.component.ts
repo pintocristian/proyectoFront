@@ -79,7 +79,6 @@ export class MovparabolicoComponent implements OnInit {
   //public user$: Observable<any> = this.authSvc.afAuth.user;
   ngOnInit(): void {
     this.db = this.dbService.getDatabase();
-    localStorage.clear();
     this.conexionRealTime();
     this.verificarDuracion();
     this.listarX();
@@ -136,15 +135,17 @@ export class MovparabolicoComponent implements OnInit {
   timesUp(event: CountdownEvent) {
     if (event.action == "done") {
       console.log("Finished");
-      localStorage.removeItem(KEY);
       localStorage.clear();
+      localStorage.removeItem(KEY);
       this.router.navigate(['/materias']);
     }
   }
 
 
-  public inicio() {
-    this.authSvc.Iniciopractica(this.COD_LAB).subscribe((result: any) => {
+  public inicio(angulo:any, velocidad:any) {
+    console.log(document.getElementById('angulo'));
+    console.log(document.getElementById('velocidad'));
+    /*this.authSvc.InicioMovParabolico(angulo,velocidad).subscribe((result: any) => {
       this.bandera = result
       if (this.bandera == false) {
         console.log('Entro false')
@@ -152,7 +153,7 @@ export class MovparabolicoComponent implements OnInit {
         console.log('Entro true');
       }
     });
-
+*/
   }
 
   alerta() {

@@ -99,7 +99,7 @@ export class CaidalibreComponent implements OnInit {
   }
 
   public inicio() {
-    this.authSvc.Iniciopractica(this.COD_LAB).subscribe((result: any) => {
+  /*this.authSvc.Iniciopractica(this.COD_LAB).subscribe((result: any) => {
       this.bandera = result
       if (this.bandera == false) {
         console.log('Entro false')
@@ -107,7 +107,7 @@ export class CaidalibreComponent implements OnInit {
         console.log('Entro true');
       }
     });
-
+*/
   }
 
 

@@ -31,16 +31,16 @@
                     <div class="datos-practica" *ngIf="rol$ == 'Lider'">
                         <div *ngIf="bandera$; else sino">
                             <label>Angulo</label>
-                            <select name="OS" class="desplegable" >
+                            <select id="angulo" name="OS" class="desplegable" >
                                 <option *ngFor="let lista of listadoOpAngulo" >{{lista}}</option>
                             </select>
                             <label>Velocidad</label>
-                            <select name="OS" class="desplegable" >
+                            <select id="velocidad" name="OS" class="desplegable" >
                                 <option *ngFor="let lista of listadoOpVelocidad" >{{lista}}</option>
                             </select>
                             <button class="config_boton" mat-raised-button color="primary" [disabled]="disabled_FinalizarSimulacion"
                                 (click)="descargar()">Descargar</button>
-                            <button class="config_boton" mat-raised-button color="primary" [disabled]="disabled_Iniciar" (click)="inicio()">Iniciar</button>
+                            <button class="config_boton" mat-raised-button color="primary" [disabled]="disabled_Iniciar" (click)="inicio('angulo','velocidad')">Iniciar</button>
                             <button class="config_boton" mat-raised-button color="primary" (click)="finalizarSimulaciones()">Terminar
                                  Simulaciones</button>
                             <button class="config_boton" mat-raised-button color="primary" [disabled]="disabled_FinalizarPractica"
@@ -63,6 +63,8 @@
                 </div>
                 <div class="container-datos-practica">
                     <h1 class="text-1">Datos</h1>
+                    <p class="text-2">{{listadoOpAngulo}}</p>
+                    <p class="text-2">{{listadoOpVelocidad}}</p>
                 </div>
             </div>
         </div>

@@ -169,9 +169,9 @@ export class AuthService {
     return this.httpClient.get(`${this.API_BASE_LAB}/` + codigo_planta + `/` + `listar_Velocidad_MP`);
   }
 
-  Iniciopractica(codigo_planta: number) {
-    console.log("Entro a obtener opciones practica caida libre");
-    return this.httpClient.get<Boolean>(`${this.API_BASE_LAB}/` + codigo_planta + `/` + `iniciarProceso`);
+  InicioMovParabolico(angulo: number,velocidad: number) {
+    console.log("Entro a InicioMovParabolico");
+    return this.httpClient.get<Boolean>(`${this.API_BASE_LAB}/` + angulo + `/`+ velocidad+`/` + `iniciarMovimientoParabolico`);
   }
 
   obtenerDatosCLAltura(codigo:any){
