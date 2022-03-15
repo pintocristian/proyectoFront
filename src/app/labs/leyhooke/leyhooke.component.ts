@@ -6,6 +6,7 @@ import { finalize } from 'rxjs';
 import { AuthService } from 'src/service/service.service';
 import { ChartConfiguration, ChartData, ChartType, ChartOptions, Chart } from 'chart.js';
 import Swal from 'sweetalert2';
+import swal from 'sweetalert';
 
 var KEY = 'timeLH';
 var DEFAULT = 0; //3600 es 1 hora
@@ -150,9 +151,15 @@ export class LeyhookeComponent implements OnInit {
     this.disabled_Iniciar= true;
     this.authSvc.finalizarSimulacion(this.COD_LAB).subscribe((result:any) =>{
       if(result == true){
-        alert("Puso true");
+        swal({
+          title: "Practica Ley de Hooke",text:"Es Verdadero."
+        });
+        //alert("Puso true");
       }else{
-        alert("Puso false");
+        swal({
+          title: "Practica Ley de Hooke",text:"Es Falso."
+        });
+        //alert("Puso false");
       }
     });
   }
@@ -168,9 +175,15 @@ export class LeyhookeComponent implements OnInit {
     this.authSvc.descargar(this.COD_LAB).subscribe((result) => {
       result
       if (result == true) {
-        alert("Archivo descargado exitosamente, revisa tu carpeta de descargas")
+        swal({
+          title: "Practica Ley de Hooke",text:"Archivo descargado exitosamente, revisa tu carpeta de descargas.",icon:"success"
+        });
+        //alert("Archivo descargado exitosamente, revisa tu carpeta de descargas")
       }else{
-        alert("No se ha podido descargar el Archivo");
+        swal({
+          title:"Practica Ley de Hooke",text:"No se ha podido descargar el Archivo.",icon:"error"
+        });
+        //alert("No se ha podido descargar el Archivo");
       }
     });
     this.disabled_FinalizarPractica = false;

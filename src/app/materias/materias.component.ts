@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { VincularmateriaComponent } from '../vincularmateria/vincularmateria/vincularmateria.component';
 import { MatDialog } from '@angular/material/dialog';
 import { emitWarning } from 'process';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-materias',
@@ -36,9 +37,17 @@ export class MateriasComponent implements OnInit {
     console.log("Entro a Descargar Guia Front")
     this.authService.descargarGuia(codigo_planta).subscribe((result:any)=>{
       if(result==true){
-        alert("¡Guia Descargada, revisa tu carpeta de Descargas!");
+        swal({
+          title: "¡Guia Descargada!",
+          text: "Revisa tu carpeta de Descargas.",
+          icon: "success",          
+        });
       }else{
-        alert("No se ha encontrado una guia para descargar");
+        swal({
+          title: "¡ERROR!",
+          text: "No se ha encontrado una guia para descargar.",
+          icon: "error"
+        });
       }
     });
 
@@ -61,7 +70,11 @@ export class MateriasComponent implements OnInit {
       }
 
     } else {
-      alert('No tienes practicas agendadas en este horario');
+      swal({
+        title: "¡ERROR!",
+        text: "No tienes practicas agendadas en este horario.",
+        icon: "error"
+      });
     }
   }
 
