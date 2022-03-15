@@ -24,7 +24,9 @@ export class VincularmateriaComponent implements OnInit {
         window.location.reload();
       }else{
         swal({
-          text: "Codigo de materia invalido o no encontrado",
+          title: "¡ERROR!",
+          text: "Codigo de materia invalido o no encontrado.",
+          icon: "error"
         });
       }
     });

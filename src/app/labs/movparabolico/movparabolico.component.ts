@@ -9,6 +9,7 @@ import { finalize } from 'rxjs';
 import { ServiceRealTimeService } from 'src/app/service/service-real-time.service';
 import { AuthService } from 'src/service/service.service';
 import Swal from 'sweetalert2';
+import swal from 'sweetalert';
 
 
 var KEY = 'timeMP';
@@ -182,12 +183,18 @@ export class MovparabolicoComponent implements OnInit {
 
   finalizarSimulaciones() {
     this.disabled_FinalizarSimulacion = false;
-    this.disabled_Iniciar = true;
-    this.authSvc.finalizarSimulacion(this.COD_LAB).subscribe((result: any) => {
-      if (result == true) {
-        alert("Puso true");
-      } else {
-        alert("Puso false");
+    this.disabled_Iniciar= true;
+    this.authSvc.finalizarSimulacion(this.COD_LAB).subscribe((result:any) =>{
+      if(result == true){
+        swal({
+          title: "Practica Movimiento Parabolico",text:"Es Verdadero."
+        });
+        //alert("Puso true");
+      }else{
+        swal({
+          title: "Practica Movimiento Parabolico",text:"Es Falso."
+        });
+        //alert("Puso false");
       }
     });
   }
@@ -218,9 +225,15 @@ export class MovparabolicoComponent implements OnInit {
     this.authSvc.descargar(this.COD_LAB).subscribe((result) => {
       result
       if (result == true) {
-        alert("Archivo descargado exitosamente, revisa tu carpeta de descargas")
-      } else {
-        alert("No se ha podido descargar el Archivo");
+        swal({
+          title: "Practica Movimiento Parabolico",text:"Archivo descargado exitosamente, revisa tu carpeta de descargas.",icon:"success"
+        });
+        //alert("Archivo descargado exitosamente, revisa tu carpeta de descargas")
+      }else{
+        swal({
+          title:"Practica Movimiento Parabolico",text:"No se ha podido descargar el Archivo.",icon:"error"
+        });
+        //alert("No se ha podido descargar el Archivo");
       }
     });
     this.disabled_FinalizarPractica = false;

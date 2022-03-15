@@ -10,6 +10,7 @@ import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 import { ChartConfiguration, ChartData, ChartType, ChartOptions, Chart } from 'chart.js';
 import { Console } from 'console';
 import Swal from 'sweetalert2';
+import swal from 'sweetalert';
 
 
 
@@ -136,9 +137,15 @@ export class CaidalibreComponent implements OnInit {
     this.disabled_Iniciar= true;
     this.authSvc.finalizarSimulacion(this.COD_LAB).subscribe((result:any) =>{
       if(result == true){
-        alert("Puso true");
+        swal({
+          title: "Practica Caida Libre",text:"Es Verdadero."
+        });
+        //alert("Puso true");
       }else{
-        alert("Puso false");
+        swal({
+          title: "Practica Caida Libre",text:"Es Falso."
+        });
+        //alert("Puso false");
       }
     });
 
@@ -148,9 +155,15 @@ export class CaidalibreComponent implements OnInit {
     this.authSvc.descargar(this.COD_LAB).subscribe((result) => {
       result
       if (result == true) {
-        alert("Archivo descargado exitosamente, revisa tu carpeta de descargas")
+        swal({
+          title: "Practica Caida Libre",text:"Archivo descargado exitosamente, revisa tu carpeta de descargas.",icon:"success"
+        });
+        //alert("")
       }else{
-        alert("No se ha podido descargar el Archivo");
+        swal({
+          title:"Practica Caida Libre",text:"No se ha podido descargar el Archivo.",icon:"error"
+        });
+        //alert("");
       }
     });
     this.disabled_FinalizarPractica = false;
