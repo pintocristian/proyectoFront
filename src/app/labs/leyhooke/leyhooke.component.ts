@@ -111,7 +111,12 @@ export class LeyhookeComponent implements OnInit {
   public inicio(peso:any) {
     peso = document.getElementById('peso');
     var val_peso = peso.value;
-    alert("Peso: " + val_peso);
+    Swal.fire({
+      icon:'info', title:'Peso: '+ val_peso,
+      timer: 3000,
+      timerProgressBar: true,
+    })
+    //alert("Peso: " + val_peso);
     this.authSvc.InicioLeyHooke(val_peso).subscribe((result: any) => {
       this.bandera = result
       if (this.bandera == false) {
@@ -147,14 +152,29 @@ export class LeyhookeComponent implements OnInit {
     this.disabled_Iniciar = true;
     this.authSvc.finalizarSimulacion(this.COD_LAB).subscribe((result: any) => {
       if (result == true) {
-        alert("Puso true");
+        Swal.fire({
+          icon:'info', title:'Puso Verdadero',
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        //alert("Puso true");
       } else {
-        alert("Puso false");
+        Swal.fire({
+          icon:'info', title:'Puso Falso',
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        //alert("Puso false");
       }
     });
   }
 
   finalizarPractica() {
+    Swal.fire({
+      icon:'success', title:'¡Practica Finalizada!',
+      timer: 3000,
+      timerProgressBar: true,
+    })
     this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
       this.authSvc.finalizarPractica(respuesta).subscribe((result: any) => { result })
       this.router.navigate(['/materias'])
@@ -165,9 +185,17 @@ export class LeyhookeComponent implements OnInit {
     this.authSvc.descargar(this.COD_LAB).subscribe((result) => {
       result
       if (result == true) {
-        alert("Archivo descargado exitosamente, revisa tu carpeta de descargas")
+        Swal.fire({
+          icon:'success', title:'¡Archivo descargado exitosamente!', text:'revisa tu carpeta de descargas.',
+          timer: 3000,
+          timerProgressBar: true,
+        })
       } else {
-        alert("No se ha podido descargar el Archivo");
+        Swal.fire({
+          icon:'error', title:'¡Archivo NO descargado!', text:'No se ha podido descargar el Archivo.',
+          timer: 3000,
+          timerProgressBar: true,
+        })
       }
     });
     this.disabled_FinalizarPractica = false;
@@ -175,8 +203,32 @@ export class LeyhookeComponent implements OnInit {
 
 
 
-  reportarFalla() {
+  async reportarFalla() {
     console.log("reportarFalla()");
+    const { value: email } = await Swal.fire({
+      title: 'Ingresar el email del responsable',
+      input: 'email',
+      inputLabel: 'Ingrese el email',
+      inputPlaceholder: 'Ingrese el email'
+    })
+    
+    if (email) {
+      Swal.fire(`Entered email: ${email}`)
+    }
+
+    const { value: text } = await Swal.fire({
+      input: 'textarea',
+      inputLabel: 'Reportar Falla',
+      inputPlaceholder: 'Escribir su error...',
+      inputAttributes: {
+        'aria-label': 'Escriba su mensaje aquí'
+      },
+      showCancelButton: true
+    })
+    
+    if (text) {
+      Swal.fire(text)
+    }
   }
 
   prueba() {

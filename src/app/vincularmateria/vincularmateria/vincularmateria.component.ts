@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AuthService } from 'src/service/service.service';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-vincularmateria',
@@ -23,8 +23,9 @@ export class VincularmateriaComponent implements OnInit {
         console.log("Imprime true");
         window.location.reload();
       }else{
-        swal({
-          text: "Codigo de materia invalido o no encontrado",
+        Swal.fire({
+          icon:'error',
+          title: "Codigo de materia invalido o no encontrado",
         });
       }
     });

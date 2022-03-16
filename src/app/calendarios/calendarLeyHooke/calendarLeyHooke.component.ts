@@ -8,6 +8,7 @@ import { finalize } from 'rxjs';
 import { Agendamiento } from 'src/app/interfaces/agendamiento';
 import { AuthService } from 'src/service/service.service';
 import { colors } from '../utils/colors';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-calendarLeyHooke',
@@ -81,7 +82,11 @@ export class CalendarLeyHookeComponent implements OnInit {
   eventClicked({ event }: { event: CalendarEvent }): void {
 
     if (event.meta.codG != -1) {
-      alert("La practica en esta franja horaria ya ha sido agendada por alguien más!");
+      Swal.fire({
+        icon: 'warning',
+        title: '¡Advertencia!',
+        text: '¡La practica en esta franja horaria ya ha sido agendada por alguien más!',
+      })
     }else {
       this.eventSelected = event.start;
       this.eventFranja = event.meta.id;
@@ -90,7 +95,12 @@ export class CalendarLeyHookeComponent implements OnInit {
       this.eventDate = event.start.getDate();
       this.eventHour = event.start.getHours();
       this.eventMinute = event.start.getMinutes();
-      alert("Haz Clickeado el evento! Dia " + event.start.getDate() + " Hora " + event.start.getHours());
+      
+      Swal.fire({
+        icon: 'success',
+        title: '¡Registro Completado!',
+        text: 'Haz Clickeado el evento! Dia ' + event.start.getDate() + ', Hora: ' + event.start.getHours(),
+      })
     }
 
 
@@ -110,9 +120,13 @@ export class CalendarLeyHookeComponent implements OnInit {
       rta = respuesta
       console.log(rta)
       if (rta == 1) {
-        alert("¡Practica agendada exitosamente!");
+        Swal.fire({
+          icon: 'success', title:'¡Practica agendada exitosamente!'
+        })
       } else if (rta == 0) {
-        alert("Envio un correo no universitario")
+        Swal.fire({
+          icon:'error', title:'Envió un correo no universitario'
+        })
       }
     });
   }
