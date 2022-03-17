@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { Agendamiento } from 'src/app/interfaces/agendamiento';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 //import { LoginData } from '../interfaces/login-data';
+import Swal from 'sweetalert2';
 
 
 @Injectable({
@@ -49,7 +50,16 @@ export class AuthService {
 
         return await correo;
       }
-      alert("Error correo no universitario");
+      /*Swal.fire({
+        icon:'error',
+        title: "Correo no universitario.",
+      });*/
+      Swal.fire({
+        icon:'success', title:'¡Practica Finalizada!',
+        timer: 3000,
+        timerProgressBar: true,
+      })
+      //alert("Error correo no universitario");
       return null;
     } catch (error) {
       console.log(error);

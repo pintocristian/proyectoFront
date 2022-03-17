@@ -170,12 +170,12 @@ export class LeyhookeComponent implements OnInit {
   }
 
   finalizarPractica() {
-    Swal.fire({
-      icon:'success', title:'¡Practica Finalizada!',
-      timer: 3000,
-      timerProgressBar: true,
-    })
     this.authSvc.saberCodigoGrupo().subscribe(respuesta => {
+      Swal.fire({
+        icon:'success', title:'¡Practica Finalizada!',
+        timer: 3000,
+        timerProgressBar: true,
+      })
       this.authSvc.finalizarPractica(respuesta).subscribe((result: any) => { result })
       this.router.navigate(['/materias'])
     });
